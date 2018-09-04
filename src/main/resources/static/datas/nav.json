@@ -1,47 +1,13 @@
 [
 	{
-		"title": "用户管理",
+		"title": "项目管理",
 		"icon": "fa-cubes",
 		"spread": false,
 		"children": [
 			{
-				"title": "用户列表",
-				"icon": "&#xe612;",
+				"title": "项目列表",
+				"icon": "&#xe615;",
 				"href": "/jump/user_list"
-			}
-		]
-	},
-	{
-		"title": "日志管理",
-		"icon": "&#xe644;",
-		"spread": false,
-		"children": [
-			{
-				"title": "日志列表",
-				"icon": "&#xe64d;",
-				"href": "/jump/log_list"
-			}
-		]
-	},
-	{
-		"title": "课程管理",
-		"icon": "&#xe632;",
-		"spread": false,
-		"children": [
-			{
-				"title": "课程分类",
-				"icon": "&#xe62c;",
-				"href": "/jump/classify_list"
-			},
-			{
-				"title": "课程系列",
-				"icon": "&#xe638;",
-				"href": "/jump/series_list"
-			},
-			{
-				"title": "课程列表",
-				"icon": "&#xe641;",
-				"href": "/jump/class_list"
 			}
 		]
 	}

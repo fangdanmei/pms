@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>CMS管理系统</title>
+<title>PMS管理系统</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -15,7 +15,8 @@
 <link rel="icon" href="/img/favicon.ico">
 <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all" />
 <link rel="stylesheet" href="/css/global.css" media="all">
-<link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="/plugins/font-awesome/css/font-awesome.min.css">
 
 
 </head>
@@ -26,8 +27,8 @@
 		<div class="layui-header header header-demo">
 			<div class="layui-main">
 				<div class="admin-login-box">
-					<a class="logo" style="left: 0;" href="javascript:reload;">
-						<span style="font-size: 22px;">CMS管理系统</span>
+					<a class="logo" style="left: 0;" href="javascript:reload;"> <span
+						style="font-size: 22px;">PMS管理系统</span>
 					</a>
 					<div class="admin-side-toggle">
 						<i class="fa fa-bars" aria-hidden="true"></i>
@@ -37,16 +38,13 @@
 					</div>
 				</div>
 				<ul class="layui-nav admin-header-item">
-					<li class="layui-nav-item">
-						<a href="javascript:;" class="clearCache">
-							<i class="layui-icon" data-icon="&#xe640;">&#xe640;</i>
+					<li class="layui-nav-item"><a href="javascript:;"
+						class="clearCache"> <i class="layui-icon" data-icon="&#xe640;">&#xe640;</i>
 							<cite>清除缓存</cite>
-						</a>
-					</li>
-					<li class="layui-nav-item">
-					<a href="javascript:;" class="admin-header-user">
-					 <img src="/img/photo.jpg" /> 
-					 <span id="name">#(session.CURRENT_USER.user_name ??)</span>
+					</a></li>
+					<li class="layui-nav-item"><a href="javascript:;"
+						class="admin-header-user"> <img src="/img/photo.jpg" /> <span
+							id="name">#(session.CURRENT_USER.user_name ??)</span>
 					</a>
 						<dl class="layui-nav-child">
 							<dd>
@@ -76,15 +74,17 @@
 			</div>
 		</div>
 		<div class="layui-side layui-bg-black" id="admin-side">
-			<div class="layui-side-scroll" id="admin-navbar-side" lay-filter="side">
+			<div class="layui-side-scroll" id="admin-navbar-side"
+				lay-filter="side">
 				<!-- 展示菜单列表 -->
 			</div>
 		</div>
-		
+
 		<!-- body体 -->
 		<div class="layui-body"
 			style="bottom: 0; border-left: solid 2px #1AA094;" id="admin-body">
-			<div id="adminNavCard" class="layui-tab admin-nav-card layui-tab-brief"
+			<div id="adminNavCard"
+				class="layui-tab admin-nav-card layui-tab-brief"
 				lay-filter="admin-tab">
 				<ul class="layui-tab-title">
 					<li class="layui-this"><i class="fa fa-dashboard"
@@ -112,6 +112,23 @@
 
 		<script type="text/javascript" src="/plugins/layui/layui.js"></script>
 		<script type="text/javascript" src="/js/index.js"></script>
+		<script type="text/javascript">
+			var tab;
+			layui.config({
+				base : '/js/'
+			}).use([ 'tab' ], function() {
+
+				tab = layui.tab({
+					elem : '.admin-nav-card', //设置选项卡容器
+					contextMenu : true
+				});
+
+			});
+
+			function addLab(field) {
+				tab.tabAdd(field);
+			}
+		</script>
 	</div>
 </body>
 
