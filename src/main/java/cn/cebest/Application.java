@@ -1,6 +1,5 @@
 package cn.cebest;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -12,7 +11,6 @@ import cn.cebest.framework.util.AppContextUtil;
   * @date 2018年8月30日
  */
 
-@MapperScan("cn.cebest.dao")
 @SpringBootApplication
 public class Application {
 
