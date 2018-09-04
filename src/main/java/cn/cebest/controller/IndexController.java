@@ -13,7 +13,7 @@ public class IndexController {
 	@Autowired
 	private UserMapper userMapper;
 
-	@GetMapping
+	@GetMapping("test")
 	@ResponseBody
 	public User test(){
 		User user = userMapper.selectById(1);
