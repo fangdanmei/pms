@@ -215,7 +215,85 @@
 			<!-- tab3 -->
 			<div class="layui-tab-item">内容3</div>
 			<!-- tab4 -->
-			<div class="layui-tab-item">内容4</div>
+			<div class="layui-tab-item">
+				<form class="layui-form" id="seriesForm" enctype="multipart/form-data">
+					<fieldset class="layui-elem-field layui-field-title"
+						style="margin-top: 30px;border-color: #009688">
+						<legend>项目成员信息</legend>
+					</fieldset>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">项目经理</label>
+						<div class="layui-input-block">
+							<input type="text" id="title" name="title" autocomplete="off"
+								placeholder="请输入项目经理" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">项目执行</label>
+						<div class="layui-input-block">
+							<input type="text" id="title" name="title" autocomplete="off"
+								placeholder="请输入项目执行" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">产品经理</label>
+						<div class="layui-input-block">
+							<input type="text" id="title" name="title" autocomplete="off"
+								placeholder="请输入产品经理" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">UI设计师</label>
+						<div class="layui-input-block">
+							<input type="text" id="title" name="title" autocomplete="off"
+								placeholder="请输入UI设计师" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">FE前端制作</label>
+						<div class="layui-input-block">
+							<input type="text" id="title" name="title" autocomplete="off"
+								placeholder="请输入FE前端制作" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">研发工程师</label>
+						<div class="layui-input-block">
+							<input type="text" id="title" name="title" autocomplete="off"
+								placeholder="请输入研发工程师" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">数据录入</label>
+						<div class="layui-input-block">
+							<input type="text" id="title" name="title" autocomplete="off"
+								placeholder="请输入数据录入" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">测试工程师</label>
+						<div class="layui-input-block">
+							<input type="text" id="title" name="title" autocomplete="off"
+								placeholder="请输入测试工程师" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item" style="margin-left: 350px;margin-top: 30px;margin-bottom: 50px">
+						<div class="layui-input-block">
+							<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 	
@@ -255,6 +333,23 @@ layui.use(['element','table','laydate'], function(){
 	
 	laydate.render({
 		elem : '#xqeTime',
+		done : function(value,date){
+			//当时间值变换时，触发该事件
+			createTime = value;
+		}
+	});
+	
+	
+	laydate.render({
+		elem : '#uisTime',
+		done : function(value,date){
+			//当时间值变换时，触发该事件
+			createTime = value;
+		}
+	});
+	
+	laydate.render({
+		elem : '#uieTime',
 		done : function(value,date){
 			//当时间值变换时，触发该事件
 			createTime = value;
