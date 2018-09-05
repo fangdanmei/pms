@@ -213,7 +213,23 @@
 			<!-- tab2 -->
 			<div class="layui-tab-item">内容2</div>
 			<!-- tab3 -->
-			<div class="layui-tab-item">内容3</div>
+			<div class="layui-tab-item">
+			
+				<fieldset class="layui-elem-field layui-field-title"
+					style="margin-top: 30px;border-color: #009688">
+					<legend>项目风险管理</legend>
+				</fieldset>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 100px">项目风险跟踪</label>
+					<button class="layui-btn layui-btn-small layui-btn-warm" id="addFx" >
+					  <i class="layui-icon">&#xe654;</i>添加
+					</button>
+				</div>
+				<table id="table" class="layui-table" lay-filter="test"></table>
+				
+			</div>
+			
 			<!-- tab4 -->
 			<div class="layui-tab-item">
 				<form class="layui-form" id="seriesForm" enctype="multipart/form-data">
@@ -298,17 +314,123 @@
 	</div>
 	
 	
+	
+	<!-- 添加风险弹框 -->
+	<div id="box" style="display: none;padding: 20px;">
+		<form class="layui-form" id="classForm" enctype="multipart/form-data">
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label">风险描述</label>
+				<div class="layui-input-block">
+					<textarea placeholder="请输入风险描述" class="layui-textarea" name="desc"></textarea>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">风险级别</label>
+				<div class="layui-input-inline">
+					<select>
+						<option value="0">请选择</option>
+						<option value="1">低</option>
+						<option value="2">中</option>
+						<option value="3">高</option>
+						<option value="4">极高</option>
+					</select>
+				</div>
+				
+				<label class="layui-form-label">发生概率</label>
+				<div class="layui-input-inline">
+					<select>
+						<option value="0">请选择</option>
+						<option value="1">低</option>
+						<option value="2">中</option>
+						<option value="3">高</option>
+						<option value="4">极高</option>
+					</select>
+				</div>
+			</div>
+					
+			<div class="layui-form-item">
+				<label class="layui-form-label">风险状态</label>
+				<div class="layui-input-inline">
+					<select>
+						<option value="0">请选择</option>
+						<option value="1">监控中</option>
+						<option value="2">升级</option>
+						<option value="3">关闭</option>
+					</select>
+				</div>
+				
+				<label class="layui-form-label">跟踪日期</label>
+				<div class="layui-input-inline">
+					<input type="text" id="gzTime" name="title" autocomplete="off"  class="layui-input" lay-verify="required">
+				</div>
+			</div>		
+			
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label">应对措施</label>
+				<div class="layui-input-block">
+					<textarea placeholder="请输入应对措施" class="layui-textarea" name="desc"></textarea>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">责任人</label>
+				<div class="layui-input-block">
+					<input type="text" id="title" name="title" autocomplete="off"
+						placeholder="请输入责任人" class="layui-input" lay-verify="required">
+				</div>
+			</div>
+			
+			<div class="layui-form-item" style="margin-left: 200px;margin-top: 30px;margin-bottom: 20px">
+				<div class="layui-input-block">
+					<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
+				</div>
+			</div>	
+		</form>
+	</div>
+	
 <script type="text/javascript" src="/plugins/layui/layui.js"></script>
 <script>
-var laydate,createTime;
-layui.use(['element','table','laydate'], function(){
+var laydate,createTime,table,element,index;
+layui.use(['table','laydate','element'], function(){
   var $ = layui.jquery
   ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
   
 	//引用时间插件
 	laydate = layui.laydate;
+  
+	//引入表格
+	table = layui.table;
+	table.render({
+		elem:'#table',
+		url:'/user/list',
+		limit: 10,
+		cols:[[
+			{checkbox: true, fixed: true,width:'4%'},
+			{field:'id',title:'ID', width:'5%',align:'center'},
+			{field:'user_name',title:'用户名', width:'10%',align:'center'},
+			{field:'email',title:'邮箱',align:'center'},
+			{field:'phone',title:'手机号',align:'center'},
+			{field:'is_lock',title:'状态',templet:'#lockT', width:'10%',align:'center'},
+			{field:'online',title:'是否在线',templet:'<div>{{d.online===1?"在线":"离线"}}</div>',align:'center'},
+			{field:'create_time',title:'创建时间',width:'15%',align:'center'},
+			{fixed:'right', title:'操作', align:'center', templet: '#handleT'}
+		]],
+		page:true,
+		id:'userList'
+	});
+  
+  
 	laydate.render({
 		elem : '#onlineTime',
+		done : function(value,date){
+			//当时间值变换时，触发该事件
+			createTime = value;
+		}
+	});
+	
+	laydate.render({
+		elem : '#gzTime',
 		done : function(value,date){
 			//当时间值变换时，触发该事件
 			createTime = value;
@@ -422,6 +544,19 @@ layui.use(['element','table','laydate'], function(){
 			//当时间值变换时，触发该事件
 			createTime = value;
 		}
+	});
+	
+	
+	$("#addFx").on('click', function(){
+		index = layer.open({
+			title:"添加风险跟踪",
+	  		type: 1,
+	  		skin: 'layui-layer-molv', //加上边框
+	  		area:['750px','550px'], //宽高
+	 	 	content: $("#box"),
+	 	 	shadeClose :true,
+	 	 	closeBtn: 2 //0不显示关闭按钮
+		});
 	});
 	
   
