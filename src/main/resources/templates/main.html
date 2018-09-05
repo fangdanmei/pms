@@ -58,7 +58,7 @@
 				<button class="layui-btn layui-btn-small layui-btn-warm" onclick="addContract()">
 				  <i class="layui-icon">&#xe654;</i>新增合同
 				</button>
-				<button class="layui-btn layui-btn-small layui-btn-normal">
+				<button class="layui-btn layui-btn-small layui-btn-normal" onclick="addProject()">
 				  <i class="layui-icon">&#xe654;</i>新增项目
 				</button>
 			</div>
@@ -166,6 +166,16 @@
 					"title": "新增合同",
 					"icon": "&#xe615;",
 					"href": "/contract"
+				};
+			window.parent.addLab(field);
+		}
+		
+		
+		function addProject(){
+			var field = {
+					"title": "新增项目",
+					"icon": "&#xe615;",
+					"href": "/project"
 				};
 			window.parent.addLab(field);
 		}

@@ -10,15 +10,53 @@
   <name>pms</name>
   <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <dependencies>
   	<dependency>
 	    <groupId>cn.cebest</groupId>
 	    <artifactId>spring-boot-starter-framework</artifactId>
 	    <version>0.0.1-SNAPSHOT</version>
 	</dependency>
+	<!-- 开启热启动 -->
+	<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <version>1.5.7.RELEASE</version>
+        <optional>true</optional>
+    </dependency>
   </dependencies>
+  
+  
+  <build>
+    <finalName>pms</finalName>
+    <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<maimClass>cn.cebest.Application</maimClass>
+					 <!--fork :  如果没有该项配置则devtools不会起作用，即应用不会restart -->
+					<fork>true</fork>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<properties>
+		<!-- 打包时跳过测试 -->
+		<skipTests>true</skipTests>
+	</properties>
 </project>
