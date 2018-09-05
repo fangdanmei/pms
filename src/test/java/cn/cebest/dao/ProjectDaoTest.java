@@ -31,7 +31,6 @@ public class ProjectDaoTest {
     	project.setDescription(" ");
     	project.setDevLang(" ");
     	project.setName(" ");
-    	project.setPlace(" ");
     	project.setProductionMode(" ");
     	project.setTimeLimit(" ");
     	projectDao.insert(project);
