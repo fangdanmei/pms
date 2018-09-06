@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <title>创建项目</title>
 <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all" />
+
+<script type="text/html" id="fileT">
+	<button class="layui-btn layui-btn-normal layui-btn-lg">
+		${originalName}<i class="layui-icon layui-unselect layui-tab-close" data-id="1">ဆ</i>
+	</button>
+</script>
 </head>
 <body style="padding-left: 10px; padding-right: 10px;">
 	<div class="layui-tab">
@@ -402,6 +408,17 @@
 						</div>
 					</div>
 					
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">里程碑文件</label>
+						<div class="layui-form-item" id="fileL"> 
+							<!-- 用于回显上传文件 -->
+						</div>
+						<div class="layui-form-item" style="padding-left: 200px;">
+							<button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button> 
+						</div>
+					</div>
+					
 					<fieldset class="layui-elem-field layui-field-title"
 						style="margin-top: 30px;border-color: #009688">
 						<legend>证书到期时间</legend>
@@ -610,13 +627,28 @@
 	
 <script type="text/javascript" src="/plugins/layui/layui.js"></script>
 <script>
-var laydate,createTime,table,element,index;
-layui.use(['table','laydate','element'], function(){
+var laydate,createTime,table,element,index,upload;
+layui.use(['table','laydate','element','upload'], function(){
   var $ = layui.jquery
+  ,upload = layui.upload
   ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
   
 	//引用时间插件
 	laydate = layui.laydate;
+  
+  
+	upload.render({
+	    elem: '#test3'
+	    ,url: '/upload'
+	    ,accept: 'file' //普通文件
+	    ,done: function(res){
+	      var originalName = res.data.originalName;
+	      var fileName = res.data.originalName;
+	      var fileTH = $("#fileT").html();
+	      fileTH = fileTH.replace("${originalName}",originalName);
+	      $("#fileL").append(fileTH);
+	    }
+	  });
   
 	//引入表格
 	table = layui.table;
