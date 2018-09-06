@@ -14,6 +14,21 @@
 		</a>
 	</button>
 </script>
+
+<script type="text/html" id="hkT">
+	<div class="layui-form-item" style="padding-left: 110px;padding-top:10px;">
+		<div class="layui-input-inline">
+			<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+		</div>
+		<div class="layui-input-inline"  style="width: 400px;">
+			<input type="text" class="layui-input" id="createtime" placeholder="回款说明">
+		</div>
+		<div class="layui-input-inline">
+			<input type="radio" name="{pay}" value="未支付" title="未支付" checked="checked">
+     		<input type="radio" name="{pay}" value="已支付" title="已支付">
+		</div>
+	</div>
+</script>
 <style type="text/css">
 body {
 	overflow-y: scroll;
@@ -21,6 +36,9 @@ body {
 </style>
 </head>
 <body style="padding-left: 10px; padding-right: 10px;">
+
+	
+
 	<fieldset class="layui-elem-field layui-field-title"
 		style="margin-top: 30px;border-color: #009688">
 		<legend>基本信息</legend>
@@ -97,7 +115,7 @@ body {
 			
 			<label class="layui-form-label">付款期数</label>
 			<div class="layui-input-inline">
-				<select>
+				<select id="paynum">
 					<option value="0">请选择</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -113,15 +131,23 @@ body {
 			<div class="layui-input-inline">
 				<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
 			</div>
+			
+			<div class="layui-input-inline"  style="width: 400px;">
+				<input type="text" class="layui-input" id="createtime" placeholder="回款说明">
+			</div>
 			<div class="layui-input-inline">
 				<input type="radio" name="sex" value="未支付" title="未支付" checked="checked">
       			<input type="radio" name="sex" value="已支付" title="已支付">
 			</div>
 			
 			<div class="layui-input-inline">
-				<button class="layui-btn layui-btn-small layui-btn-warm" onclick="addContract()">
+				<button type="button" class="layui-btn layui-btn-small layui-btn-warm" onclick="addHK()">
 				  <i class="layui-icon">&#xe654;</i>继续添加
 				</button>
+			</div>
+			
+			<div id="hkL">
+				<!-- 显示回款元素 -->
 			</div>
 		</div>
 		
@@ -247,11 +273,6 @@ body {
 			<div class="layui-input-inline">
 				<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
 			</div>
-			<div class="layui-input-inline">
-				<button class="layui-btn layui-btn-small layui-btn-warm" onclick="addContract()">
-				  <i class="layui-icon">&#xe654;</i>继续添加
-				</button>
-			</div>
 		</div>
 		
 		<fieldset class="layui-elem-field layui-field-title"
@@ -320,6 +341,23 @@ function deleteFile(){
 		yes: function(index){
 		}
 	})
+}
+
+// 添加回款元素
+function addHK(){
+	var paynum = $("#paynum").find("option:selected").val();
+	if($("#hkL").find(".layui-form-item").length + 1 < paynum){
+		var length = $("#hkL").find(".layui-form-item").length + 1;
+		var hkTH = $("#hkT").html();
+		var regExp = new RegExp("{pay}", "g");
+		hkTH = hkTH.replace(regExp, "pay" + length);
+		$("#hkL").append(hkTH);
+		// 表单重新渲染
+		form.render();
+	} else {
+		layer.msg("请选择相应的付款期数");
+	}
+	
 }
 </script>
 </body>
