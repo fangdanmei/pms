@@ -6,8 +6,13 @@
 <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all" />
 
 <script type="text/html" id="fileT">
-	<button class="layui-btn layui-btn-normal layui-btn-lg">
-		${originalName}<i class="layui-icon layui-unselect layui-tab-close" data-id="1">ဆ</i>
+	<button type="button" class="layui-btn layui-btn-normal layui-btn-lg">
+		<a href="javascript:download('${fileName}')">
+			${originalName}
+		</a>
+		<a href="javascript:deleteFile()">
+			<i class="layui-icon layui-unselect layui-tab-close" data-id="1">ဆ</i>
+		</a>
 	</button>
 </script>
 </head>
@@ -643,9 +648,10 @@ layui.use(['table','laydate','element','upload'], function(){
 	    ,accept: 'file' //普通文件
 	    ,done: function(res){
 	      var originalName = res.data.originalName;
-	      var fileName = res.data.originalName;
+	      var fileName = res.data.fileName;
 	      var fileTH = $("#fileT").html();
 	      fileTH = fileTH.replace("${originalName}",originalName);
+	      fileTH = fileTH.replace("${fileName}",fileName);
 	      $("#fileL").append(fileTH);
 	    }
 	  });
@@ -820,6 +826,22 @@ layui.use(['table','laydate','element','upload'], function(){
 	
   
 });
+
+// 文件下载
+function download(fileName){
+	alert(fileName)
+}
+
+
+function deleteFile(){
+	layer.confirm('确认删除?',{
+		icon: 3, 
+		title:'提示',
+		btnAlign: 'c',
+		yes: function(index){
+		}
+	})
+}
 </script>
 </body>
 </html>
