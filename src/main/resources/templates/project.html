@@ -211,7 +211,226 @@
 				</form>
 			</div>
 			<!-- tab2 -->
-			<div class="layui-tab-item">内容2</div>
+			<div class="layui-tab-item">
+				<form class="layui-form" id="seriesForm" enctype="multipart/form-data">
+					<fieldset class="layui-elem-field layui-field-title"
+						style="margin-top: 30px;border-color: #009688">
+						<legend>项目进度管理</legend>
+					</fieldset>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">项目进度</label>
+						<div class="layui-input-block">
+							<input type="radio" name="process" value="需求" title="需求" checked="checked">
+			      			<input type="radio" name="process" value="UI设计" title="UI设计">
+			      			<input type="radio" name="process" value="前端制作" title="前端制作">
+			      			<input type="radio" name="process" value="技术开发" title="技术开发">
+			      			<input type="radio" name="process" value="UAT测试" title="UAT测试">
+			      			<input type="radio" name="process" value="部署上线" title="部署上线">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">项目开始时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="ppsTime" name="psTime" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">里程碑进度</label>
+						<div class="layui-input-inline">
+							<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入里程碑进度" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">项目状态</label>
+						<div class="layui-input-inline">
+							<select>
+								<option value="0">请选择</option>
+								<option value="1">正常</option>
+								<option value="2">延期</option>
+								<option value="3">提前</option>
+								<option value="3">暂停</option>
+								<option value="3">终止</option>
+								<option value="3">已完成</option>
+							</select>
+						</div>
+						
+						<label class="layui-form-label" style="width: 85px;">项目延期天数</label>
+						<div class="layui-input-inline">
+							<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入延期天数" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label"  style="width: 85px;">项目并行情况</label>
+						<div class="layui-input-inline">
+							<select>
+								<option value="0">请选择</option>
+								<option value="1">UI与制作并行</option>
+								<option value="2">制作与后台开发并行</option>
+								<option value="3">设计与后台开发并行</option>
+							</select>
+						</div>
+						
+						<label class="layui-form-label">补充说明</label>
+						<div class="layui-input-inline">
+							<input  style="width: 500px;" type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入补充说明" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label"  style="width: 85px">当前任务描述</label>
+						<div class="layui-input-block">
+							<textarea  style="width: 98%" placeholder="请输入当前任务描述" class="layui-textarea" name="desc"></textarea>
+						</div>
+					</div>
+					
+					
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">UI设计阶段</label>
+						<div class="layui-input-inline">
+							<input type="text" id="uisTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="uieTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">前端制作阶段</label>
+						<div class="layui-input-inline">
+							<input type="text" id="qdsTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="qdeTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">技术开发阶段</label>
+						<div class="layui-input-inline">
+							<input type="text" id="jssTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="jseTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">测试联调</label>
+						<div class="layui-input-inline">
+							<input type="text" id="xqsTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="xqeTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">UAT测试阶段</label>
+						<div class="layui-input-inline">
+							<input type="text" id="cssTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="cseTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">项目部署时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="bssTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="bseTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">整体验收时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="ztysTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<fieldset class="layui-elem-field layui-field-title"
+						style="margin-top: 30px;border-color: #009688">
+						<legend>证书到期时间</legend>
+					</fieldset>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">证书开始时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="bssTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="width: 85px;">证书结束时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="bseTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工作日</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item" style="margin-left: 350px;margin-top: 30px;margin-bottom: 50px">
+						<div class="layui-input-block">
+							<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
+						</div>
+					</div>
+				</form>
+			</div>
 			<!-- tab3 -->
 			<div class="layui-tab-item">
 			
@@ -431,6 +650,14 @@ layui.use(['table','laydate','element'], function(){
 	
 	laydate.render({
 		elem : '#gzTime',
+		done : function(value,date){
+			//当时间值变换时，触发该事件
+			createTime = value;
+		}
+	});
+	
+	laydate.render({
+		elem : '#ppsTime',
 		done : function(value,date){
 			//当时间值变换时，触发该事件
 			createTime = value;
