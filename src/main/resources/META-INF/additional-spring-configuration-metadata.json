@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "gc.webmvc.url2views",
+    "type": "java.lang.String",
+    "description": "无业务逻辑跳转路径2试图对应关系"
+  },
+  {
+    "name": "file.upload.path",
+    "type": "java.lang.String",
+    "description": "file.upload.path'"
+  }
+]}
