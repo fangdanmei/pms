@@ -20,7 +20,9 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, ProjectEntity
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean insertOrUpdate(ProjectEntity entity) {
-		ProjectProgressEntity progress = progressService.selectById(entity.getId());
+		ProjectProgressEntity progressEntity = new ProjectProgressEntity();
+		progressEntity.setProjectId(entity.getId());
+		ProjectProgressEntity progress = progressService.selectOne(progressEntity);
 		// 设置冗余字段
 		if (null != progress) {
 			progress.setName(entity.getName());

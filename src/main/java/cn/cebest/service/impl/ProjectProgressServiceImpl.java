@@ -39,6 +39,10 @@ public class ProjectProgressServiceImpl extends ServiceImpl<ProjectProgressMappe
 
 		return new PageResult(p);
 	}
-
+	
+	@Override
+	public ProjectProgressEntity selectOne(ProjectProgressEntity entity) {
+		return this.baseMapper.selectOne(entity);
+	}
 
 }
