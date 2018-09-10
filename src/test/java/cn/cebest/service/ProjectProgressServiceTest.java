@@ -72,8 +72,8 @@ public class ProjectProgressServiceTest {
     	projectProgressService.insertOrUpdate(projectProgress2);
         Map<String, Object> param = new HashMap<>();
         param.put("name", "项目");
-        param.put("pageNum", 1);
-        param.put("pageSize", 1);
+        param.put("page", "1");
+        param.put("limit", "1");
         param.put("orderBy", "start_time");
         param.put("isAsc", false);
         PageResult result = projectProgressService.queryPage(param);
