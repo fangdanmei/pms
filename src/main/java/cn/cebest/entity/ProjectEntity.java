@@ -44,10 +44,10 @@ public class ProjectEntity extends Model<ProjectEntity> {
 	 * 合同工期
 	 */
 	private String timeLimit;
-//	/**
-//	 * 基准上线时间(应该在项目进度实体里)
-//	 */
-//	private Date standardOnlineTime;
+	/**
+	 * 基准上线时间
+	 */
+	private Date standardOnlineTime;
 	/**
 	 * 部署方式
 	 */

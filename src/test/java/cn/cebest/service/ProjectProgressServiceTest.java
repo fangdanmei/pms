@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.assertj.core.util.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -17,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.cebest.entity.ProjectProgressEntity;
 import cn.cebest.util.PageResult;
-import cn.cebest.utils.PageUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -61,13 +61,22 @@ public class ProjectProgressServiceTest {
     	projectProgress.setManager(manager);
     	projectProgress.setArchived(true);
     	projectProgress.setCertWorkDays(10);
+    	projectProgress.setStartTime(DateUtil.yesterday());
     	projectProgressService.insertOrUpdate(projectProgress);
+    	ProjectProgressEntity projectProgress2 = new ProjectProgressEntity();
+    	projectProgress2.setName("项目2");
+    	projectProgress2.setManager(manager);
+    	projectProgress2.setArchived(true);
+    	projectProgress2.setCertWorkDays(10);
+    	projectProgress2.setStartTime(DateUtil.tomorrow());
+    	projectProgressService.insertOrUpdate(projectProgress2);
         Map<String, Object> param = new HashMap<>();
-        param.put("name", "测");
-//        param.put("manager", manager);
-        param.put("page", "1");
-        param.put("limit", "1");
-        PageResult result = projectProgressService.queryPage(null);
+        param.put("name", "项目");
+        param.put("pageNum", 1);
+        param.put("pageSize", 1);
+        param.put("orderBy", "start_time");
+        param.put("isAsc", false);
+        PageResult result = projectProgressService.queryPage(param);
         assertNotNull(result);
     }
 
