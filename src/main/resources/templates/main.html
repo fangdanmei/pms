@@ -20,29 +20,25 @@
 </head>
 <body style="padding-left: 10px;padding-right: 10px;">
 	
-	<fieldset id="search" style="border: 1px dashed lightgray;margin-top: 20px;display: block;">
+	<fieldset style="border: 1px dashed lightgray;margin-top: 20px;display: block;">
 		<legend>查询条件</legend>
 		<form id="formSearch" class="layui-form" style="line-height: 60px;height: 60px;">
 		    <div class="layui-form-item">
 		    	<div class="layui-inline">
 			    	<label class="layui-form-label">项目名</label>
 			        <div class="layui-input-inline">
-			            <input type="text" class="layui-input" id="key" placeholder="请输入项目名">
-			        </div>
-		    	</div>
-		        <div class="layui-inline">
-			    	<label class="layui-form-label">创建时间</label>
-			        <div class="layui-input-inline">
-			            <input type="text" class="layui-input" id="createtime">
+			            <input type="text" class="layui-input" id="name" placeholder="请输入项目名">
 			        </div>
 		    	</div>
 		    	<div class="layui-inline">
-			    	<label class="layui-form-label">状态</label>
+			    	<label class="layui-form-label">项目风险</label>
 			        <div class="layui-input-inline">
-			            <select id="parent" lay-filter="state" lay-search="">
-			            	<option value="">请选择状态</option>
-			            	<option value="0">启用</option>
-			            	<option value="1">锁定</option>
+			            <select id="risk" lay-filter="state" lay-search="">
+			            	<option value="">请选择</option>
+							<option value="低">低</option>
+							<option value="中">中</option>
+							<option value="高">高</option>
+							<option value="极高">极高</option>
 			            </select>
 			        </div>
 		    	</div>
@@ -52,7 +48,7 @@
 	<div class="layui-col-md12" style="margin-top: 10px;">
 		<div class="layui-row">
 			<div class="layui-col-md3">
-				<button class="layui-btn layui-btn-small" data-type="search">
+				<button class="layui-btn layui-btn-small" data-type="search" id="search">
 				  <i class="layui-icon">&#x1002;</i>查询
 				</button>
 				<button class="layui-btn layui-btn-small layui-btn-warm" onclick="addContract()">
@@ -70,8 +66,6 @@
 	<script type="text/javascript" src="/plugins/layui/layui.js"></script>
 	<script type="text/javascript">
 		var $,form,table,layer,laydate;
-		// 是否锁定
-		var isLock;
 		// 创建时间
 		var createTime;
 		layui.use(['laydate','table','layer','form'],function(){
@@ -98,10 +92,10 @@
 				url:'/progress/queryPage',
 				limit: 10,
 				cols:[[
-					{checkbox: true, fixed: true,width:'4%'},
+					{checkbox: true, fixed: true,width:'3%'},
 					{field:'name',title:'项目名称', width:'8%',align:'center'},
-					{field:'startTime',title:'启动时间', width:'8%',align:'center'},
-					{field:'standardOnlineTime',title:'基准上线时间', width:'8%',align:'center'},
+					{field:'startTime',title:'启动时间', width:'8%',align:'center',sort: true},
+					{field:'standardOnlineTime',title:'基准上线时间', width:'9%',align:'center',sort: true},
 					{field:'nextMilestone',title:'下一里程碑节点', width:'8%',align:'center'},
 					{field:'phase',title:'项目所处阶段', width:'8%',align:'center'},
 					{field:'returnedMoney',title:'已回款金额', width:'8%',align:'center'},
@@ -113,20 +107,35 @@
 					{field:'recorded',title:'域名备案', width:'8%',align:'center',templet:'<div>{{d.recorded?"已备案":"否"}}</div>'}
 				]],
 				page:true,
-				id:'userList'
+				id:'progressList'
 			});
 			
 			
+			table.on('sort(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+				  console.log(obj.field); //当前排序的字段名
+				  console.log(obj.type); //当前排序类型：desc（降序）、asc（升序）、null（空对象，默认排序）
+				  console.log(this); //当前排序的 th 对象
+				  
+				  //尽管我们的 table 自带排序功能，但并没有请求服务端。
+				  //有些时候，你可能需要根据当前排序的字段，重新向服务端发送请求，从而实现服务端排序，如：
+				  table.reload('progressList', { //testTable是表格容器id
+				    initSort: obj //记录初始排序，如果不设的话，将无法标记表头的排序状态。 layui 2.1.1 新增参数
+				    ,where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
+				       orderBy: obj.field //排序字段
+				      ,isAsc: obj.type //排序方式
+				    }
+				  });
+			});	
+			
 			// 点击查询
-			/* $('.layui-btn-small').on('click', function(){
+			$('#search').on('click', function(){
 				// 调用重新加载
 				reload();
-			}) */
+			}) 
 			
 			
 			//监听选择框选中事件
 			form.on('select(state)',function(data){
-				isLock = data.value;
 				// 调用重新加载
 				reload();
 			});
@@ -155,11 +164,10 @@
 
 		// 重新加载
 		function reload() {
-			table.reload('userList', {
+			table.reload('progressList', {
 				where : {
-					key : $("#key").val(),
-					createTime : createTime,
-					isLock : isLock
+					name : $("#name").val(),
+					risk : $("#risk").val()
 				}
 			});
 		}

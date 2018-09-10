@@ -32,16 +32,17 @@ public class ProjectProgressServiceImpl extends ServiceImpl<ProjectProgressMappe
 		String manager = (String)params.get("manager");
 		String risk = (String)params.get("risk");
 		String orderBy = (String)params.get("orderBy");
-		Boolean isAsc = (Boolean)params.get("isAsc") == null ? false : (Boolean)params.get("isAsc")  ;
-		
-		boolean condition =StringUtils.isNotEmpty(orderBy) && isAsc != null;
-		
+		String sort = (String)params.get("sort");
+		boolean isAsc = false;
+		if(StringUtils.isNotEmpty(sort)){
+			isAsc = sort.equalsIgnoreCase("asc") ? true : false;
+		}
 		PageHelper.startPage(pageNum, pageSize);
 		List<ProjectProgressEntity> list = this.selectList(new EntityWrapper<ProjectProgressEntity>()
 				.like(StringUtils.isNotBlank(name),"name", name)
 				.like(StringUtils.isNotBlank(manager),"manager", manager)
-				.eq(risk != null,"risk", risk)
-				.orderBy(condition, orderBy, isAsc));
+				.eq(StringUtils.isNotBlank(risk),"risk", risk)
+				.orderBy(true, orderBy, isAsc));
 		PageInfo<ProjectProgressEntity> p = new PageInfo<ProjectProgressEntity>(list);
 
 		return new PageResult<ProjectProgressEntity>(p);
