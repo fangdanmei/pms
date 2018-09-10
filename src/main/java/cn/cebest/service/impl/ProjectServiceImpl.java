@@ -8,7 +8,7 @@ import cn.cebest.dao.ProjectMapper;
 import cn.cebest.entity.ProjectEntity;
 import cn.cebest.service.ProjectService;
 
-@Service("userService")
+@Service("projectService")
 public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, ProjectEntity> implements ProjectService {
 
 

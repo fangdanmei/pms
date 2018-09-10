@@ -15,7 +15,7 @@ public class ProjectEntity extends Model<ProjectEntity> {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
 	/**
 	 * 所属地
 	 */
@@ -89,11 +89,11 @@ public class ProjectEntity extends Model<ProjectEntity> {
 	/**
 	 * UI设计阶段开始时间
 	 */
-	private Date UiStartTime;
+	private Date uiStartTime;
 	/**
 	 * UI设计阶段结束时间
 	 */
-	private Date UiEndTime;
+	private Date uiEndTime;
 	/**
 	 * 前端制作阶段开始时间
 	 */
