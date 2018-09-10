@@ -14,7 +14,7 @@ public interface ProjectProgressService extends IService<ProjectProgressEntity> 
 	 * @param params	查询参数
 	 * @return
 	 */
-	PageResult queryPage(Map<String, Object> params);
+	PageResult<ProjectProgressEntity> queryPage(Map<String, Object> params);
 
 	/**
 	 * 匹配属性查询实体

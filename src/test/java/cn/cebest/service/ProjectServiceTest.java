@@ -19,7 +19,7 @@ import cn.cebest.entity.ProjectEntity;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
+//@Transactional
 public class ProjectServiceTest {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired

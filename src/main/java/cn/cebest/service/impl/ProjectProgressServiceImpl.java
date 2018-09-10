@@ -25,24 +25,26 @@ public class ProjectProgressServiceImpl extends ServiceImpl<ProjectProgressMappe
 	@Autowired
 	private ProjectService projectService;
 	@Override
-	public PageResult queryPage(Map<String, Object> params) {
-		Integer pageNum = (Integer)params.get("pageNum");
-		Integer pageSize = (Integer)params.get("pageSize");
+	public PageResult<ProjectProgressEntity> queryPage(Map<String, Object> params) {
+		Integer pageNum = Integer.valueOf((String) params.get("page"));
+		Integer pageSize = Integer.valueOf((String)params.get("limit"));
 		String name = (String)params.get("name");
 		String manager = (String)params.get("manager");
 		String risk = (String)params.get("risk");
 		String orderBy = (String)params.get("orderBy");
-		Boolean isAsc = (Boolean)params.get("isAsc");
+		Boolean isAsc = (Boolean)params.get("isAsc") == null ? false : (Boolean)params.get("isAsc")  ;
+		
+		boolean condition =StringUtils.isNotEmpty(orderBy) && isAsc != null;
 		
 		PageHelper.startPage(pageNum, pageSize);
 		List<ProjectProgressEntity> list = this.selectList(new EntityWrapper<ProjectProgressEntity>()
 				.like(StringUtils.isNotBlank(name),"name", name)
 				.like(StringUtils.isNotBlank(manager),"manager", manager)
 				.eq(risk != null,"risk", risk)
-				.orderBy(StringUtils.isNotBlank(orderBy), orderBy, isAsc));
-		PageInfo p = new PageInfo(list);
+				.orderBy(condition, orderBy, isAsc));
+		PageInfo<ProjectProgressEntity> p = new PageInfo<ProjectProgressEntity>(list);
 
-		return new PageResult(p);
+		return new PageResult<ProjectProgressEntity>(p);
 	}
 	
 	@Override

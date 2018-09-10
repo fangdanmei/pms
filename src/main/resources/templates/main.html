@@ -95,18 +95,22 @@
 			table = layui.table;
 			table.render({
 				elem:'#table',
-				url:'/user/list',
+				url:'/progress/queryPage',
 				limit: 10,
 				cols:[[
 					{checkbox: true, fixed: true,width:'4%'},
-					{field:'id',title:'ID', width:'5%',align:'center'},
-					{field:'user_name',title:'用户名', width:'10%',align:'center'},
-					{field:'email',title:'邮箱',align:'center'},
-					{field:'phone',title:'手机号',align:'center'},
-					{field:'is_lock',title:'状态',templet:'#lockT', width:'10%',align:'center'},
-					{field:'online',title:'是否在线',templet:'<div>{{d.online===1?"在线":"离线"}}</div>',align:'center'},
-					{field:'create_time',title:'创建时间',width:'15%',align:'center'},
-					{fixed:'right', title:'操作', align:'center', templet: '#handleT'}
+					{field:'name',title:'项目名称', width:'8%',align:'center'},
+					{field:'startTime',title:'启动时间', width:'8%',align:'center'},
+					{field:'standardOnlineTime',title:'基准上线时间', width:'8%',align:'center'},
+					{field:'nextMilestone',title:'下一里程碑节点', width:'8%',align:'center'},
+					{field:'phase',title:'项目所处阶段', width:'8%',align:'center'},
+					{field:'returnedMoney',title:'已回款金额', width:'8%',align:'center'},
+					{field:'payProgress',title:'已付款期数', width:'8%',align:'center'},
+					{field:'projectStatus',title:'项目状态', width:'8%',align:'center'},
+					{field:'risk',title:'项目风险', width:'8%',align:'center'},
+					{field:'id',title:'项目信息', width:'8%',align:'center',templet: '<a>更新</a>'},
+					{field:'id',title:'合同信息', width:'8%',align:'center',templet: '<a>查看</a>'},
+					{field:'recorded',title:'域名备案', width:'8%',align:'center'}
 				]],
 				page:true,
 				id:'userList'
