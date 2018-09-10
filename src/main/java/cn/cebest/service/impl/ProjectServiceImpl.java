@@ -20,6 +20,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, ProjectEntity
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean insertOrUpdate(ProjectEntity entity) {
+		super.insertOrUpdate(entity);
 		ProjectProgressEntity progressEntity = new ProjectProgressEntity();
 		progressEntity.setProjectId(entity.getId());
 		ProjectProgressEntity progress = progressService.selectOne(progressEntity);
@@ -29,6 +30,11 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, ProjectEntity
 			progress.setStandardOnlineTime(entity.getStandardOnlineTime());
 			progressService.updateById(progress);
 		}
-		return super.insertOrUpdate(entity);
+		return true;
+	}
+	
+	@Override
+	public ProjectEntity selectOne(ProjectEntity entity) {
+		return this.baseMapper.selectOne(entity);
 	}
 }
