@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.cebest.entity.ProjectProgressEntity;
+import cn.cebest.util.PageResult;
 import cn.cebest.utils.PageUtils;
 
 @RunWith(SpringRunner.class)
@@ -66,7 +67,7 @@ public class ProjectProgressServiceTest {
 //        param.put("manager", manager);
         param.put("page", "1");
         param.put("limit", "1");
-        PageUtils result = projectProgressService.queryPage(param);
+        PageResult result = projectProgressService.queryPage(null);
         assertNotNull(result);
     }
 

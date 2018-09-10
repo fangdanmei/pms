@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.github.pagehelper.PageInfo;
 
 import cn.cebest.dao.ProjectProgressMapper;
 import cn.cebest.entity.ProjectProgressEntity;
 import cn.cebest.service.ProjectProgressService;
-import cn.cebest.utils.PageResult;
+import cn.cebest.util.PageResult;
 import cn.cebest.utils.PageUtils;
 import cn.cebest.utils.Query;
 
@@ -28,6 +29,7 @@ public class ProjectProgressServiceImpl extends ServiceImpl<ProjectProgressMappe
 		String risk = (String)params.get("risk");
 		String orderBy = (String)params.get("orderBy");
 		String orderByType = (String)params.get("orderByType");
+		PageInfo p = new PageInfo(null);
 		Page<ProjectProgressEntity> page = this.selectPage(
 			new Query<ProjectProgressEntity>(params).getPage(),
 			new EntityWrapper<ProjectProgressEntity>()
@@ -36,7 +38,7 @@ public class ProjectProgressServiceImpl extends ServiceImpl<ProjectProgressMappe
 				.eq(risk != null,"risk", risk)
 		);
 
-		return new PageUtils(page);
+		return new PageResult(p);
 	}
 
 
