@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <title>创建项目</title>
 <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all" />
+
+<script type="text/html" id="fileT">
+	<button type="button" class="layui-btn layui-btn-normal layui-btn-lg">
+		<a href="javascript:download('${fileName}')">
+			${originalName}
+		</a>
+		<a href="javascript:deleteFile()">
+			<i class="layui-icon layui-unselect layui-tab-close" data-id="1">ဆ</i>
+		</a>
+	</button>
+</script>
 </head>
 <body style="padding-left: 10px; padding-right: 10px;">
 	<div class="layui-tab">
@@ -32,6 +43,60 @@
 						<label class="layui-form-label">项目描述</label>
 						<div class="layui-input-block">
 							<textarea placeholder="请输入项目描述" class="layui-textarea" name="desc"></textarea>
+						</div>
+					</div>
+					
+					<div class="layui-form-item" style="margin-bottom: 40px;">
+						<label class="layui-form-label">对接人</label>
+						<div class="layui-form-item" style="padding-left: 50px;">
+							<label class="layui-form-label">姓名</label>
+							<div class="layui-input-inline">
+								<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入姓名" class="layui-input" lay-verify="required">
+							</div>
+							<label class="layui-form-label">部门</label>
+							<div class="layui-input-inline">
+								<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入部门" class="layui-input" lay-verify="required">
+							</div>
+						</div>
+			
+						<div class="layui-form-item" style="padding-left: 50px;">
+							<label class="layui-form-label">电话</label>
+							<div class="layui-input-inline">
+								<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入电话" class="layui-input" lay-verify="required">
+							</div>
+							<label class="layui-form-label">邮箱</label>
+							<div class="layui-input-inline">
+								<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入邮箱" class="layui-input" lay-verify="required">
+							</div>
+						</div>
+			
+						<div class="layui-form-item" style="padding-left: 50px;">
+							<label class="layui-form-label">微信</label>
+							<div class="layui-input-inline">
+								<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入微信" class="layui-input" lay-verify="required">
+							</div>
+							<label class="layui-form-label">备注</label>
+							<div class="layui-input-inline">
+								<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入备注" class="layui-input" lay-verify="required">
+							</div>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">所属合同</label>
+						<div class="layui-input-inline" style="width: 500px;">
+							<select>
+								<option value="0">请选择</option>
+								<option value="1">北京</option>
+								<option value="2">上海</option>
+								<option value="3">广州</option>
+							</select>
 						</div>
 					</div>
 					
@@ -211,7 +276,237 @@
 				</form>
 			</div>
 			<!-- tab2 -->
-			<div class="layui-tab-item">内容2</div>
+			<div class="layui-tab-item">
+				<form class="layui-form" id="seriesForm" enctype="multipart/form-data">
+					<fieldset class="layui-elem-field layui-field-title"
+						style="margin-top: 30px;border-color: #009688">
+						<legend>项目进度管理</legend>
+					</fieldset>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">项目进度</label>
+						<div class="layui-input-block">
+							<input type="radio" name="process" value="需求" title="需求" checked="checked">
+			      			<input type="radio" name="process" value="UI设计" title="UI设计">
+			      			<input type="radio" name="process" value="前端制作" title="前端制作">
+			      			<input type="radio" name="process" value="技术开发" title="技术开发">
+			      			<input type="radio" name="process" value="UAT测试" title="UAT测试">
+			      			<input type="radio" name="process" value="部署上线" title="部署上线">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">项目开始时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="ppsTime" name="psTime" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">里程碑进度</label>
+						<div class="layui-input-inline">
+							<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入里程碑进度" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">项目状态</label>
+						<div class="layui-input-inline">
+							<select>
+								<option value="0">请选择</option>
+								<option value="1">正常</option>
+								<option value="2">延期</option>
+								<option value="3">提前</option>
+								<option value="3">暂停</option>
+								<option value="3">终止</option>
+								<option value="3">已完成</option>
+							</select>
+						</div>
+						
+						<label class="layui-form-label" style="width: 85px;">项目延期天数</label>
+						<div class="layui-input-inline">
+							<input type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入延期天数" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label"  style="width: 85px;">项目并行情况</label>
+						<div class="layui-input-inline">
+							<select>
+								<option value="0">请选择</option>
+								<option value="1">UI与制作并行</option>
+								<option value="2">制作与后台开发并行</option>
+								<option value="3">设计与后台开发并行</option>
+							</select>
+						</div>
+						
+						<label class="layui-form-label">补充说明</label>
+						<div class="layui-input-inline">
+							<input  style="width: 500px;" type="text" id="title" name="title" autocomplete="off"
+									placeholder="请输入补充说明" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label"  style="width: 85px">当前任务描述</label>
+						<div class="layui-input-block">
+							<textarea  style="width: 98%" placeholder="请输入当前任务描述" class="layui-textarea" name="desc"></textarea>
+						</div>
+					</div>
+					
+					
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">UI设计阶段</label>
+						<div class="layui-input-inline">
+							<input type="text" id="uisTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="uieTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">前端制作阶段</label>
+						<div class="layui-input-inline">
+							<input type="text" id="qdsTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="qdeTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">技术开发阶段</label>
+						<div class="layui-input-inline">
+							<input type="text" id="jssTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="jseTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">测试联调</label>
+						<div class="layui-input-inline">
+							<input type="text" id="xqsTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="xqeTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">UAT测试阶段</label>
+						<div class="layui-input-inline">
+							<input type="text" id="cssTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="cseTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">项目部署时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="bssTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="text-align: center;">———</label>
+						<div class="layui-input-inline">
+							<input type="text" id="bseTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工期</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">整体验收时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="ztysTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">里程碑文件</label>
+						<div class="layui-form-item" id="fileL" style="line-height: 50px;"> 
+							<!-- 用于回显上传文件 -->
+						</div>
+						<div class="layui-form-item" style="padding-left: 200px;">
+							<button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button> 
+						</div>
+					</div>
+					
+					<fieldset class="layui-elem-field layui-field-title"
+						style="margin-top: 30px;border-color: #009688">
+						<legend>证书到期时间</legend>
+					</fieldset>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 85px;">证书开始时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="bssTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label" style="width: 85px;">证书结束时间</label>
+						<div class="layui-input-inline">
+							<input type="text" id="bseTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">工作日</label>
+						<div class="layui-input-inline">
+							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+					</div>
+					
+					<div class="layui-form-item" style="margin-left: 350px;margin-top: 30px;margin-bottom: 50px">
+						<div class="layui-input-block">
+							<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
+						</div>
+					</div>
+				</form>
+			</div>
 			<!-- tab3 -->
 			<div class="layui-tab-item">
 			
@@ -391,13 +686,29 @@
 	
 <script type="text/javascript" src="/plugins/layui/layui.js"></script>
 <script>
-var laydate,createTime,table,element,index;
-layui.use(['table','laydate','element'], function(){
+var laydate,createTime,table,element,index,upload;
+layui.use(['table','laydate','element','upload'], function(){
   var $ = layui.jquery
+  ,upload = layui.upload
   ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
   
 	//引用时间插件
 	laydate = layui.laydate;
+  
+  
+	upload.render({
+	    elem: '#test3'
+	    ,url: '/upload'
+	    ,accept: 'file' //普通文件
+	    ,done: function(res){
+	      var originalName = res.data.originalName;
+	      var fileName = res.data.fileName;
+	      var fileTH = $("#fileT").html();
+	      fileTH = fileTH.replace("${originalName}",originalName);
+	      fileTH = fileTH.replace("${fileName}",fileName);
+	      $("#fileL").append(fileTH);
+	    }
+	  });
   
 	//引入表格
 	table = layui.table;
@@ -431,6 +742,14 @@ layui.use(['table','laydate','element'], function(){
 	
 	laydate.render({
 		elem : '#gzTime',
+		done : function(value,date){
+			//当时间值变换时，触发该事件
+			createTime = value;
+		}
+	});
+	
+	laydate.render({
+		elem : '#ppsTime',
 		done : function(value,date){
 			//当时间值变换时，触发该事件
 			createTime = value;
@@ -561,6 +880,22 @@ layui.use(['table','laydate','element'], function(){
 	
   
 });
+
+// 文件下载
+function download(fileName){
+	alert(fileName)
+}
+
+
+function deleteFile(){
+	layer.confirm('确认删除?',{
+		icon: 3, 
+		title:'提示',
+		btnAlign: 'c',
+		yes: function(index){
+		}
+	})
+}
 </script>
 </body>
 </html>
