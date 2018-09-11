@@ -124,7 +124,30 @@ public class ProjectEntity extends Model<ProjectEntity> {
 	 * 部署阶段结束时间
 	 */
 	private String deployEndTime;
-	
+	/**
+	 * 联系人姓名
+	 */
+	private String contactsName;
+	/**
+	 * 联系人部门
+	 */
+	private String contactsDep;
+	/**
+	 * 联系人电话
+	 */
+	private String contactsPhone;
+	/**
+	 * 联系人邮箱
+	 */
+	private String contactsEmail;
+	/**
+	 * 联系人微信
+	 */
+	private String contactsWechat;
+	/**
+	 * 联系人备注信息
+	 */
+	private String contactsRemarks;
 
 	@Override
 	protected Serializable pkVal() {
