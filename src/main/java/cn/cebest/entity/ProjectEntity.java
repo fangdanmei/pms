@@ -1,8 +1,6 @@
 package cn.cebest.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Getter;
@@ -47,7 +45,7 @@ public class ProjectEntity extends Model<ProjectEntity> {
 	/**
 	 * 基准上线时间
 	 */
-	private Date standardOnlineTime;
+	private String standardOnlineTime;
 	/**
 	 * 部署方式
 	 */
@@ -69,11 +67,11 @@ public class ProjectEntity extends Model<ProjectEntity> {
 	/**
 	 * 更新时间
 	 */
-	private Date updateTime;
+	private String updateTime;
 	/**
 	 * 项目开始时间
 	 */
-	private Date startTime;
+	private String startTime;
 	/**
 	 * 实际工期
 	 */
@@ -81,51 +79,51 @@ public class ProjectEntity extends Model<ProjectEntity> {
 	/**
 	 * 需求阶段开始时间
 	 */
-	private Date reqStartTime;
+	private String reqStartTime;
 	/**
 	 * 需求阶段结束时间
 	 */
-	private Date reqEndTime;
+	private String reqEndTime;
 	/**
 	 * UI设计阶段开始时间
 	 */
-	private Date uiStartTime;
+	private String uiStartTime;
 	/**
 	 * UI设计阶段结束时间
 	 */
-	private Date uiEndTime;
+	private String uiEndTime;
 	/**
 	 * 前端制作阶段开始时间
 	 */
-	private Date frontStartTime;
+	private String frontStartTime;
 	/**
 	 * 前端制作阶段结束时间
 	 */
-	private Date frontEndTime;
+	private String frontEndTime;
 	/**
 	 * 技术开发阶段开始时间
 	 */
-	private Date devStartTime;
+	private String devStartTime;
 	/**
 	 * 技术开发阶段结束时间
 	 */
-	private Date devEndTime;
+	private String devEndTime;
 	/**
 	 * UAT测试阶段开始时间
 	 */
-	private Date uatStartTime;
+	private String uatStartTime;
 	/**
 	 * UAT测试阶段结束时间
 	 */
-	private Date uatEndTime;
+	private String uatEndTime;
 	/**
 	 * 部署阶段开始时间
 	 */
-	private Date deployStartTime;
+	private String deployStartTime;
 	/**
 	 * 部署阶段结束时间
 	 */
-	private Date deployEndTime;
+	private String deployEndTime;
 	
 
 	@Override

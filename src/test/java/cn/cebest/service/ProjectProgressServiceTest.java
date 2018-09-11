@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.cebest.entity.ProjectProgressEntity;
+import cn.cebest.framework.util.DateUtility;
 import cn.cebest.util.PageResult;
 
 @RunWith(SpringRunner.class)
@@ -61,14 +62,14 @@ public class ProjectProgressServiceTest {
     	projectProgress.setManager(manager);
     	projectProgress.setArchived(true);
     	projectProgress.setCertWorkDays(10);
-    	projectProgress.setStartTime(DateUtil.yesterday());
+    	projectProgress.setStartTime(DateUtility.format(DateUtil.yesterday(), DateUtility.ISO_DATE_FORMAT));
     	projectProgressService.insertOrUpdate(projectProgress);
     	ProjectProgressEntity projectProgress2 = new ProjectProgressEntity();
     	projectProgress2.setName("项目2");
     	projectProgress2.setManager(manager);
     	projectProgress2.setArchived(true);
     	projectProgress2.setCertWorkDays(10);
-    	projectProgress2.setStartTime(DateUtil.tomorrow());
+    	projectProgress2.setStartTime(DateUtility.format(DateUtil.tomorrow(), DateUtility.ISO_DATE_FORMAT));
     	projectProgressService.insertOrUpdate(projectProgress2);
         Map<String, Object> param = new HashMap<>();
         param.put("name", "项目");

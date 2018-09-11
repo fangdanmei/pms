@@ -1,8 +1,6 @@
 package cn.cebest.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Getter;
@@ -23,7 +21,7 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * 更新时间
 	 */
-	private Date updateTime;
+	private String updateTime;
 	/**
 	 * 项目阶段
 	 */
@@ -31,7 +29,7 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * 项目开始时间
 	 */
-	private Date startTime;
+	private String startTime;
 	/**
 	 * 里程碑进度
 	 */
@@ -59,11 +57,11 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * UI设计阶段开始时间
 	 */
-	private Date uiStartTime;
+	private String uiStartTime;
 	/**
 	 * UI设计阶段结束时间
 	 */
-	private Date uiEndTime;
+	private String uiEndTime;
 	/**
 	 * UI工期
 	 */
@@ -71,11 +69,11 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * 前端制作阶段开始时间
 	 */
-	private Date frontStartTime;
+	private String frontStartTime;
 	/**
 	 * 前端制作阶段结束时间
 	 */
-	private Date frontEndTime;
+	private String frontEndTime;
 	/**
 	 * 前端制作工期
 	 */
@@ -83,11 +81,11 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * 技术开发阶段开始时间
 	 */
-	private Date devStartTime;
+	private String devStartTime;
 	/**
 	 * 技术开发阶段结束时间
 	 */
-	private Date devEndTime;
+	private String devEndTime;
 	/**
 	 * 技术开发工期
 	 */
@@ -95,11 +93,11 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * 测试联调阶段开始时间
 	 */
-	private Date debugStartTime;
+	private String debugStartTime;
 	/**
 	 * 测试联调阶段结束时间
 	 */
-	private Date debugEndTime;
+	private String debugEndTime;
 	/**
 	 * 测试联调工期
 	 */
@@ -107,11 +105,11 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * UAT测试阶段开始时间
 	 */
-	private Date uatStartTime;
+	private String uatStartTime;
 	/**
 	 * UAT测试阶段结束时间
 	 */
-	private Date uatEndTime;
+	private String uatEndTime;
 	/**
 	 *  UAT测试工期
 	 */
@@ -119,7 +117,7 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * 项目整体验收时间
 	 */
-	private Date acceptanceTime;
+	private String acceptanceTime;
 	/**
 	 * 项目需求范围确认单
 	 */
@@ -147,11 +145,11 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * 证书开始时间
 	 */
-	private Date certStartTime;
+	private String certStartTime;
 	/**
 	 * 证书结束时间
 	 */
-	private Date certEndTime;
+	private String certEndTime;
 	/**
 	 * 证书工作日
 	 */
@@ -159,7 +157,7 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * 基准上线时间
 	 */
-	private Date standardOnlineTime;
+	private String standardOnlineTime;
 	/**
 	 * 项目经理
 	 */
@@ -171,7 +169,7 @@ public class ProjectProgressEntity extends Model<ProjectProgressEntity> {
 	/**
 	 * 下一里程碑节点
 	 */
-	private Date nextMilestone;
+	private String nextMilestone;
 	/**
 	 * 项目整体进度
 	 */

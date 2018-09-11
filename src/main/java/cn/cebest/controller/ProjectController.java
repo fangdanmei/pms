@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.cebest.entity.ProjectEntity;
+import cn.cebest.framework.util.Result;
 import cn.cebest.service.ProjectService;
 
 @Controller
-@RequestMapping("project")
+@RequestMapping("/project")
 public class ProjectController {
 	
 	@Autowired
@@ -25,10 +26,10 @@ public class ProjectController {
 		return project;
 	}
 	
-	@PostMapping("insertOrUpdate")
+	@PostMapping("/insertOrUpdate")
 	@ResponseBody
-	public ProjectEntity insertOrUpdate(@RequestBody ProjectEntity project){
+	public Result insertOrUpdate(ProjectEntity project){
 		projectService.insertOrUpdate(project);
-		return project;
+		return new Result();
 	}
 }
