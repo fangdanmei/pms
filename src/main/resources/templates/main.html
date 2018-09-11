@@ -8,14 +8,13 @@
 		body{overflow-y: scroll;}
 	</style>
 	<!-- 操作模板 -->
-	<script type="text/html" id="handleT">
-		<a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
-		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	<script type="text/html" id="PT">
+		<a class="layui-btn layui-btn-xs" lay-event="update">更新</a>
 	</script>
 	
-	<script type="text/html" id="lockT">
-	<input type="checkbox" name="lock" data="{{d.id}}" value="{{d.is_lock}}" title="{{ d.is_lock == 0 ? '启用' : '锁定' }}" {{ d.is_lock == 0 ? 'checked' : '' }} lay-filter="lockBox"> 
+	<!-- 操作模板 -->
+	<script type="text/html" id="HTT">
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="detail">查看</a>
 	</script>
 </head>
 <body style="padding-left: 10px;padding-right: 10px;">
@@ -102,12 +101,29 @@
 					{field:'payProgress',title:'已付款期数', width:'8%',align:'center'},
 					{field:'projectStatus',title:'项目状态', width:'8%',align:'center'},
 					{field:'risk',title:'项目风险', width:'8%',align:'center'},
-					{field:'id',title:'项目信息', width:'8%',align:'center',templet: '<a>更新</a>'},
-					{field:'id',title:'合同信息', width:'8%',align:'center',templet: '<a>查看</a>'},
+					{field:'right',title:'项目信息', width:'8%',align:'center',templet: '#PT'},
+					{field:'right',title:'合同信息', width:'8%',align:'center',templet: '#HTT'},
 					{field:'recorded',title:'域名备案', width:'8%',align:'center',templet:'<div>{{d.recorded?"已备案":"否"}}</div>'}
 				]],
 				page:true,
 				id:'progressList'
+			});
+			
+			
+			
+			//监听操作按钮
+			table.on('tool(test)',function(row){
+				var data = row.data;
+				if(row.event === 'update'){//更新
+					var field = {
+							"title": "项目管理",
+							"icon": "&#xe615;",
+							"href": "/project/selectById?id=" + data.projectId
+						};
+					window.parent.addLab(field);
+					
+				} else { // 查看详情
+				}
 			});
 			
 			

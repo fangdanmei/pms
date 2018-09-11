@@ -35,14 +35,15 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">项目名称</label>
 						<div class="layui-input-block">
+							<input type="hidden" name="id" value="#(project.id)">
 							<input type="text" id="name" name="name" autocomplete="off"
-								placeholder="请输入项目名称" class="layui-input" lay-verify="required">
+								placeholder="请输入项目名称" class="layui-input" lay-verify="required" value="#(project.name ??)">
 						</div>
 					</div>
 					<div class="layui-form-item layui-form-text">
 						<label class="layui-form-label">项目描述</label>
 						<div class="layui-input-block">
-							<textarea placeholder="请输入项目描述" class="layui-textarea" name="description" lay-verify="required"></textarea>
+							<textarea placeholder="请输入项目描述" class="layui-textarea" name="description" lay-verify="required">#(project.description ??)</textarea>
 						</div>
 					</div>
 					
@@ -105,9 +106,21 @@
 						<div class="layui-input-inline">
 							<select name="place">
 								<option value="">请选择</option>
-								<option value="北京">北京</option>
-								<option value="上海">上海</option>
-								<option value="广州">广州</option>
+								#if(project.place ?? == '北京')
+									<option value="北京" selected="selected">北京</option>
+									#else
+									<option value="北京">北京</option>
+								#end
+								#if(project.place ?? == '上海')
+									<option value="上海" selected="selected">上海</option>
+									#else
+									<option value="上海">上海</option>
+								#end
+								#if(project.place ?? == '广州')
+									<option value="广州" selected="selected">广州</option>
+									#else
+									<option value="广州">广州</option>
+								#end
 							</select>
 						</div>
 						
@@ -115,10 +128,29 @@
 						<div class="layui-input-inline">
 							<select name="type">
 								<option value="">请选择</option>
-								<option value="官网">官网</option>
-								<option value="APP">APP</option>
-								<option value="H5">H5</option>
-								<option value="小程序">小程序</option>
+								#if(project.type ?? == '官网')
+									<option value="官网" selected="selected">官网</option>
+									#else
+									<option value="官网">官网</option>
+								#end
+								
+								#if(project.type ?? == 'APP')
+									<option value="APP" selected="selected">APP</option>
+									#else
+									<option value="APP">APP</option>
+								#end
+								
+								#if(project.type ?? == 'H5')
+									<option value="H5" selected="selected">H5</option>
+									#else
+									<option value="H5">H5</option>
+								#end
+								
+								#if(project.type ?? == '小程序')
+									<option value="小程序" selected="selected">小程序</option>
+									#else
+									<option value="小程序">小程序</option>
+								#end
 							</select>
 						</div>
 					</div>
@@ -129,17 +161,37 @@
 						<div class="layui-input-inline">
 							<select name="productionMode">
 								<option value="">请选择</option>
-								<option value="定制">定制</option>
-								<option value="CMS">CMS</option>
-								<option value="中台">中台</option>
-								<option value="外包">外包</option>
+								
+								#if(project.productionMode ?? == '定制')
+									<option value="定制" selected="selected">定制</option>
+									#else
+									<option value="定制">定制</option>
+								#end
+								
+								#if(project.productionMode ?? == 'CMS')
+									<option value="CMS" selected="selected">CMS</option>
+									#else
+									<option value="CMS">CMS</option>
+								#end
+								
+								#if(project.productionMode ?? == '中台')
+									<option value="中台" selected="selected">中台</option>
+									#else
+									<option value="中台">中台</option>
+								#end
+								
+								#if(project.productionMode ?? == '外包')
+									<option value="外包" selected="selected">外包</option>
+									#else
+									<option value="外包">外包</option>
+								#end
 							</select>
 						</div>
 						
 						<label class="layui-form-label">合同工期</label>
 						<div class="layui-input-inline">
 							<input type="text" id="timeLimit" name="timeLimit" autocomplete="off"
-									placeholder="请输入合同工期" class="layui-input" lay-verify="required">
+									placeholder="请输入合同工期" class="layui-input" lay-verify="required" value="#(project.timeLimit ??)">
 						</div>
 					</div>
 					
@@ -148,13 +200,13 @@
 						<label class="layui-form-label" style="width: 85px;">基准上线时间</label>
 						<div class="layui-input-inline">
 							<input type="text" id="onlineTime" name="standardOnlineTime" autocomplete="off"
-									 class="layui-input" lay-verify="required">
+									 class="layui-input" lay-verify="required" value="#(project.standardOnlineTime ??)">
 						</div>
 						
 						<label class="layui-form-label">域名</label>
 						<div class="layui-input-inline">
 							<input style="width: 300px;" type="text" id="domainName" name="domainName" autocomplete="off"
-									placeholder="请输入域名" class="layui-input" lay-verify="required">
+									placeholder="请输入域名" class="layui-input" lay-verify="required" value="#(project.domainName??)">
 						</div>
 					</div>
 					
@@ -164,16 +216,28 @@
 						<div class="layui-input-inline">
 							<select name="deployMode">
 								<option value="">请选择</option>
-								<option value="独立部署">独立部署</option>
-								<option value="云部署">云部署</option>
-								<option value="中企云">中企云</option>
+								#if(project.deployMode ?? == '独立部署')
+									<option value="独立部署" selected="selected">独立部署</option>
+									#else
+									<option value="独立部署">独立部署</option>
+								#end
+								#if(project.deployMode ?? == '云部署')
+									<option value="云部署" selected="selected">云部署</option>
+									#else
+									<option value="云部署">云部署</option>
+								#end
+								#if(project.deployMode ?? == '中企云')
+									<option value="中企云" selected="selected">中企云</option>
+									#else
+									<option value="中企云">中企云</option>
+								#end
 							</select>
 						</div>
 						
 						<label class="layui-form-label">说明</label>
 						<div class="layui-input-inline">
 							<input style="width: 300px;" type="text" id="deployModeDescription" name="deployModeDescription" autocomplete="off"
-									placeholder="请输入补充说明" class="layui-input" lay-verify="required">
+									placeholder="请输入补充说明" class="layui-input" lay-verify="required" value="#(project.deployModeDescription ??)">
 						</div>
 					</div>
 					
@@ -185,13 +249,13 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">项目开始时间</label>
 						<div class="layui-input-inline">
-							<input type="text" id="psTime" name="startTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="psTime" name="startTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.startTime ??)">
 						</div>
 						
 						<label class="layui-form-label">实际工期</label>
 						<div class="layui-input-inline">
 							<input type="text" id="actualTimeLimit" name="actualTimeLimit" autocomplete="off"
-									placeholder="工作日" class="layui-input" lay-verify="required">
+									placeholder="工作日" class="layui-input" lay-verify="required" value="#(project.actualTimeLimit ??)">
 						</div>
 					</div>
 					
@@ -199,72 +263,72 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">需求阶段</label>
 						<div class="layui-input-inline">
-							<input type="text" id="xqsTime" name="reqStartTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="xqsTime" name="reqStartTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.reqStartTime ??)">
 						</div>
 						
 						<label class="layui-form-label" style="text-align: center;">———</label>
 						<div class="layui-input-inline">
-							<input type="text" id="xqeTime" name="reqEndTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="xqeTime" name="reqEndTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.reqEndTime ??)">
 						</div>
 					</div>
 					
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">UI设计阶段</label>
 						<div class="layui-input-inline">
-							<input type="text" id="uisTime" name="uiStartTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="uisTime" name="uiStartTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.uiStartTime ??)">
 						</div>
 						
 						<label class="layui-form-label" style="text-align: center;">———</label>
 						<div class="layui-input-inline">
-							<input type="text" id="uieTime" name="uiEndTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="uieTime" name="uiEndTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.uiEndTime ??)">
 						</div>
 					</div>
 					
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">前端制作阶段</label>
 						<div class="layui-input-inline">
-							<input type="text" id="qdsTime" name="frontStartTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="qdsTime" name="frontStartTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.frontStartTime ??)">
 						</div>
 						
 						<label class="layui-form-label" style="text-align: center;">———</label>
 						<div class="layui-input-inline">
-							<input type="text" id="qdeTime" name="frontEndTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="qdeTime" name="frontEndTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.frontEndTime ??)">
 						</div>
 					</div>
 					
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">技术开发阶段</label>
 						<div class="layui-input-inline">
-							<input type="text" id="jssTime" name="devStartTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="jssTime" name="devStartTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.devStartTime ??)">
 						</div>
 						
 						<label class="layui-form-label" style="text-align: center;">———</label>
 						<div class="layui-input-inline">
-							<input type="text" id="jseTime" name="devEndTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="jseTime" name="devEndTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.devEndTime ??)">
 						</div>
 					</div>
 					
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">UAT测试阶段</label>
 						<div class="layui-input-inline">
-							<input type="text" id="cssTime" name="uatStartTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="cssTime" name="uatStartTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.uatStartTime ??)">
 						</div>
 						
 						<label class="layui-form-label" style="text-align: center;">———</label>
 						<div class="layui-input-inline">
-							<input type="text" id="cseTime" name="uatEndTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="cseTime" name="uatEndTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.uatEndTime ??)">
 						</div>
 					</div>
 					
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">项目部署时间</label>
 						<div class="layui-input-inline">
-							<input type="text" id="bssTime" name="deployStartTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="bssTime" name="deployStartTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.deployStartTime ??)">
 						</div>
 						
 						<label class="layui-form-label" style="text-align: center;">———</label>
 						<div class="layui-input-inline">
-							<input type="text" id="bseTime" name="deployEndTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="bseTime" name="deployEndTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.deployEndTime ??)">
 						</div>
 					</div>
 					
