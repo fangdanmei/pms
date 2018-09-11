@@ -21,9 +21,11 @@ import cn.cebest.service.ProjectService;
 import cn.cebest.util.PageResult;
 
 @Service("projectProgressService")
-public class ProjectProgressServiceImpl extends ServiceImpl<ProjectProgressMapper, ProjectProgressEntity> implements ProjectProgressService {
+public class ProjectProgressServiceImpl extends ServiceImpl<ProjectProgressMapper, ProjectProgressEntity>
+		implements ProjectProgressService {
 	@Autowired
 	private ProjectService projectService;
+
 	@Override
 	public PageResult<ProjectProgressEntity> queryPage(Map<String, Object> params) {
 		Integer pageNum = Integer.valueOf((String) params.get("page"));
@@ -47,22 +49,25 @@ public class ProjectProgressServiceImpl extends ServiceImpl<ProjectProgressMappe
 
 		return new PageResult<ProjectProgressEntity>(p);
 	}
-	
+
 	@Override
 	public ProjectProgressEntity selectOne(ProjectProgressEntity entity) {
 		return this.baseMapper.selectOne(entity);
 	}
-	
+
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean insertOrUpdate(ProjectProgressEntity entity) {
-		ProjectEntity projectEntity = new ProjectEntity();
-		projectEntity.setId(entity.getProjectId());
-		ProjectEntity project = projectService.selectOne(projectEntity);
-		// 设置冗余字段
-		if (null != project) {
-			entity.setName(project.getName());
-			entity.setStandardOnlineTime(project.getStandardOnlineTime());
+		final Long projectId = entity.getProjectId();
+		if (null != projectId) {
+			ProjectEntity projectEntity = new ProjectEntity();
+			projectEntity.setId(entity.getProjectId());
+			ProjectEntity project = projectService.selectOne(projectEntity);
+			// 设置冗余字段
+			if (null != project) {
+				entity.setName(project.getName());
+				entity.setStandardOnlineTime(project.getStandardOnlineTime());
+			}
 		}
 		return super.insertOrUpdate(entity);
 	}
