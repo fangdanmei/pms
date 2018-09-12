@@ -326,13 +326,18 @@ body {
 				</div>
 			</div>
 			
+			<div class="layui-form-item" style="margin-left: 110px;">
+				<button type="button" class="layui-btn" id="xyFile"><i class="layui-icon"></i>选择文件</button> 
+			</div>
+			
 			<div class="layui-form-item layui-form-text" style="margin-top: 30px;">
 				<label class="layui-form-label">补充说明</label>
 				<div class="layui-input-block">
 					<textarea placeholder="请输入补充协议内容说明" class="layui-textarea" name="desc"></textarea>
 				</div>
 			</div>
-			<div class="layui-form-item" style="margin-top: 80px;margin-left: 150px;">
+			
+			<div class="layui-form-item" style="margin-top: 50px;margin-left: 150px;">
 				<div class="layui-input-block">
 					<button class="layui-btn" id="saveBt" lay-submit="" lay-filter="save">提交</button>
 					<button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -431,12 +436,24 @@ layui.use(['laydate','table','layer','form','upload','element'],function(){
 			title:"添加补充协议",
 	  		type: 1,
 	  		skin: 'layui-layer-molv', //加上边框
-	  		area:['700px','500px'], //宽高
+	  		area:['700px','550px'], //宽高
 	 	 	content: $("#xyBox"),
 	 	 	shadeClose :true,
 	 	 	closeBtn: 2 //0不显示关闭按钮
 		});
 	});
+	
+	
+	//选完文件后不自动上传
+	  upload.render({
+	    elem: '#xyFile'
+	    ,url: '/upload/'
+	    ,auto: false
+	    //,multiple: true
+	    ,done: function(res){
+	      console.log(res)
+	    }
+	  });
 	
 	
 });
