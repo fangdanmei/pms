@@ -92,12 +92,12 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">所属合同</label>
 						<div class="layui-input-inline" style="width: 500px;">
-							<select>
-								<option value="0">请选择</option>
+							<select xm-select="select" xm-select-type="2">
 								<option value="1">北京</option>
 								<option value="2">上海</option>
 								<option value="3">广州</option>
 							</select>
+							<input type="hidden" name="contract" id="contract">
 						</div>
 					</div>
 					
@@ -567,7 +567,7 @@
 					
 					<div class="layui-form-item" style="margin-left: 350px;margin-top: 30px;margin-bottom: 50px">
 						<div class="layui-input-block">
-							<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
+							<button type="button" class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
 						</div>
 					</div>
 				</form>
@@ -751,16 +751,33 @@
 	
 <script type="text/javascript" src="/plugins/layui/layui.js"></script>
 <script>
-var laydate,createTime,table,element,index,upload,form;
-layui.use(['table','laydate','element','upload','form'], function(){
-  var $ = layui.jquery
-  ,upload = layui.upload
-  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-  
-	//引用时间插件
-	laydate = layui.laydate;
+var laydate,createTime,table,element,index,upload,form,formSelects;
+
+layui.config({
+	base: '/js/'
+}).extend({
+	formSelects: 'formSelects-v3'
+});
+
+layui.use(['table','laydate','element','upload','form','formSelects'], function(){
+    var $ = layui.jquery
+    ,upload = layui.upload
+    ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+    formSelects = layui.formSelects;
+    //引用时间插件
+    laydate = layui.laydate;
 	form = layui.form;
   
+	// formSelects.value('select','val')
+	formSelects.render({
+		name:'select',//xm-select的值
+		//init:[1,2,3],初始化值
+		on:function(data,arr){// 监听变化
+			handleVals(arr);
+		}
+	});
+	
+	
 	upload.render({
 	    elem: '#test3'
 	    ,url: '/upload'
@@ -967,7 +984,6 @@ layui.use(['table','laydate','element','upload','form'], function(){
 		return false;
     });
 	
-  
 });
 
 // 文件下载
@@ -984,6 +1000,13 @@ function deleteFile(){
 		yes: function(index){
 		}
 	})
+}
+
+
+function handleVals(arr) {
+	var str = arr.map(function(data){
+		return data.val;
+	}).join(',');
 }
 </script>
 </body>
