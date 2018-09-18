@@ -429,83 +429,19 @@
 			
 			<!-- tab5 -->
 			<div class="layui-tab-item">
-				<form class="layui-form" id="seriesForm" enctype="multipart/form-data">
-					<fieldset class="layui-elem-field layui-field-title"
-						style="margin-top: 30px;border-color: #009688">
-						<legend>项目成员信息</legend>
-					</fieldset>
-					
-					<div class="layui-form-item">
-						<label class="layui-form-label">项目经理</label>
-						<div class="layui-input-block">
-							<input type="text" id="title" name="title" autocomplete="off"
-								placeholder="请输入项目经理" class="layui-input" lay-verify="required">
-						</div>
-					</div>
-					
-					<div class="layui-form-item">
-						<label class="layui-form-label">项目执行</label>
-						<div class="layui-input-block">
-							<input type="text" id="title" name="title" autocomplete="off"
-								placeholder="请输入项目执行" class="layui-input" lay-verify="required">
-						</div>
-					</div>
-					
-					<div class="layui-form-item">
-						<label class="layui-form-label">产品经理</label>
-						<div class="layui-input-block">
-							<input type="text" id="title" name="title" autocomplete="off"
-								placeholder="请输入产品经理" class="layui-input" lay-verify="required">
-						</div>
-					</div>
-					
-					<div class="layui-form-item">
-						<label class="layui-form-label">UI设计师</label>
-						<div class="layui-input-block">
-							<input type="text" id="title" name="title" autocomplete="off"
-								placeholder="请输入UI设计师" class="layui-input" lay-verify="required">
-						</div>
-					</div>
-					
-					<div class="layui-form-item">
-						<label class="layui-form-label">FE前端制作</label>
-						<div class="layui-input-block">
-							<input type="text" id="title" name="title" autocomplete="off"
-								placeholder="请输入FE前端制作" class="layui-input" lay-verify="required">
-						</div>
-					</div>
-					
-					<div class="layui-form-item">
-						<label class="layui-form-label">研发工程师</label>
-						<div class="layui-input-block">
-							<input type="text" id="title" name="title" autocomplete="off"
-								placeholder="请输入研发工程师" class="layui-input" lay-verify="required">
-						</div>
-					</div>
-					
-					
-					<div class="layui-form-item">
-						<label class="layui-form-label">数据录入</label>
-						<div class="layui-input-block">
-							<input type="text" id="title" name="title" autocomplete="off"
-								placeholder="请输入数据录入" class="layui-input" lay-verify="required">
-						</div>
-					</div>
-					
-					<div class="layui-form-item">
-						<label class="layui-form-label">测试工程师</label>
-						<div class="layui-input-block">
-							<input type="text" id="title" name="title" autocomplete="off"
-								placeholder="请输入测试工程师" class="layui-input" lay-verify="required">
-						</div>
-					</div>
-					
-					<div class="layui-form-item" style="margin-left: 350px;margin-top: 30px;margin-bottom: 50px">
-						<div class="layui-input-block">
-							<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
-						</div>
-					</div>
-				</form>
+			
+				<fieldset class="layui-elem-field layui-field-title"
+					style="margin-top: 30px;border-color: #009688">
+					<legend>项目成员管理</legend>
+				</fieldset>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 100px">项目成员</label>
+					<button class="layui-btn layui-btn-small layui-btn-warm" id="addMember" >
+					  <i class="layui-icon">&#xe654;</i>添加
+					</button>
+				</div>
+				<table id="memberTable" class="layui-table" lay-filter="test"></table>
 			</div>
 		</div>
 	</div>
@@ -690,6 +626,47 @@
 			</div>
 		</form>
 	</div>
+	
+	
+	<!-- 添加项目成员弹框 -->
+	<div id="memberBox" style="display: none;padding: 20px;padding-left: 0px;">
+		<form class="layui-form" id="memberForm" >
+			
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">成员角色</label>
+				<div class="layui-input-block">
+					<select>
+						<option value="0">请选择</option>
+						<option value="1">项目经理</option>
+						<option value="2">项目执行</option>
+						<option value="3">产品经理</option>
+						<option value="3">UI设计师</option>
+						<option value="3">FE前端制作</option>
+						<option value="3">研发工程师</option>
+						<option value="3">数据录入</option>
+						<option value="3">测试工程师</option>
+					</select>
+				</div>
+			</div>
+			
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">成员名称</label>
+				<div class="layui-input-block">
+					<input type="text" id="title" name="title" autocomplete="off"
+						placeholder="请输入成员名称" class="layui-input" lay-verify="required">
+				</div>
+			</div>
+			
+			<div class="layui-form-item" style="margin-top: 100px;margin-left: 30px;">
+				<div class="layui-input-block">
+					<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
+					<button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+	</div>
 <script type="text/javascript" src="/plugins/layui/layui.js"></script>
 <script>
 var laydate,createTime,table,element,index,upload,form,formSelects;
@@ -795,6 +772,24 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	});
 	
 	
+	//引入表格
+	table = layui.table;
+	table.render({
+		elem:'#memberTable',
+		url:'',
+		limit: 10,
+		cols:[[
+			{checkbox: true, fixed: true,width:'8%'},
+			{field:'id',title:'ID', width:'12%',align:'center'},
+			{field:'user_name',title:'成员角色',width:'40%',align:'center'},
+			{field:'email',title:'成员名称',align:'center', width:'40%'}
+		]],
+		width:'800',
+		page:true,
+		id:'memberList'
+	});
+	
+	
 	$("#addFx").on('click', function(){
 		index = layer.open({
 			title:"添加风险跟踪",
@@ -827,6 +822,19 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	  		skin: 'layui-layer-molv', //加上边框
 	  		area: ['450px', '450px'], //宽高
 	 	 	content: $("#processBox"),
+	 	 	shadeClose :true,
+	 	 	closeBtn: 2 //0不显示关闭按钮
+		});
+	});
+	
+	
+	$("#addMember").on('click', function(){
+		index = layer.open({
+			title:"添加项目成员",
+	  		type: 1,
+	  		skin: 'layui-layer-molv', //加上边框
+	  		area: ['400px', '420px'], //宽高
+	 	 	content: $("#memberBox"),
 	 	 	shadeClose :true,
 	 	 	closeBtn: 2 //0不显示关闭按钮
 		});
