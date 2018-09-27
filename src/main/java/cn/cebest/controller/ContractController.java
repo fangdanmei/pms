@@ -16,9 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import cn.cebest.entity.Contract;
+import cn.cebest.entity.ContractExtra;
 import cn.cebest.entity.ContractPay;
 import cn.cebest.framework.util.Result;
 import cn.cebest.framework.util.ResultCode;
+import cn.cebest.service.ContractExtraService;
 import cn.cebest.service.ContractPayService;
 import cn.cebest.service.ContractService;
 import cn.cebest.util.PageParam;
@@ -38,6 +40,9 @@ public class ContractController {
 
 	@Autowired
 	private ContractPayService contractPayService;
+	
+	@Autowired
+	private ContractExtraService contractExtraService;
 
 	@ResponseBody
 	@PostMapping("/synch")
@@ -74,6 +79,27 @@ public class ContractController {
 				new Page<ContractPay>(param.getPage(), param.getLimit()),
 				new EntityWrapper<ContractPay>().eq("CONTRACT_ID", contractId));
 		return new PageResult<ContractPay>(pageData);
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/extra/synch")
+	public Result synch(ContractExtra extra, MultipartFile[] file){
+		// 文件上传
+		List<String> fileNames = upload(file);
+		extra.setFileName(fileNames.get(0));
+		contractExtraService.insert(extra);
+		return new Result();
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/extras")
+	public PageResult<ContractExtra> extraList(PageParam param, String contractId) {
+		Page<ContractExtra> pageData = contractExtraService.selectPage(
+				new Page<ContractExtra>(param.getPage(), param.getLimit()),
+				new EntityWrapper<ContractExtra>().eq("CONTRACT_ID", contractId));
+		return new PageResult<ContractExtra>(pageData);
 	}
 
 	/**

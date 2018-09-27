@@ -4,6 +4,13 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ *  支付节点实体类
+  * @author maming  
+  * @date 2018年9月27日
+ */
+
+
 @Setter
 @Getter
 @TableName("CONTRACT_PAY")
