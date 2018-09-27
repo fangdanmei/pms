@@ -1,6 +1,7 @@
 package cn.cebest.util;
 
 import java.util.List;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.github.pagehelper.PageInfo;
 import cn.cebest.framework.util.ResultCode;
 import lombok.Getter;
@@ -34,5 +35,13 @@ public class PageResult<T> {
 		this.msg = PAGE_SUCCESS.getMessage();
 		this.count = pageInfo.getTotal();
 		this.data = pageInfo.getList();
+	}
+	
+	
+	public PageResult(Page<T> page) {
+		this.code = PAGE_SUCCESS.getCode();
+		this.msg = PAGE_SUCCESS.getMessage();
+		this.count = page.getTotal();
+		this.data = page.getRecords();
 	}
 }

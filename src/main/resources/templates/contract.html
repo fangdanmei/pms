@@ -233,7 +233,7 @@ body {
 				  <i class="layui-icon">&#xe654;</i>添加
 				</button>
 			</div>
-			<table id="table" class="layui-table" lay-filter="test"></table>
+			<table id="Paytable" class="layui-table" lay-filter="test"></table>
 	    </div>
 	    
 	    
@@ -263,25 +263,26 @@ body {
 			<div class="layui-form-item">
 				<label class="layui-form-label">回款金额</label>
 				<div class="layui-input-block">
-					<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+					<input type="text" class="layui-input" id="Payamount" name="amount" placeholder="（人民币）/元">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">回款说明</label>
 				<div class="layui-input-block">
-					<input type="text" placeholder="请输入说明" class="layui-input" lay-verify="required">
+					<input type="text" placeholder="请输入说明" class="layui-input" lay-verify="required" id="explain" name="explain">
 				</div>
 			</div>	
 			<div class="layui-form-item">
 				<label class="layui-form-label">是否支付</label>
 				<div class="layui-input-block">
-					<input type="radio" name="sex" value="未支付" title="未支付" checked="checked">
-	      			<input type="radio" name="sex" value="已支付" title="已支付">
+					<input type="radio" name="isPay" value="0" title="未支付" checked="checked">
+	      			<input type="radio" name="isPay" value="1" title="已支付">
 				</div>
 			</div>
 			<div class="layui-form-item" style="margin-top: 30px;">
 				<div class="layui-input-block">
-					<button class="layui-btn" id="saveBt" lay-submit="" lay-filter="save">提交</button>
+					<input type="hidden" id="PaycontractId" name="contractId"/>
+					<button class="layui-btn" id="saveBt" lay-submit="" lay-filter="Paysave">提交</button>
 					<button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>
@@ -353,6 +354,10 @@ body {
 var $,form,table,layer,laydate,upload,element;
 // 创建时间
 var createTime;
+// 合同ID
+var contractId;
+// 弹框索引
+var index;
 layui.use(['laydate','table','layer','form','upload','element'],function(){
 	form = layui.form;
 	$ = layui.$;
@@ -368,24 +373,60 @@ layui.use(['laydate','table','layer','form','upload','element'],function(){
 	
 	// 保存合同
 	form.on('submit(save)', function (data) {
-		var formData = new FormData($("#contractForm")[0]); 
-		$.ajax({
-			type : "post",
-			url : "/contract/synch",
-			data:formData,
-			dataType : "json",
-			processData:false,
-	        contentType:false,
-			success : function(data) {
-				if(data.code == 200){
-					layer.alert('保存成功', {icon: 1});
-				} else {
-					layer.msg(data.message, {time: 5000,shift :6});
+		if(contractId != null && contractId !=''){
+			layer.alert('不能重复提交', {icon: 2});
+			return false;
+		} else {
+			var formData = new FormData($("#contractForm")[0]); 
+			$.ajax({
+				type : "post",
+				url : "/contract/synch",
+				data:formData,
+				dataType : "json",
+				processData:false,
+		        contentType:false,
+				success : function(data) {
+					if(data.code == 200){
+						contractId = data.data.id;
+						$("#PaycontractId").val(contractId);
+						layer.alert('保存成功', {icon: 1});
+					} else {
+						layer.msg(data.message, {time: 5000,shift :6});
+					}
 				}
-			}
-		}); 
-		
-		return false;
+			}); 
+			
+			return false;
+		}
+	});
+	
+	
+	form.on('submit(Paysave)', function (data) {
+		if(contractId != null && contractId !=''){
+			$.ajax({
+				type : "post",
+				url : "/contract/pay/synch",
+				data:$("#payForm").serialize(),
+				dataType : "json",
+				success : function(data) {
+					if(data.code == 200){
+						layer.close(index);
+						table.reload('payList', {
+							where : {
+								contractId : contractId,
+							}
+						});
+					} else {
+						layer.msg(data.message, {time: 5000,shift :6});
+					}
+				}
+			}); 
+			
+			return false;
+		} else {
+			layer.alert('请新建基础信息', {icon: 2});
+			return false;
+		}
 	});
 	
 	upload.render({
@@ -401,19 +442,19 @@ layui.use(['laydate','table','layer','form','upload','element'],function(){
 	//引入表格
 	table = layui.table;
 	table.render({
-		elem:'#table',
-		url:'',
+		elem:'#Paytable',
+		url:'/contract/pays',
 		limit: 10,
 		cols:[[
 			{checkbox: true, fixed: true,width:'4%'},
 			{field:'id',title:'ID', width:'5%',align:'center'},
-			{field:'user_name',title:'金额', width:'10%',align:'center'},
-			{field:'email',title:'回款说明',align:'center'},
-			{field:'phone',title:'是否支付',align:'center'},
+			{field:'amount',title:'金额', width:'10%',align:'center'},
+			{field:'explain',title:'回款说明',align:'center'},
+			{field:'isPay',title:'是否支付',align:'center',templet:'<div>{{d.isPay===1?"已支付":"未支付"}}</div>'},
 			{field:'is_lock',title:'操作',templet:'#lockT', width:'10%',align:'center'}
 		]],
 		page:true,
-		id:'userList'
+		id:'payList'
 	});
 	
 	
