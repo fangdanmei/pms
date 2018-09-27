@@ -51,11 +51,11 @@ body {
 				<legend>基本信息</legend>
 			</fieldset>
 		
-			<form class="layui-form" id="seriesForm" enctype="multipart/form-data">
+			<form class="layui-form" id="contractForm" enctype="multipart/form-data" >
 				<div class="layui-form-item">
 					<label class="layui-form-label">合同名称</label>
 					<div class="layui-input-block">
-						<input type="text" id="title" name="title" autocomplete="off"
+						<input type="text" id="name" name="name" autocomplete="off"
 							placeholder="请输入合同名称" class="layui-input" lay-verify="required">
 					</div>
 				</div>
@@ -64,12 +64,12 @@ body {
 					<div class="layui-form-item" style="padding-left: 50px;">
 						<label class="layui-form-label">姓名</label>
 						<div class="layui-input-inline">
-							<input type="text" id="title" name="title" autocomplete="off"
+							<input type="text" id="contactName" name="contactName" autocomplete="off"
 								placeholder="请输入姓名" class="layui-input" lay-verify="required">
 						</div>
 						<label class="layui-form-label">部门</label>
 						<div class="layui-input-inline">
-							<input type="text" id="title" name="title" autocomplete="off"
+							<input type="text" id="contactDep" name="contactDep" autocomplete="off"
 								placeholder="请输入部门" class="layui-input" lay-verify="required">
 						</div>
 					</div>
@@ -77,12 +77,12 @@ body {
 					<div class="layui-form-item" style="padding-left: 50px;">
 						<label class="layui-form-label">电话</label>
 						<div class="layui-input-inline">
-							<input type="text" id="title" name="title" autocomplete="off"
+							<input type="text" id="contactPhone" name="contactPhone" autocomplete="off"
 								placeholder="请输入电话" class="layui-input" lay-verify="required">
 						</div>
 						<label class="layui-form-label">邮箱</label>
 						<div class="layui-input-inline">
-							<input type="text" id="title" name="title" autocomplete="off"
+							<input type="text" id="contactEmail" name="contactEmail" autocomplete="off"
 								placeholder="请输入邮箱" class="layui-input" lay-verify="required">
 						</div>
 					</div>
@@ -90,12 +90,12 @@ body {
 					<div class="layui-form-item" style="padding-left: 50px;">
 						<label class="layui-form-label">微信</label>
 						<div class="layui-input-inline">
-							<input type="text" id="title" name="title" autocomplete="off"
+							<input type="text" id="contactWechat" name="contactWechat" autocomplete="off"
 								placeholder="请输入微信" class="layui-input" lay-verify="required">
 						</div>
 						<label class="layui-form-label">备注</label>
 						<div class="layui-input-inline">
-							<input type="text" id="title" name="title" autocomplete="off"
+							<input type="text" id="contactRemark" name="contactRemark" autocomplete="off"
 								placeholder="请输入备注" class="layui-input" lay-verify="required">
 						</div>
 					</div>
@@ -109,23 +109,23 @@ body {
 				<div class="layui-form-item">
 					<label class="layui-form-label">合同金额</label>
 					<div class="layui-input-inline">
-						<input type="text" id="title" name="title" autocomplete="off"
+						<input type="text" id="amount" name="amount" autocomplete="off"
 							placeholder="请输入合同金额" class="layui-input" lay-verify="required">
 					</div>
 					<label class="layui-form-label">签署时间</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime">
+						<input type="text" class="layui-input" id="signTime" name="signTime">
 					</div>
 				</div>
 		
 				<div class="layui-form-item">
 					<label class="layui-form-label" style="width: 100px;">现金到账合计</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="account" name="account" placeholder="（人民币）/元">
 					</div>
 					<label class="layui-form-label" style="width: 100px;">应收账款合计</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="receivable" name="receivable" placeholder="（人民币）/元">
 					</div>
 				</div>
 				
@@ -137,61 +137,61 @@ body {
 				<div class="layui-form-item">
 					<label class="layui-form-label">报价金额</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="quotedPrice" name="quotedPrice" placeholder="（人民币）/元">
 					</div>
 					
 					<label class="layui-form-label">折扣后金额</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="discountPrice" name="discountPrice" placeholder="（人民币）/元">
 					</div>
 				</div>
 				
 				<div class="layui-form-item">
 					<label class="layui-form-label">项目管理</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="managePrice"  name="managePrice" placeholder="（人民币）/元">
 					</div>
 					
 					<label class="layui-form-label">设计实施</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="designPrice" name="designPrice" placeholder="（人民币）/元">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">技术实施</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="technicalPrice" name="technicalPrice" placeholder="（人民币）/元">
 					</div>
 					
 					<label class="layui-form-label">其他</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="otherPrice" name="otherPrice" placeholder="（人民币）/元">
 					</div>
 				</div>
 				
 				<div class="layui-form-item">
 					<label class="layui-form-label">中文版小计</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="zhSubtotal" name="zhSubtotal" placeholder="（人民币）/元">
 					</div>
 				</div>
 				
 				<div class="layui-form-item">
 					<label class="layui-form-label">英文版小计</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="enSubtotal" name="enSubtotal" placeholder="（人民币）/元">
 					</div>
 					
 					<label class="layui-form-label" style="width: 120px;">为中文版本比例</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="请输入百分比">
+						<input type="text" class="layui-input" id="percentage" name="percentage" placeholder="请输入百分比">
 					</div>
 				</div>
 				
 				<div class="layui-form-item">
 					<label class="layui-form-label">税费</label>
 					<div class="layui-input-inline">
-						<input type="text" class="layui-input" id="createtime" placeholder="（人民币）/元">
+						<input type="text" class="layui-input" id="taxation" name="taxation" placeholder="（人民币）/元">
 					</div>
 				</div>
 				
@@ -205,7 +205,9 @@ body {
 						<!-- 用于回显上传文件 -->
 					</div>
 					<div class="layui-form-item">
-						<button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>选择文件</button> 
+						<div class="layui-input-inline layui-upload">
+							<button type="button" class="layui-btn" id="upload"><i class="layui-icon"></i>选择文件</button> 
+						</div>
 					</div>
 				</div>
 				
@@ -360,19 +362,38 @@ layui.use(['laydate','table','layer','form','upload','element'],function(){
 	element = layui.element;
 	// 引用时间插件
 	laydate = layui.laydate;
+	laydate.render({
+	    elem: '#signTime' //指定元素
+	});
+	
+	// 保存合同
+	form.on('submit(save)', function (data) {
+		var formData = new FormData($("#contractForm")[0]); 
+		$.ajax({
+			type : "post",
+			url : "/contract/synch",
+			data:formData,
+			dataType : "json",
+			processData:false,
+	        contentType:false,
+			success : function(data) {
+				if(data.code == 200){
+					layer.alert('保存成功', {icon: 1});
+				} else {
+					layer.msg(data.message, {time: 5000,shift :6});
+				}
+			}
+		}); 
+		
+		return false;
+	});
 	
 	upload.render({
-	    elem: '#test3'
-	    ,url: '/upload'
+	    elem: '#upload'
 	    ,accept: 'file' //普通文件
-	    ,done: function(res){
-	      var originalName = res.data.originalName;
-	      var fileName = res.data.fileName;
-	      var fileTH = $("#fileT").html();
-	      fileTH = fileTH.replace("${originalName}",originalName);
-	      fileTH = fileTH.replace("${fileName}",fileName);
-	      $("#fileL").append(fileTH);
-	    }
+	   	,auto: false
+	   	,multiple: true
+	   	,url : "/contract/synch"
 	 });
 	
 	
