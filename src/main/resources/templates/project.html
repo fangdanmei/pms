@@ -368,7 +368,7 @@
 			
 			
 			<!-- tab2 -->
-			<div class="layui-tab-item">
+			<div class="layui-tab-item" id="tab2">
 				<fieldset class="layui-elem-field layui-field-title"
 					style="margin-top: 30px;border-color: #009688">
 					<legend>项目主体实施计划</legend>
@@ -521,15 +521,15 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">项目阶段</label>
 				<div class="layui-input-block">
-					<select>
-						<option value="0">请选择</option>
-						<option value="1">需求阶段</option>
-						<option value="2">UI设计阶段</option>
-						<option value="3">前端制作阶段</option>
-						<option value="3">技术开发阶段</option>
-						<option value="3">测试联调</option>
-						<option value="3">UAT测试阶段</option>
-						<option value="3">项目部署时间</option>
+					<select name="stage">
+						<option value="">请选择</option>
+						<option value="需求阶段">需求阶段</option>
+						<option value="UI设计阶段">UI设计阶段</option>
+						<option value="前端制作阶段">前端制作阶段</option>
+						<option value="技术开发阶段">技术开发阶段</option>
+						<option value="测试联调">测试联调</option>
+						<option value="UAT测试阶段">UAT测试阶段</option>
+						<option value="项目部署时间">项目部署时间</option>
 					</select>
 				</div>
 			</div>
@@ -537,7 +537,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">起始时间</label>
 				<div class="layui-input-block">
-					<input type="text" id="title" name="title" autocomplete="off"
+					<input type="text" id="planStartTime" name="startTime" autocomplete="off"
 						class="layui-input" lay-verify="required">
 				</div>
 			</div>
@@ -545,15 +545,16 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">结束时间</label>
 				<div class="layui-input-block">
-					<input type="text" id="title" name="title" autocomplete="off"
+					<input type="text" id="planEndTime" name="endTime" autocomplete="off"
 						class="layui-input" lay-verify="required">
 				</div>
 			</div>
 			
 			<div class="layui-form-item" style="margin-left: 20px;margin-top: 50px;margin-bottom: 20px">
 				<div class="layui-input-block">
-					<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
-					<button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
+					<input type="hidden" name="projectId" id="planProjectId" />
+					<button class="layui-btn" id="planSave" lay-submit="" lay-filter="planSave">提交</button>
+					<button type="reset" id="planReset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>
 		</form>
@@ -701,6 +702,13 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	    elem: '#certEtime' //指定元素
 	});
 	
+	laydate.render({
+	    elem: '#planStartTime' //指定元素
+	});
+	
+	laydate.render({
+	    elem: '#planEndTime' //指定元素
+	});
   
 	// formSelects.value('select','val')
 	formSelects.render({
@@ -738,14 +746,14 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	table = layui.table;
 	table.render({
 		elem:'#planTable',
-		url:'',
+		url:'/project/plans',
 		limit: 10,
 		cols:[[
 			{checkbox: true, fixed: true,width:'10%'},
 			{field:'id',title:'ID', width:'10%',align:'center'},
-			{field:'user_name',title:'项目阶段', width:'20%',align:'center'},
-			{field:'email',title:'起始时间',align:'center', width:'20%'},
-			{field:'phone',title:'结束时间',align:'center', width:'20%'}
+			{field:'stage',title:'项目阶段', width:'20%',align:'center'},
+			{field:'startTime',title:'起始时间',align:'center', width:'20%'},
+			{field:'endTime',title:'结束时间',align:'center', width:'20%'}
 		]],
 		page:true,
 		width:'800',
@@ -863,7 +871,12 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 				success : function(data) {
 					if(data.code == 200){
 						projectId = data.data.id;
+						$("#planProjectId").val(projectId);
 						layer.alert('保存成功', {icon: 1});
+						$(".layui-tab-item").removeClass("layui-show");
+						$("#tab2").addClass("layui-show");
+						$(".layui-tab-title").find("li").removeClass("layui-this");
+						$(".layui-tab-title").find("li").eq(1).addClass("layui-this");
 					} else {
 						layer.msg(data.message);
 					}
@@ -873,6 +886,37 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 			return false;
 		}
     });
+	
+	
+	// 保存项目计划
+	form.on('submit(planSave)', function (data) {
+		if(projectId != null && projectId !=''){
+			$.ajax({
+				type : "post",
+				url : "/project/plan/synch",
+				data : $("#planForm").serialize(),
+				dataType : "json",
+				success : function(data) {
+					if(data.code == 200){
+						layer.close(index);
+						$("#planReset").click();
+						table.reload('planList', {
+							where : {
+								projectId : projectId,
+							}
+						});
+					} else {
+						layer.msg(data.message);
+					}
+				}
+			}); 
+			
+			return false;
+		} else {
+			layer.alert('请新建基础信息', {icon: 2});
+			return false;
+		}
+	});
 	
 	
 	//选完文件后不自动上传
