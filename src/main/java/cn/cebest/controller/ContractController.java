@@ -72,6 +72,8 @@ public class ContractController {
 		return new Result();
 	}
 
+	
+	
 	@ResponseBody
 	@GetMapping("/pays")
 	public PageResult<ContractPay> list(PageParam param, String contractId) {
