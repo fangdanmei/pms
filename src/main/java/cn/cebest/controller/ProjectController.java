@@ -3,31 +3,38 @@ package cn.cebest.controller;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import cn.cebest.entity.Contract;
 import cn.cebest.entity.Project;
 import cn.cebest.entity.ProjectContract;
 import cn.cebest.entity.ProjectPlan;
+import cn.cebest.entity.ProjectProgress;
 import cn.cebest.framework.util.Result;
 import cn.cebest.framework.util.ResultCode;
 import cn.cebest.service.ContractService;
 import cn.cebest.service.ProjectService;
+import cn.cebest.util.FileUtil;
 import cn.cebest.util.PageParam;
 import cn.cebest.util.PageResult;
 import cn.cebest.service.ProjectContractService;
 import cn.cebest.service.ProjectPlanService;
+import cn.cebest.service.ProjectProgressService;
 
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
 
+	@Value("${file.upload.path}")
+	private String path;
 	
 	@Autowired
 	private ProjectService projectService;
@@ -40,6 +47,9 @@ public class ProjectController {
 	
 	@Autowired
 	private ProjectPlanService projectPlanService;
+	
+	@Autowired
+	private ProjectProgressService projectProgressService;
 	
 	@GetMapping("")
 	public String index(ModelMap model){
@@ -86,5 +96,27 @@ public class ProjectController {
 				new Page<ProjectPlan>(param.getPage(), param.getLimit()),
 				new EntityWrapper<ProjectPlan>().eq("PROJECT_ID", projectId));
 		return new PageResult<ProjectPlan>(pageData);
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/progress/synch")
+	public Result progressSynch(ProjectProgress progress,  MultipartFile[] file){
+		// 文件上传
+		List<String> fileNames = FileUtil.upload(file, path);
+		progress.setFileName(fileNames.get(0));
+		progress.setOriginName(file[0].getOriginalFilename());
+		projectProgressService.insert(progress);
+		return new Result();
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/progress")
+	public PageResult<ProjectProgress> progressList(PageParam param, String projectId) {
+		Page<ProjectProgress> pageData = projectProgressService.selectPage(
+				new Page<ProjectProgress>(param.getPage(), param.getLimit()),
+				new EntityWrapper<ProjectProgress>().eq("PROJECT_ID", projectId));
+		return new PageResult<ProjectProgress>(pageData);
 	}
 }

@@ -1,9 +1,5 @@
 package cn.cebest.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,11 +19,10 @@ import cn.cebest.framework.util.ResultCode;
 import cn.cebest.service.ContractExtraService;
 import cn.cebest.service.ContractPayService;
 import cn.cebest.service.ContractService;
+import cn.cebest.util.FileUtil;
 import cn.cebest.util.PageParam;
 import cn.cebest.util.PageResult;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequestMapping("/contract")
 public class ContractController {
@@ -48,7 +43,7 @@ public class ContractController {
 	@PostMapping("/synch")
 	public Result synch(Contract contract, MultipartFile[] file) {
 		// 文件上传
-		List<String> fileNames = upload(file);
+		List<String> fileNames = FileUtil.upload(file, path);
 		if (fileNames != null && !fileNames.isEmpty()) {
 			if (fileNames.size() == 1) {
 				contract.setFileName(fileNames.get(0));
@@ -88,7 +83,7 @@ public class ContractController {
 	@PostMapping("/extra/synch")
 	public Result synch(ContractExtra extra, MultipartFile[] file){
 		// 文件上传
-		List<String> fileNames = upload(file);
+		List<String> fileNames = FileUtil.upload(file, path);
 		extra.setFileName(fileNames.get(0));
 		contractExtraService.insert(extra);
 		return new Result();
@@ -104,37 +99,5 @@ public class ContractController {
 		return new PageResult<ContractExtra>(pageData);
 	}
 
-	/**
-	 * 文件上传
-	 * @param files
-	 * @return
-	 */
-	public List<String> upload(MultipartFile[] files) {
-
-		List<String> result = new ArrayList<>();
-		try {
-			if (files.length > 0) {
-				for (MultipartFile file : files) {
-					String[] strs = file.getOriginalFilename().split("\\.");
-					// 组装文件名
-					String fileName = new Date().getTime() + "." + strs[strs.length - 1];
-					File targetFile = new File(path);
-
-					if (!targetFile.exists()) {
-						targetFile.mkdirs();
-					}
-					FileOutputStream out = new FileOutputStream(path + fileName);
-					out.write(file.getBytes());
-					out.flush();
-					out.close();
-					// 添加文件名
-					result.add(fileName);
-				}
-			}
-		} catch (Exception e) {
-			log.error("文件上传异常", e);
-		}
-
-		return result;
-	}
+	
 }
