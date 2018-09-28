@@ -28,7 +28,7 @@
 		<div class="layui-tab-content">
 			<!-- tab1 -->
 			<div class="layui-tab-item layui-show">
-				<form class="layui-form" id="baseForm" enctype="multipart/form-data">
+				<form class="layui-form" id="baseForm">
 					<fieldset class="layui-elem-field layui-field-title"
 						style="margin-top: 30px;border-color: #009688">
 						<legend>项目基础信息</legend>
@@ -53,12 +53,12 @@
 						<div class="layui-form-item" style="padding-left: 50px;">
 							<label class="layui-form-label">姓名</label>
 							<div class="layui-input-inline">
-								<input type="text" id="contactsName" name="contactsName" autocomplete="off"
+								<input type="text" id="contactName" name="contactName" autocomplete="off"
 									placeholder="请输入姓名" class="layui-input" lay-verify="required" value="#(project.contactsName ??)">
 							</div>
 							<label class="layui-form-label">部门</label>
 							<div class="layui-input-inline">
-								<input type="text" id="contactsDep" name="contactsDep" autocomplete="off"
+								<input type="text" id="contactDep" name="contactDep" autocomplete="off"
 									placeholder="请输入部门" class="layui-input" lay-verify="required" value="#(project.contactsDep ??)">
 							</div>
 						</div>
@@ -66,12 +66,12 @@
 						<div class="layui-form-item" style="padding-left: 50px;">
 							<label class="layui-form-label">电话</label>
 							<div class="layui-input-inline">
-								<input type="text" id="contactsPhone" name="contactsPhone" autocomplete="off"
+								<input type="text" id="contactPhone" name="contactPhone" autocomplete="off"
 									placeholder="请输入电话" class="layui-input" lay-verify="required" value="#(project.contactsPhone ??)">
 							</div>
 							<label class="layui-form-label">邮箱</label>
 							<div class="layui-input-inline">
-								<input type="text" id="contactsEmail" name="contactsEmail" autocomplete="off"
+								<input type="text" id="contactEmail" name="contactEmail" autocomplete="off"
 									placeholder="请输入邮箱" class="layui-input" lay-verify="required" value="#(project.contactsEmail ??)">
 							</div>
 						</div>
@@ -79,12 +79,12 @@
 						<div class="layui-form-item" style="padding-left: 50px;">
 							<label class="layui-form-label">微信</label>
 							<div class="layui-input-inline">
-								<input type="text" id="contactsWechat" name="contactsWechat" autocomplete="off"
+								<input type="text" id="contactWechat" name="contactWechat" autocomplete="off"
 									placeholder="请输入微信" class="layui-input" lay-verify="required" value="#(project.contactsWechat ??)">
 							</div>
 							<label class="layui-form-label">备注</label>
 							<div class="layui-input-inline">
-								<input type="text" id="contactsRemarks" name="contactsRemarks" autocomplete="off"
+								<input type="text" id="contactRemark" name="contactRemark" autocomplete="off"
 									placeholder="请输入备注" class="layui-input" lay-verify="required" value="#(project.contactsRemarks ??)">
 							</div>
 						</div>
@@ -98,14 +98,14 @@
 								<option value="2">上海</option>
 								<option value="3">广州</option>
 							</select>
-							<input type="hidden" name="contract" id="contract">
+							<input type="hidden" name="contractIds" id="contractIds">
 						</div>
 					</div>
 					
 					<div class="layui-form-item">
 						<label class="layui-form-label">所属区域</label>
 						<div class="layui-input-inline">
-							<select name="place">
+							<select name="area">
 								<option value="">请选择</option>
 								#if(project.place ?? == '北京')
 									<option value="北京" selected="selected">北京</option>
@@ -127,27 +127,27 @@
 						
 						<label class="layui-form-label">项目类型</label>
 						<div class="layui-input-inline">
-							<select name="type">
+							<select name="projectType">
 								<option value="">请选择</option>
-								#if(project.type ?? == '官网')
+								#if(project.projectType ?? == '官网')
 									<option value="官网" selected="selected">官网</option>
 									#else
 									<option value="官网">官网</option>
 								#end
 								
-								#if(project.type ?? == 'APP')
+								#if(project.projectType ?? == 'APP')
 									<option value="APP" selected="selected">APP</option>
 									#else
 									<option value="APP">APP</option>
 								#end
 								
-								#if(project.type ?? == 'H5')
+								#if(project.projectType ?? == 'H5')
 									<option value="H5" selected="selected">H5</option>
 									#else
 									<option value="H5">H5</option>
 								#end
 								
-								#if(project.type ?? == '小程序')
+								#if(project.projectType ?? == '小程序')
 									<option value="小程序" selected="selected">小程序</option>
 									#else
 									<option value="小程序">小程序</option>
@@ -160,28 +160,28 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">生产方式</label>
 						<div class="layui-input-inline">
-							<select name="productionMode">
+							<select name="productType">
 								<option value="">请选择</option>
 								
-								#if(project.productionMode ?? == '定制')
+								#if(project.productType ?? == '定制')
 									<option value="定制" selected="selected">定制</option>
 									#else
 									<option value="定制">定制</option>
 								#end
 								
-								#if(project.productionMode ?? == 'CMS')
+								#if(project.productType ?? == 'CMS')
 									<option value="CMS" selected="selected">CMS</option>
 									#else
 									<option value="CMS">CMS</option>
 								#end
 								
-								#if(project.productionMode ?? == '中台')
+								#if(project.productType ?? == '中台')
 									<option value="中台" selected="selected">中台</option>
 									#else
 									<option value="中台">中台</option>
 								#end
 								
-								#if(project.productionMode ?? == '外包')
+								#if(project.productType ?? == '外包')
 									<option value="外包" selected="selected">外包</option>
 									#else
 									<option value="外包">外包</option>
@@ -200,14 +200,14 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">基准上线时间</label>
 						<div class="layui-input-inline">
-							<input type="text" id="onlineTime" name="standardOnlineTime" autocomplete="off"
-									 class="layui-input" lay-verify="required" value="#(project.standardOnlineTime ??)">
+							<input type="text" id="onlineTime" name="onlineTime" autocomplete="off"
+									 class="layui-input" lay-verify="required" value="#(project.onlineTime ??)">
 						</div>
 						
 						<label class="layui-form-label">域名</label>
 						<div class="layui-input-inline">
-							<input style="width: 300px;" type="text" id="domainName" name="domainName" autocomplete="off"
-									placeholder="请输入域名" class="layui-input" lay-verify="required" value="#(project.domainName??)">
+							<input style="width: 300px;" type="text" id="domain" name="domain" autocomplete="off"
+									placeholder="请输入域名" class="layui-input" lay-verify="required" value="#(project.domain??)">
 						</div>
 					</div>
 					
@@ -215,19 +215,19 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">部署方式</label>
 						<div class="layui-input-inline">
-							<select name="deployMode">
+							<select name="deployType">
 								<option value="">请选择</option>
-								#if(project.deployMode ?? == '独立部署')
+								#if(project.deployType ?? == '独立部署')
 									<option value="独立部署" selected="selected">独立部署</option>
 									#else
 									<option value="独立部署">独立部署</option>
 								#end
-								#if(project.deployMode ?? == '云部署')
+								#if(project.deployType ?? == '云部署')
 									<option value="云部署" selected="selected">云部署</option>
 									#else
 									<option value="云部署">云部署</option>
 								#end
-								#if(project.deployMode ?? == '中企云')
+								#if(project.deployType ?? == '中企云')
 									<option value="中企云" selected="selected">中企云</option>
 									#else
 									<option value="中企云">中企云</option>
@@ -237,8 +237,8 @@
 						
 						<label class="layui-form-label">说明</label>
 						<div class="layui-input-inline">
-							<input style="width: 300px;" type="text" id="deployModeDescription" name="deployModeDescription" autocomplete="off"
-									placeholder="请输入补充说明" class="layui-input" lay-verify="required" value="#(project.deployModeDescription ??)">
+							<input style="width: 300px;" type="text" id="explain" name="explain" autocomplete="off"
+									placeholder="请输入补充说明" class="layui-input" lay-verify="required" value="#(project.explain ??)">
 						</div>
 					</div>
 					
@@ -251,24 +251,24 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">项目进度</label>
 						<div class="layui-input-block">
-							<input type="radio" name="process" value="需求" title="需求" checked="checked">
-			      			<input type="radio" name="process" value="UI设计" title="UI设计">
-			      			<input type="radio" name="process" value="前端制作" title="前端制作">
-			      			<input type="radio" name="process" value="技术开发" title="技术开发">
-			      			<input type="radio" name="process" value="UAT测试" title="UAT测试">
-			      			<input type="radio" name="process" value="部署上线" title="部署上线">
+							<input type="radio" name="progress" value="需求" title="需求" checked="checked">
+			      			<input type="radio" name="progress" value="UI设计" title="UI设计">
+			      			<input type="radio" name="progress" value="前端制作" title="前端制作">
+			      			<input type="radio" name="progress" value="技术开发" title="技术开发">
+			      			<input type="radio" name="progress" value="UAT测试" title="UAT测试">
+			      			<input type="radio" name="progress" value="部署上线" title="部署上线">
 						</div>
 					</div>
 					
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">项目开始时间</label>
 						<div class="layui-input-inline">
-							<input type="text" id="ppsTime" name="psTime" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="startTime" name="startTime" autocomplete="off" class="layui-input" lay-verify="required">
 						</div>
 						
 						<label class="layui-form-label">里程碑进度</label>
 						<div class="layui-input-inline">
-							<input type="text" id="title" name="title" autocomplete="off"
+							<input type="text" id="milepostProgress" name="milepostProgress" autocomplete="off"
 									placeholder="请输入里程碑进度" class="layui-input" lay-verify="required">
 						</div>
 					</div>
@@ -277,20 +277,20 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">项目状态</label>
 						<div class="layui-input-inline">
-							<select>
-								<option value="0">请选择</option>
-								<option value="1">正常</option>
-								<option value="2">延期</option>
-								<option value="3">提前</option>
-								<option value="3">暂停</option>
-								<option value="3">终止</option>
-								<option value="3">已完成</option>
+							<select name="projectState">
+								<option value="">请选择</option>
+								<option value="正常">正常</option>
+								<option value="延期">延期</option>
+								<option value="提前">提前</option>
+								<option value="暂停">暂停</option>
+								<option value="终止">终止</option>
+								<option value="已完成">已完成</option>
 							</select>
 						</div>
 						
 						<label class="layui-form-label" style="width: 85px;">项目延期天数</label>
 						<div class="layui-input-inline">
-							<input type="text" id="title" name="title" autocomplete="off"
+							<input type="text" id="delay" name="delay" autocomplete="off"
 									placeholder="请输入延期天数" class="layui-input" lay-verify="required">
 						</div>
 					</div>
@@ -299,17 +299,17 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label"  style="width: 85px;">项目并行情况</label>
 						<div class="layui-input-inline">
-							<select>
-								<option value="0">请选择</option>
-								<option value="1">UI与制作并行</option>
-								<option value="2">制作与后台开发并行</option>
-								<option value="3">设计与后台开发并行</option>
+							<select name="parallel">
+								<option value="">请选择</option>
+								<option value="UI与制作并行">UI与制作并行</option>
+								<option value="制作与后台开发并行">制作与后台开发并行</option>
+								<option value="设计与后台开发并行">设计与后台开发并行</option>
 							</select>
 						</div>
 						
 						<label class="layui-form-label">补充说明</label>
 						<div class="layui-input-inline">
-							<input  style="width: 500px;" type="text" id="title" name="title" autocomplete="off"
+							<input  style="width: 500px;" type="progressExplain" id="progressExplain" name="title" autocomplete="off"
 									placeholder="请输入补充说明" class="layui-input" lay-verify="required">
 						</div>
 					</div>
@@ -317,21 +317,7 @@
 					<div class="layui-form-item layui-form-text">
 						<label class="layui-form-label"  style="width: 85px">当前任务描述</label>
 						<div class="layui-input-block">
-							<textarea  style="width: 66%" placeholder="请输入当前任务描述" class="layui-textarea" name="desc"></textarea>
-						</div>
-					</div>
-					
-					
-					<div class="layui-form-item">
-						<label class="layui-form-label" style="width: 85px;">项目开始时间</label>
-						<div class="layui-input-inline">
-							<input type="text" id="psTime" name="startTime" autocomplete="off" class="layui-input" lay-verify="required" value="#(project.startTime ??)">
-						</div>
-						
-						<label class="layui-form-label">实际工期</label>
-						<div class="layui-input-inline">
-							<input type="text" id="actualTimeLimit" name="actualTimeLimit" autocomplete="off"
-									placeholder="工作日" class="layui-input" lay-verify="required" value="#(project.actualTimeLimit ??)">
+							<textarea  style="width: 66%" placeholder="请输入当前任务描述" class="layui-textarea" name="taskDesc"></textarea>
 						</div>
 					</div>
 					
@@ -339,10 +325,15 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">整体验收时间</label>
 						<div class="layui-input-inline">
-							<input type="text" id="ztysTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="acceptTime" name="acceptTime" autocomplete="off" class="layui-input" lay-verify="required">
+						</div>
+						
+						<label class="layui-form-label">实际工期</label>
+						<div class="layui-input-inline">
+							<input type="text" id="actualDay" name="actualDay" autocomplete="off"
+									placeholder="工作日" class="layui-input" lay-verify="required" value="#(project.actualDay ??)">
 						</div>
 					</div>
-					
 					
 					<fieldset class="layui-elem-field layui-field-title"
 						style="margin-top: 30px;border-color: #009688">
@@ -352,17 +343,17 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label" style="width: 85px;">证书开始时间</label>
 						<div class="layui-input-inline">
-							<input type="text" id="bssTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="certStime" name="certStime" autocomplete="off" class="layui-input" lay-verify="required">
 						</div>
 						
 						<label class="layui-form-label" style="width: 85px;">证书结束时间</label>
 						<div class="layui-input-inline">
-							<input type="text" id="bseTime" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+							<input type="text" id="certEtime" name="certEtime" autocomplete="off" class="layui-input" lay-verify="required">
 						</div>
 						
 						<label class="layui-form-label">工作日</label>
 						<div class="layui-input-inline">
-							<input placeholder="工作日" type="text" id="title" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+							<input placeholder="工作日" type="text" id="certDays" name="certDays" autocomplete="off" class="layui-input" lay-verify="required">
 						</div>
 					</div>
 					
@@ -685,6 +676,27 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
     //引用时间插件
     laydate = layui.laydate;
 	form = layui.form;
+	
+	laydate.render({
+	    elem: '#onlineTime' //指定元素
+	});
+	
+	laydate.render({
+	    elem: '#startTime' //指定元素
+	});
+	
+	laydate.render({
+	    elem: '#acceptTime' //指定元素
+	});
+	
+	laydate.render({
+	    elem: '#certStime' //指定元素
+	});
+	
+	laydate.render({
+	    elem: '#certEtime' //指定元素
+	});
+	
   
 	// formSelects.value('select','val')
 	formSelects.render({
@@ -695,20 +707,6 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 		}
 	});
 	
-	
-	upload.render({
-	    elem: '#test3'
-	    ,url: '/upload'
-	    ,accept: 'file' //普通文件
-	    ,done: function(res){
-	      var originalName = res.data.originalName;
-	      var fileName = res.data.fileName;
-	      var fileTH = $("#fileT").html();
-	      fileTH = fileTH.replace("${originalName}",originalName);
-	      fileTH = fileTH.replace("${fileName}",fileName);
-	      $("#fileL").append(fileTH);
-	    }
-	  });
   
 	//引入表格
 	table = layui.table;
@@ -842,17 +840,14 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	
 	
 	form.on('submit(projectSave)', function (data) {
-    	var formData = new FormData($("#baseForm")[0]); 
 		$.ajax({
 			type : "post",
-			url : "/project/insertOrUpdate",
-			data:formData,
+			url : "/project/synch",
+			data : $("#baseForm").serialize(),
 			dataType : "json",
-			processData:false,
-	        contentType:false,
 			success : function(data) {
 				if(data.code == 200){
-					layer.msg("保存成功");
+					layer.alert('保存成功', {icon: 1});
 				} else {
 					layer.msg(data.message);
 				}
