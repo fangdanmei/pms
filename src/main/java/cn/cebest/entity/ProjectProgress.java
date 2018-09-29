@@ -35,9 +35,9 @@ public class ProjectProgress extends Model<ProjectProgress>{
 	
 	private String originName;
 	
-	private String createTime;
+	private Date createTime;
 	
-	private String updateTime;
+	private Date updateTime;
 
 	@Override
 	protected Serializable pkVal() {

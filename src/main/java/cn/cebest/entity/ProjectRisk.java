@@ -7,6 +7,12 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/**
+ *  项目风险实体类
+  * @author maming  
+  * @date 2018年9月29日
+ */
 @Setter
 @Getter
 @TableName("PROJECT_RISK")

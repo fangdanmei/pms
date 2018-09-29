@@ -1,6 +1,7 @@
 package cn.cebest.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Getter;
@@ -37,7 +38,7 @@ public class Contract extends Model<Contract>{
 	
 	private Double amount;
 	
-	private String signTime;
+	private Date signTime;
 	
 	private Double account;
 	
@@ -65,9 +66,9 @@ public class Contract extends Model<Contract>{
 	
 	private String fileName;
 	
-	private String createTime;
+	private Date createTime;
 	
-	private String updateTime;
+	private Date updateTime;
 
 	@Override
 	protected Serializable pkVal() {

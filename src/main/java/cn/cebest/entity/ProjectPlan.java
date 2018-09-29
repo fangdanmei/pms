@@ -1,5 +1,6 @@
 package cn.cebest.entity;
 
+import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,11 +21,11 @@ public class ProjectPlan {
 	
 	private String stage;
 	
-	private String startTime;
+	private Date startTime;
 	
-	private String endTime;
+	private Date endTime;
 	
-	private String createTime;
+	private Date createTime;
 	
-	private String updateTime;
+	private Date updateTime;
 }

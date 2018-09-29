@@ -1,5 +1,6 @@
 package cn.cebest.entity;
 
+import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +36,7 @@ public class ContractExtra {
 
 	private String remark;
 
-	private String createTime;
+	private Date createTime;
 
-	private String updateTime;
+	private Date updateTime;
 }

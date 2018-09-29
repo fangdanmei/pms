@@ -1,6 +1,8 @@
 package cn.cebest.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -49,7 +51,7 @@ public class Project extends Model<Project>{
 	
 	private Integer timeLimit;
 	
-	private String onlineTime;
+	private Date onlineTime;
 	
 	private String domain;
 	
@@ -59,7 +61,7 @@ public class Project extends Model<Project>{
 	
 	private String progress;
 	
-	private String startTime;
+	private Date startTime;
 	
 	private String milepostProgress;
 	
@@ -73,19 +75,19 @@ public class Project extends Model<Project>{
 	
 	private String taskDesc;
 	
-	private String acceptTime;
+	private Date acceptTime;
 	
 	private Integer actualDay;
 	
-	private String certStime;
+	private Date certStime;
 	
-	private String certEtime;
+	private Date certEtime;
 	
 	private Integer certDays;
 	
-	private String createTime;
+	private Date createTime;
 	
-	private String endTime;
+	private Date endTime;
 
 	@Override
 	protected Serializable pkVal() {
