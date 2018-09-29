@@ -133,7 +133,7 @@
 					var field = {
 							"title": "项目管理",
 							"icon": "&#xe615;",
-							"href": "/project/selectById?id=" + data.projectId
+							"href": "/project/" + data.id
 						};
 					window.parent.addLab(field);
 					
@@ -169,26 +169,6 @@
 			form.on('select(state)',function(data){
 				// 调用重新加载
 				reload();
-			});
-			
-			
-			
-			//监听启用操作
-			form.on('checkbox(lockBox)', function(obj) {
-				var othis = obj.othis;
-				var check = obj.elem.checked ? 0 : 1;
-				if (this.value != check) {
-					$.post('/user/lockOrUnlock', {
-						"userId" : $(this).attr('data'),
-						"isLock" : check
-					}, function(data) {
-						if (data.code === 200) {
-							layer.msg('操作成功');
-							// 调用重新加载
-							reload();
-						}
-					});
-				}
 			});
 			
 		});

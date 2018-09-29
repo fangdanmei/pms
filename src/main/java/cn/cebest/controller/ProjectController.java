@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,6 +71,15 @@ public class ProjectController {
 		model.put("contracts", contracts);
 		return "/project";
 	}
+	
+	
+	@GetMapping("/{projectId:\\d+}")
+	public String detail(@PathVariable("projectId") Integer id, ModelMap model){
+		Project project = projectService.selectById(id);
+		model.put("project", project);
+		return "/project";
+	}
+	
 
 	@ResponseBody
 	@GetMapping("/list")

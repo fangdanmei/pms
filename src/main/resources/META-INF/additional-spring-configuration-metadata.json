@@ -7,6 +7,11 @@
   {
     "name": "file.upload.path",
     "type": "java.lang.String",
-    "description": "file.upload.path'"
+    "description": "文件上传路径"
+  },
+  {
+    "name": "gc.template.classnames",
+    "type": "java.lang.String",
+    "description": "jfinal模板扩展"
   }
 ]}

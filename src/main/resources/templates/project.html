@@ -201,7 +201,7 @@
 						<label class="layui-form-label" style="width: 85px;">基准上线时间</label>
 						<div class="layui-input-inline">
 							<input type="text" id="onlineTime" name="onlineTime" autocomplete="off"
-									 class="layui-input" lay-verify="required" value="#(project.onlineTime ??)">
+									 class="layui-input" lay-verify="required" value="#(df.dateFormat(project.onlineTime ??))">
 						</div>
 						
 						<label class="layui-form-label">域名</label>
@@ -684,6 +684,8 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
     //引用时间插件
     laydate = layui.laydate;
 	form = layui.form;
+	
+	var projectId = '#(project.id)';
 	
 	laydate.render({
 	    elem: '#onlineTime' //指定元素
