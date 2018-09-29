@@ -77,6 +77,8 @@ public class ProjectController {
 	public String detail(@PathVariable("projectId") Integer id, ModelMap model){
 		Project project = projectService.selectById(id);
 		model.put("project", project);
+		List<Contract> contracts = contractService.selectList(null);
+		model.put("contracts", contracts);
 		return "/project";
 	}
 	
@@ -101,7 +103,7 @@ public class ProjectController {
 	public Result synch(Project project) {
 
 		// 保存项目基本信息
-		projectService.insert(project);
+		projectService.insertOrUpdate(project);
 		String[] contractIds = project.getContractIds().split(",");
 		List<ProjectContract> list = new ArrayList<>(contractIds.length);
 		for (String contractId : contractIds) {
