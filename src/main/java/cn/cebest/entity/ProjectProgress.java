@@ -1,6 +1,7 @@
 package cn.cebest.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Getter;
@@ -24,9 +25,9 @@ public class ProjectProgress extends Model<ProjectProgress>{
 	
 	private String stage;
 	
-	private String startTime;
+	private Date startTime;
 	
-	private String endTime;
+	private Date endTime;
 	
 	private Integer actualDay;
 	
