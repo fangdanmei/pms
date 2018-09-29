@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import cn.cebest.entity.Contract;
 import cn.cebest.entity.Project;
 import cn.cebest.entity.ProjectContract;
+import cn.cebest.entity.ProjectMember;
 import cn.cebest.entity.ProjectPlan;
 import cn.cebest.entity.ProjectProgress;
 import cn.cebest.entity.ProjectRisk;
@@ -27,6 +28,7 @@ import cn.cebest.util.FileUtil;
 import cn.cebest.util.PageParam;
 import cn.cebest.util.PageResult;
 import cn.cebest.service.ProjectContractService;
+import cn.cebest.service.ProjectMemberService;
 import cn.cebest.service.ProjectPlanService;
 import cn.cebest.service.ProjectProgressService;
 import cn.cebest.service.ProjectRiskService;
@@ -55,6 +57,9 @@ public class ProjectController {
 	
 	@Autowired
 	private ProjectRiskService projectRiskService;
+	
+	@Autowired
+	private ProjectMemberService projectMemberService;
 	
 	@GetMapping("")
 	public String index(ModelMap model){
@@ -143,6 +148,24 @@ public class ProjectController {
 		return new PageResult<ProjectRisk>(pageData);
 	}
 
+
+	
+	@ResponseBody
+	@PostMapping("/member/synch")
+	public Result memberSynch(ProjectMember member){
+		projectMemberService.insert(member);
+		return new Result();
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/members")
+	public PageResult<ProjectMember> memberList(PageParam param, String projectId) {
+		Page<ProjectMember> pageData = projectMemberService.selectPage(
+				new Page<ProjectMember>(param.getPage(), param.getLimit()),
+				new EntityWrapper<ProjectMember>().eq("PROJECT_ID", projectId));
+		return new PageResult<ProjectMember>(pageData);
+	}
 
 
 }

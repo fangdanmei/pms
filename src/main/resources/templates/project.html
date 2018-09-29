@@ -630,16 +630,16 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">成员角色</label>
 				<div class="layui-input-block">
-					<select>
-						<option value="0">请选择</option>
-						<option value="1">项目经理</option>
-						<option value="2">项目执行</option>
-						<option value="3">产品经理</option>
-						<option value="3">UI设计师</option>
-						<option value="3">FE前端制作</option>
-						<option value="3">研发工程师</option>
-						<option value="3">数据录入</option>
-						<option value="3">测试工程师</option>
+					<select name="role">
+						<option value="">请选择</option>
+						<option value="项目经理">项目经理</option>
+						<option value="项目执行">项目执行</option>
+						<option value="产品经理">产品经理</option>
+						<option value="UI设计师">UI设计师</option>
+						<option value="FE前端制作">FE前端制作</option>
+						<option value="研发工程师">研发工程师</option>
+						<option value="数据录入">数据录入</option>
+						<option value="测试工程师">测试工程师</option>
 					</select>
 				</div>
 			</div>
@@ -648,15 +648,16 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">成员名称</label>
 				<div class="layui-input-block">
-					<input type="text" id="title" name="title" autocomplete="off"
+					<input type="text" id="name" name="name" autocomplete="off"
 						placeholder="请输入成员名称" class="layui-input" lay-verify="required">
 				</div>
 			</div>
 			
 			<div class="layui-form-item" style="margin-top: 100px;margin-left: 30px;">
 				<div class="layui-input-block">
-					<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
-					<button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
+					<input type="hidden" name="projectId" id="memberProjectId" />
+					<button class="layui-btn" id="memberSave" lay-submit="" lay-filter="memberSave">提交</button>
+					<button type="reset" id="memberReset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>
 		</form>
@@ -796,13 +797,13 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	table = layui.table;
 	table.render({
 		elem:'#memberTable',
-		url:'',
+		url:'/project/members',
 		limit: 10,
 		cols:[[
 			{checkbox: true, fixed: true,width:'8%'},
 			{field:'id',title:'ID', width:'12%',align:'center'},
-			{field:'user_name',title:'成员角色',width:'40%',align:'center'},
-			{field:'email',title:'成员名称',align:'center', width:'40%'}
+			{field:'role',title:'成员角色',width:'40%',align:'center'},
+			{field:'name',title:'成员名称',align:'center', width:'40%'}
 		]],
 		width:'800',
 		page:true,
@@ -884,6 +885,7 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 						$("#planProjectId").val(projectId);
 						$("#progressProjectId").val(projectId);
 						$("#riskProjectId").val(projectId);
+						$("#memberProjectId").val(projectId);
 						layer.alert('保存成功', {icon: 1});
 						$(".layui-tab-item").removeClass("layui-show");
 						$("#tab2").addClass("layui-show");
@@ -997,6 +999,36 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	});
 	
 	
+	// 保存项目成员
+	form.on('submit(memberSave)', function (data) {
+		if(projectId != null && projectId !=''){
+			$.ajax({
+				type : "post",
+				url : "/project/member/synch",
+				data : $("#memberForm").serialize(),
+				dataType : "json",
+				success : function(data) {
+					if(data.code == 200){
+						layer.close(index);
+						$("#memberReset").click();
+						table.reload('memberList', {
+							where : {
+								projectId : projectId,
+							}
+						});
+					} else {
+						layer.msg(data.message);
+					}
+				}
+			}); 
+			
+			return false;
+		} else {
+			layer.alert('请新建基础信息', {icon: 2});
+			return false;
+		}
+	});
+	
 	//选完文件后不自动上传
 	  upload.render({
 	    elem: '#lcbFile'
@@ -1007,21 +1039,6 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	  });
 	
 });
-
-// 文件下载
-function download(fileName){
-}
-
-
-function deleteFile(){
-	layer.confirm('确认删除?',{
-		icon: 3, 
-		title:'提示',
-		btnAlign: 'c',
-		yes: function(index){
-		}
-	})
-}
 
 
 function handleVals(arr) {
