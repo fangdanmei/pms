@@ -18,6 +18,7 @@ import cn.cebest.entity.Project;
 import cn.cebest.entity.ProjectContract;
 import cn.cebest.entity.ProjectPlan;
 import cn.cebest.entity.ProjectProgress;
+import cn.cebest.entity.ProjectRisk;
 import cn.cebest.framework.util.Result;
 import cn.cebest.framework.util.ResultCode;
 import cn.cebest.service.ContractService;
@@ -28,6 +29,7 @@ import cn.cebest.util.PageResult;
 import cn.cebest.service.ProjectContractService;
 import cn.cebest.service.ProjectPlanService;
 import cn.cebest.service.ProjectProgressService;
+import cn.cebest.service.ProjectRiskService;
 
 @Controller
 @RequestMapping("/project")
@@ -50,6 +52,9 @@ public class ProjectController {
 	
 	@Autowired
 	private ProjectProgressService projectProgressService;
+	
+	@Autowired
+	private ProjectRiskService projectRiskService;
 	
 	@GetMapping("")
 	public String index(ModelMap model){
@@ -119,6 +124,25 @@ public class ProjectController {
 				new EntityWrapper<ProjectProgress>().eq("PROJECT_ID", projectId));
 		return new PageResult<ProjectProgress>(pageData);
 	}
+	
+	
+	@ResponseBody
+	@PostMapping("/risk/synch")
+	public Result riskSynch(ProjectRisk risk){
+		projectRiskService.insert(risk);
+		return new Result();
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/risks")
+	public PageResult<ProjectRisk> riskList(PageParam param, String projectId) {
+		Page<ProjectRisk> pageData = projectRiskService.selectPage(
+				new Page<ProjectRisk>(param.getPage(), param.getLimit()),
+				new EntityWrapper<ProjectRisk>().eq("PROJECT_ID", projectId));
+		return new PageResult<ProjectRisk>(pageData);
+	}
+
 
 
 }

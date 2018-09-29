@@ -414,7 +414,7 @@
 					  <i class="layui-icon">&#xe654;</i>添加
 					</button>
 				</div>
-				<table id="table" class="layui-table" lay-filter="test"></table>
+				<table id="riskTable" class="layui-table" lay-filter="test"></table>
 				
 			</div>
 			
@@ -441,34 +441,34 @@
 	
 	<!-- 添加风险弹框 -->
 	<div id="box" style="display: none;padding: 20px;">
-		<form class="layui-form" id="classForm" enctype="multipart/form-data">
+		<form class="layui-form" id="riskForm" enctype="multipart/form-data">
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">风险描述</label>
 				<div class="layui-input-block">
-					<textarea placeholder="请输入风险描述" class="layui-textarea" name="desc"></textarea>
+					<textarea placeholder="请输入风险描述" class="layui-textarea" name="describe"></textarea>
 				</div>
 			</div>
 			
 			<div class="layui-form-item">
 				<label class="layui-form-label">风险级别</label>
 				<div class="layui-input-inline">
-					<select>
-						<option value="0">请选择</option>
-						<option value="1">低</option>
-						<option value="2">中</option>
-						<option value="3">高</option>
-						<option value="4">极高</option>
+					<select name="level">
+						<option value="">请选择</option>
+						<option value="低">低</option>
+						<option value="中">中</option>
+						<option value="高">高</option>
+						<option value="极高">极高</option>
 					</select>
 				</div>
 				
 				<label class="layui-form-label">发生概率</label>
 				<div class="layui-input-inline">
-					<select>
-						<option value="0">请选择</option>
-						<option value="1">低</option>
-						<option value="2">中</option>
-						<option value="3">高</option>
-						<option value="4">极高</option>
+					<select name="probability">
+						<option value="">请选择</option>
+						<option value="低">低</option>
+						<option value="中">中</option>
+						<option value="高">高</option>
+						<option value="极高">极高</option>
 					</select>
 				</div>
 			</div>
@@ -476,39 +476,40 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">风险状态</label>
 				<div class="layui-input-inline">
-					<select>
-						<option value="0">请选择</option>
-						<option value="1">监控中</option>
-						<option value="2">升级</option>
-						<option value="3">关闭</option>
+					<select name="state">
+						<option value="">请选择</option>
+						<option value="监控中">监控中</option>
+						<option value="升级">升级</option>
+						<option value="关闭">关闭</option>
 					</select>
 				</div>
 				
 				<label class="layui-form-label">跟踪日期</label>
 				<div class="layui-input-inline">
-					<input type="text" id="gzTime" name="title" autocomplete="off"  class="layui-input" lay-verify="required">
+					<input type="text" id="trackTime" name="trackTime" autocomplete="off"  class="layui-input" lay-verify="required">
 				</div>
 			</div>		
 			
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">应对措施</label>
 				<div class="layui-input-block">
-					<textarea placeholder="请输入应对措施" class="layui-textarea" name="desc"></textarea>
+					<textarea placeholder="请输入应对措施" class="layui-textarea" name="measures"></textarea>
 				</div>
 			</div>
 			
 			<div class="layui-form-item">
 				<label class="layui-form-label">责任人</label>
 				<div class="layui-input-block">
-					<input type="text" id="title" name="title" autocomplete="off"
+					<input type="text" id="personLiable" name="personLiable" autocomplete="off"
 						placeholder="请输入责任人" class="layui-input" lay-verify="required">
 				</div>
 			</div>
 			
 			<div class="layui-form-item" style="margin-left: 180px;margin-top: 30px;margin-bottom: 20px">
 				<div class="layui-input-block">
-					<button class="layui-btn" id="save" lay-submit="" lay-filter="save">提交</button>
-					<button type="reset" id="reset" class="layui-btn layui-btn-primary">重置</button>
+					<input type="hidden" name="projectId" id="riskProjectId" />
+					<button class="layui-btn" id="riskSave" lay-submit="" lay-filter="riskSave">提交</button>
+					<button type="reset" id="riskReset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>	
 		</form>
@@ -720,6 +721,10 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	    elem: '#progressEndTime' //指定元素
 	});
 	
+	laydate.render({
+	    elem: '#trackTime' //指定元素
+	});
+	
 	// formSelects.value('select','val')
 	formSelects.render({
 		name:'select',//xm-select的值
@@ -733,22 +738,23 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	//引入表格
 	table = layui.table;
 	table.render({
-		elem:'#table',
-		url:'',
+		elem:'#riskTable',
+		url:'/project/risks',
 		limit: 10,
 		cols:[[
 			{checkbox: true, fixed: true,width:'4%'},
 			{field:'id',title:'ID', width:'5%',align:'center'},
-			{field:'user_name',title:'用户名', width:'10%',align:'center'},
-			{field:'email',title:'邮箱',align:'center'},
-			{field:'phone',title:'手机号',align:'center'},
-			{field:'is_lock',title:'状态',templet:'#lockT', width:'10%',align:'center'},
-			{field:'online',title:'是否在线',templet:'<div>{{d.online===1?"在线":"离线"}}</div>',align:'center'},
-			{field:'create_time',title:'创建时间',width:'15%',align:'center'},
-			{fixed:'right', title:'操作', align:'center', templet: '#handleT'}
+			{field:'describe',title:'风险描述', width:'10%',align:'center'},
+			{field:'level',title:'风险级别',align:'center'},
+			{field:'probability',title:'发生概率',align:'center'},
+			{field:'state',title:'风险状态', width:'10%',align:'center'},
+			{field:'trackTime',title:'跟踪日期',align:'center'},
+			{field:'measures',title:'对应措施',width:'15%',align:'center'},
+			{field:'personLiable',title:'责任人',align:'center'},
+			{fixed:'right', title:'操作', align:'center'}
 		]],
 		page:true,
-		id:'userList'
+		id:'riskList'
 	});
 	
 	table.render({
@@ -877,6 +883,7 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 						projectId = data.data.id;
 						$("#planProjectId").val(projectId);
 						$("#progressProjectId").val(projectId);
+						$("#riskProjectId").val(projectId);
 						layer.alert('保存成功', {icon: 1});
 						$(".layui-tab-item").removeClass("layui-show");
 						$("#tab2").addClass("layui-show");
@@ -940,6 +947,38 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 						layer.close(index);
 						$("#progressReset").click();
 						table.reload('progressList', {
+							where : {
+								projectId : projectId,
+							}
+						});
+					} else {
+						layer.msg(data.message);
+					}
+				}
+			}); 
+			
+			return false;
+		} else {
+			layer.alert('请新建基础信息', {icon: 2});
+			return false;
+		}
+	});
+	
+	
+	
+	// 保存项目风险
+	form.on('submit(riskSave)', function (data) {
+		if(projectId != null && projectId !=''){
+			$.ajax({
+				type : "post",
+				url : "/project/risk/synch",
+				data : $("#riskForm").serialize(),
+				dataType : "json",
+				success : function(data) {
+					if(data.code == 200){
+						layer.close(index);
+						$("#riskReset").click();
+						table.reload('riskList', {
 							where : {
 								projectId : projectId,
 							}
