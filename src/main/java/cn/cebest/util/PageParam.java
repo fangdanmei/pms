@@ -12,4 +12,10 @@ public class PageParam {
 	
 	// 每页显示条数
 	private Integer limit = 10;
+	
+	// 排序字段
+	private String  orderBy;
+	
+	// 升序或降序
+	private String isAsc = "desc";
 }

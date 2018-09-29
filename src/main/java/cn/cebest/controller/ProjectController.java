@@ -2,6 +2,8 @@ package cn.cebest.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import cn.cebest.entity.ProjectProgress;
 import cn.cebest.entity.ProjectRisk;
 import cn.cebest.framework.util.Result;
 import cn.cebest.framework.util.ResultCode;
+import cn.cebest.param.ProjectQuery;
 import cn.cebest.service.ContractService;
 import cn.cebest.service.ProjectService;
 import cn.cebest.util.FileUtil;
@@ -39,40 +42,54 @@ public class ProjectController {
 
 	@Value("${file.upload.path}")
 	private String path;
-	
+
 	@Autowired
 	private ProjectService projectService;
-	
+
 	@Autowired
 	private ContractService contractService;
-	
+
 	@Autowired
 	private ProjectContractService projectContractService;
-	
+
 	@Autowired
 	private ProjectPlanService projectPlanService;
-	
+
 	@Autowired
 	private ProjectProgressService projectProgressService;
-	
+
 	@Autowired
 	private ProjectRiskService projectRiskService;
-	
+
 	@Autowired
 	private ProjectMemberService projectMemberService;
-	
+
 	@GetMapping("")
-	public String index(ModelMap model){
+	public String index(ModelMap model) {
 		List<Contract> contracts = contractService.selectList(null);
 		model.put("contracts", contracts);
 		return "/project";
 	}
-	
-	
+
+	@ResponseBody
+	@GetMapping("/list")
+	public PageResult<Project> list(ProjectQuery param) {
+		
+		Boolean isAsc = param.getIsAsc().equals("asc") ? true :false;
+
+		Page<Project> pageData = projectService.selectPage(new Page<Project>(param.getPage(), param.getLimit()),
+				new EntityWrapper<Project>()
+						.like(StringUtils.isNotEmpty(param.getName()),"NAME", param.getName())
+						.eq(StringUtils.isNotEmpty(param.getProjectState()),"PROJECT_STATE", param.getProjectState())
+						.eq(StringUtils.isNotEmpty(param.getArea()),"AREA", param.getArea())
+						.orderBy(param.getOrderBy(), isAsc));
+		return new PageResult<Project>(pageData);
+	}
+
 	@ResponseBody
 	@PostMapping("/synch")
-	public Result synch(Project project){
-		
+	public Result synch(Project project) {
+
 		// 保存项目基本信息
 		projectService.insert(project);
 		String[] contractIds = project.getContractIds().split(",");
@@ -83,22 +100,19 @@ public class ProjectController {
 			projectContract.setContractId(Integer.valueOf(contractId));
 			list.add(projectContract);
 		}
-		
+
 		// 批量插入项目合同关系
 		projectContractService.insertBatch(list);
 		return new Result(ResultCode.SUCCESS, project);
 	}
-	
-	
-	
+
 	@ResponseBody
 	@PostMapping("/plan/synch")
-	public Result planSynch(ProjectPlan plan){
+	public Result planSynch(ProjectPlan plan) {
 		projectPlanService.insert(plan);
 		return new Result();
 	}
-	
-	
+
 	@ResponseBody
 	@GetMapping("/plans")
 	public PageResult<ProjectPlan> plans(PageParam param, String projectId) {
@@ -107,11 +121,10 @@ public class ProjectController {
 				new EntityWrapper<ProjectPlan>().eq("PROJECT_ID", projectId));
 		return new PageResult<ProjectPlan>(pageData);
 	}
-	
-	
+
 	@ResponseBody
 	@PostMapping("/progress/synch")
-	public Result progressSynch(ProjectProgress progress,  MultipartFile[] file){
+	public Result progressSynch(ProjectProgress progress, MultipartFile[] file) {
 		// 文件上传
 		List<String> fileNames = FileUtil.upload(file, path);
 		progress.setFileName(fileNames.get(0));
@@ -119,8 +132,7 @@ public class ProjectController {
 		projectProgressService.insert(progress);
 		return new Result();
 	}
-	
-	
+
 	@ResponseBody
 	@GetMapping("/progress")
 	public PageResult<ProjectProgress> progressList(PageParam param, String projectId) {
@@ -129,16 +141,14 @@ public class ProjectController {
 				new EntityWrapper<ProjectProgress>().eq("PROJECT_ID", projectId));
 		return new PageResult<ProjectProgress>(pageData);
 	}
-	
-	
+
 	@ResponseBody
 	@PostMapping("/risk/synch")
-	public Result riskSynch(ProjectRisk risk){
+	public Result riskSynch(ProjectRisk risk) {
 		projectRiskService.insert(risk);
 		return new Result();
 	}
-	
-	
+
 	@ResponseBody
 	@GetMapping("/risks")
 	public PageResult<ProjectRisk> riskList(PageParam param, String projectId) {
@@ -148,16 +158,13 @@ public class ProjectController {
 		return new PageResult<ProjectRisk>(pageData);
 	}
 
-
-	
 	@ResponseBody
 	@PostMapping("/member/synch")
-	public Result memberSynch(ProjectMember member){
+	public Result memberSynch(ProjectMember member) {
 		projectMemberService.insert(member);
 		return new Result();
 	}
-	
-	
+
 	@ResponseBody
 	@GetMapping("/members")
 	public PageResult<ProjectMember> memberList(PageParam param, String projectId) {
@@ -166,6 +173,5 @@ public class ProjectController {
 				new EntityWrapper<ProjectMember>().eq("PROJECT_ID", projectId));
 		return new PageResult<ProjectMember>(pageData);
 	}
-
 
 }

@@ -87,7 +87,7 @@ public class Project extends Model<Project>{
 	
 	private Date createTime;
 	
-	private Date endTime;
+	private Date updateTime;
 
 	@Override
 	protected Serializable pkVal() {
