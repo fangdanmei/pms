@@ -79,6 +79,17 @@ public class ProjectController {
 		model.put("project", project);
 		List<Contract> contracts = contractService.selectList(null);
 		model.put("contracts", contracts);
+		List<ProjectContract> projectContracts = projectContractService.selectList(new EntityWrapper<ProjectContract>().eq("PROJECT_ID", id));
+		String contractIds = "";
+		for (ProjectContract projectContract : projectContracts) {
+			contractIds += projectContract.getContractId() +",";
+		}
+		
+		if(StringUtils.isNotEmpty(contractIds)){
+			contractIds = contractIds.substring(0, contractIds.length()-1);
+		}
+		
+		model.put("contractIds", contractIds);
 		return "/project";
 	}
 	
@@ -104,6 +115,11 @@ public class ProjectController {
 
 		// 保存项目基本信息
 		projectService.insertOrUpdate(project);
+		
+		// 先删除
+		projectContractService.delete(new EntityWrapper<ProjectContract> ().eq("PROJECT_ID", project.getId()));
+		
+		
 		String[] contractIds = project.getContractIds().split(",");
 		List<ProjectContract> list = new ArrayList<>(contractIds.length);
 		for (String contractId : contractIds) {

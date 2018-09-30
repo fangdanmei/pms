@@ -93,9 +93,9 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">所属合同</label>
 						<div class="layui-input-inline" style="width: 500px;">
-							<select xm-select="select" xm-select-type="2">
+							<select xm-select="select" xm-select-type="2" id="contracts">
 								#for(contract: contracts)
-									<option value="#(contract.id)">#(contract.name)</option>
+									<option value="#(contract.id)" selected>#(contract.name)</option>
 								#end
 							</select>
 							<input type="hidden" name="contractIds" id="contractIds">
@@ -508,7 +508,7 @@
 			
 			<div class="layui-form-item" style="margin-left: 180px;margin-top: 30px;margin-bottom: 20px">
 				<div class="layui-input-block">
-					<input type="hidden" name="projectId" id="riskProjectId" />
+					<input type="hidden" name="projectId" id="riskProjectId" value="#(project.id ??)"/>
 					<button class="layui-btn" id="riskSave" lay-submit="" lay-filter="riskSave">提交</button>
 					<button type="reset" id="riskReset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
@@ -554,7 +554,7 @@
 			
 			<div class="layui-form-item" style="margin-left: 20px;margin-top: 50px;margin-bottom: 20px">
 				<div class="layui-input-block">
-					<input type="hidden" name="projectId" id="planProjectId" />
+					<input type="hidden" name="projectId" id="planProjectId" value="#(project.id ??)"/>
 					<button class="layui-btn" id="planSave" lay-submit="" lay-filter="planSave">提交</button>
 					<button type="reset" id="planReset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
@@ -614,7 +614,7 @@
 			
 			<div class="layui-form-item" style="margin-left: 20px;margin-top: 50px;margin-bottom: 20px">
 				<div class="layui-input-block">
-					<input type="hidden" name="projectId" id="progressProjectId" />
+					<input type="hidden" name="projectId" id="progressProjectId" value="#(project.id ??)"/>
 					<button class="layui-btn" id="progressSave" lay-submit="" lay-filter="progressSave">提交</button>
 					<button type="reset" id="progressReset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
@@ -656,7 +656,7 @@
 			
 			<div class="layui-form-item" style="margin-top: 100px;margin-left: 30px;">
 				<div class="layui-input-block">
-					<input type="hidden" name="projectId" id="memberProjectId" />
+					<input type="hidden" name="projectId" id="memberProjectId" value="#(project.id ??)" />
 					<button class="layui-btn" id="memberSave" lay-submit="" lay-filter="memberSave">提交</button>
 					<button type="reset" id="memberReset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
@@ -687,6 +687,18 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	form = layui.form;
 	
 	var projectId = '#(project.id ??)';
+	
+	contractIds = '#(contractIds)';
+	if(contractIds != null){
+		var ids = contractIds.split(",");
+		for(var i=0 ;i<ids.length;i++){
+			$("#contracts").find("option").each(function(){
+				if($(this).val() == ids[i]){
+					$(this).attr("selected",true);
+				}
+			});
+		}
+	}
 	
 	laydate.render({
 	    elem: '#onlineTime' //指定元素
@@ -875,7 +887,6 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 			
 			// 合同隐藏域赋值
 			$("#contractIds").val(contractIds);
-			
 			$.ajax({
 				type : "post",
 				url : "/project/synch",
