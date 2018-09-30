@@ -95,7 +95,7 @@
 						<div class="layui-input-inline" style="width: 500px;">
 							<select xm-select="select" xm-select-type="2" id="contracts">
 								#for(contract: contracts)
-									<option value="#(contract.id)" selected>#(contract.name)</option>
+									<option value="#(contract.id)">#(contract.name)</option>
 								#end
 							</select>
 							<input type="hidden" name="contractIds" id="contractIds">
@@ -677,6 +677,11 @@ layui.config({
 	formSelects: 'formSelects-v3'
 });
 
+var planUrl = "/project/plans";
+var progressUrl = "/project/progress";
+var riskUrl = "/project/risks";
+var memberUrl = "/project/members";
+
 layui.use(['table','laydate','element','upload','form','formSelects'], function(){
     var $ = layui.jquery
     ,upload = layui.upload
@@ -688,8 +693,15 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	
 	var projectId = '#(project.id ??)';
 	
+	if(projectId != null && projectId != ""){
+		planUrl += "?projectId=" + projectId;
+		progressUrl += "?projectId=" + projectId;
+		riskUrl += "?projectId=" + projectId;
+		memberUrl += "?projectId=" + projectId;
+	}
+	
 	contractIds = '#(contractIds)';
-	if(contractIds != null){
+	if(contractIds != null && contractIds != ""){
 		var ids = contractIds.split(",");
 		for(var i=0 ;i<ids.length;i++){
 			$("#contracts").find("option").each(function(){
@@ -755,7 +767,7 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	table = layui.table;
 	table.render({
 		elem:'#riskTable',
-		url:'/project/risks?projectId=#(project.id ??)',
+		url:riskUrl,
 		limit: 10,
 		cols:[[
 			{checkbox: true, fixed: true,width:'4%'},
@@ -773,9 +785,11 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 		id:'riskList'
 	});
 	
+	
+	
 	table.render({
 		elem:'#planTable',
-		url:'/project/plans?projectId=#(project.id ??)',
+		url:planUrl,
 		limit: 10,
 		cols:[[
 			{checkbox: true, fixed: true,width:'10%'},
@@ -792,7 +806,7 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	
 	table.render({
 		elem:'#progressTable',
-		url:'/project/progress?projectId=#(project.id ??)',
+		url:progressUrl,
 		limit: 10,
 		cols:[[
 			{checkbox: true, fixed: true,width:'4%'},
@@ -812,7 +826,7 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 	table = layui.table;
 	table.render({
 		elem:'#memberTable',
-		url:'/project/members?projectId=#(project.id ??)',
+		url:memberUrl,
 		limit: 10,
 		cols:[[
 			{checkbox: true, fixed: true,width:'8%'},

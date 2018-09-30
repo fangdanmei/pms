@@ -130,8 +130,17 @@
 			table.on('tool(test)',function(row){
 				var data = row.data;
 				if(row.event === 'update'){//更新
+					
+					var title;
+					if(data.name.length <= 5){
+						title = data.name;
+					} else {
+						title = data.name.substring(0,5) + "...";
+					}
+					
+					
 					var field = {
-							"title": "项目管理",
+							"title": title,
 							"icon": "&#xe615;",
 							"href": "/project/" + data.id
 						};
