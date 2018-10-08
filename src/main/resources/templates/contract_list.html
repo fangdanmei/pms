@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xml:lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>项目列表</title>
+	<link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all" />
+	<style type="text/css">
+		body{overflow-y: scroll;}
+	</style>
+	<!-- 操作模板 -->
+	<script type="text/html" id="PT">
+		<a class="layui-btn layui-btn-xs" lay-event="update">更新</a>
+	</script>
+</head>
+<body style="padding-left: 10px;padding-right: 10px;">
+	
+	<fieldset style="border: 1px dashed lightgray;margin-top: 20px;display: block;">
+		<legend>查询条件</legend>
+		<form id="formSearch" class="layui-form" style="line-height: 60px;height: 60px;">
+		    <div class="layui-form-item">
+		    	<div class="layui-inline">
+			    	<label class="layui-form-label">合同名称</label>
+			        <div class="layui-input-inline">
+			            <input type="text" class="layui-input" id="name" placeholder="请输入合同名称">
+			        </div>
+		    	</div>
+		    	<div class="layui-inline">
+			    	<label class="layui-form-label">对接人</label>
+			        <div class="layui-input-inline">
+			            <input type="text" class="layui-input" id="concatName" placeholder="请输入对接人">
+			        </div>
+		    	</div>
+		    	
+		    	<div class="layui-inline">
+			    	<label class="layui-form-label">对接人手机</label>
+			        <div class="layui-input-inline">
+			            <input type="text" class="layui-input" id="concatPhone" placeholder="请输入手机号">
+			        </div>
+		    	</div>
+		    	
+		    	<div class="layui-inline">
+		    		<button type="button" class="layui-btn layui-btn-small" data-type="search" id="search">
+				  	<i class="layui-icon">&#x1002;</i>查询
+				</button>
+		    	</div>
+		    </div>
+		</form>
+	</fieldset>
+	<div class="layui-col-md12" style="margin-top: 10px;">
+		<div class="layui-col-md12 box">
+			<table id="table" class="layui-table" lay-filter="test"></table>
+		</div>
+	</div>
+	<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+	<script type="text/javascript">
+		var $,form,table,layer;
+		// 创建时间
+		var createTime;
+		layui.use(['table','layer','form'],function(){
+			form = layui.form;
+			$ = layui.$;
+			//引入弹出层控件
+			layer = layui.layer;
+			//引入表格
+			table = layui.table;
+			table.render({
+				elem:'#table',
+				url:'/contract/list',
+				limit: 10,
+				cols:[[
+					{checkbox: true, fixed: true,width:'4%'},
+					{field:'name',title:'项目名称', width:'10%',align:'center'},
+					{field:'contactName',title:'对接人', width:'10%',align:'center'},
+					{field:'contactPhone',title:'对接人电话', width:'10%',align:'center'},
+					{field:'amount',title:'合同金额', width:'10%',align:'center'},
+					{field:'signTime',title:'签署时间', width:'10%',align:'center'},
+					{field:'account',title:'现金到账合计', width:'10%',align:'center'},
+					{field:'receivable',title:'应收款合计', width:'10%',align:'center'},
+					{field:'createTime',title:'创建时间', width:'8%',align:'center'},
+					{field:'updateTime',title:'更新时间', width:'8%',align:'center'},
+					{field:'right',title:'操作', width:'10%',align:'center',templet: '#PT'}
+				]],
+				page:true,
+				id:'contractList'
+			});
+			
+			
+			
+			//监听操作按钮
+			table.on('tool(test)',function(row){
+				var data = row.data;
+				if(row.event === 'update'){//更新
+					
+					var title;
+					if(data.name.length <= 5){
+						title = data.name;
+					} else {
+						title = data.name.substring(0,5) + "...";
+					}
+					
+					
+					var field = {
+							"title": title,
+							"icon": "&#xe615;",
+							"href": "/project/" + data.id
+						};
+					window.parent.addLab(field);
+					
+				} else { // 查看详情
+				}
+			});
+			
+			
+			// 点击查询
+			$('#search').on('click', function(){
+				// 调用重新加载
+				reload();
+			}) 
+			
+			
+		});
+
+		// 重新加载
+		function reload() {
+			table.reload('contractList', {
+				where : {
+					name : $("#name").val(),
+					concatName : $("#concatName").val(),
+					concatPhone : $("#concatPhone").val()
+				}
+			});
+		}
+		
+	</script>
+	
+</body>
+</html>

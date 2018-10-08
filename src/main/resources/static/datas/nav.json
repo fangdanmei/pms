@@ -7,7 +7,19 @@
 			{
 				"title": "项目列表",
 				"icon": "&#xe615;",
-				"href": "/jump/user_list"
+				"href": "/main"
+			}
+		]
+	},
+	{
+		"title": "合同管理",
+		"icon": "&#xe61d;",
+		"spread": false,
+		"children": [
+			{
+				"title": "合同列表",
+				"icon": "&#xe61e;",
+				"href": "/contract_list"
 			}
 		]
 	}

@@ -1,6 +1,8 @@
 package cn.cebest.controller;
 
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import cn.cebest.entity.ContractExtra;
 import cn.cebest.entity.ContractPay;
 import cn.cebest.framework.util.Result;
 import cn.cebest.framework.util.ResultCode;
+import cn.cebest.param.ContractQuery;
 import cn.cebest.service.ContractExtraService;
 import cn.cebest.service.ContractPayService;
 import cn.cebest.service.ContractService;
@@ -65,6 +68,20 @@ public class ContractController {
 	public Result synch(ContractPay contractPay) {
 		contractPayService.insert(contractPay);
 		return new Result();
+	}
+
+	
+	
+	@ResponseBody
+	@GetMapping("/list")
+	public PageResult<Contract> list(ContractQuery param) {
+
+		Page<Contract> pageData = contractService.selectPage(new Page<Contract>(param.getPage(), param.getLimit()),
+				new EntityWrapper<Contract>()
+						.like(StringUtils.isNotEmpty(param.getName()),"NAME", param.getName())
+						.like(StringUtils.isNotEmpty(param.getConcatName()),"CONTACT_NAME", param.getConcatName())
+						.like(StringUtils.isNotEmpty(param.getConcatPhone()),"CONTACT_PHONE", param.getConcatPhone()));
+		return new PageResult<Contract>(pageData);
 	}
 
 	
