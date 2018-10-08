@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ProjectQuery extends PageParam{
-
+	
 	private String name;
 	
 	private String projectState;

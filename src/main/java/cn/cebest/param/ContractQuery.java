@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ContractQuery extends PageParam{
+	
+	private Integer projectId;
 
 	private String name;
 	

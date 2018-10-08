@@ -147,6 +147,21 @@
 					window.parent.addLab(field);
 					
 				} else { // 查看详情
+					
+					
+					var title;
+					if(data.name.length <= 3){
+						title = "(合同)" + data.name;
+					} else {
+						title = "(合同)" + data.name.substring(0,3) + "...";
+					}
+					
+					var field = {
+							"title": title,
+							"icon": "&#xe615;",
+							"href": "/contract_list?projectId=" + data.id
+						};
+					window.parent.addLab(field);
 				}
 			});
 			
