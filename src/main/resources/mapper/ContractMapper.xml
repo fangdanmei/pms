@@ -5,7 +5,7 @@
 
 	<select id="selectListPage" parameterType="cn.cebest.param.ContractQuery" resultType="cn.cebest.entity.Contract">
 		SELECT 
-			DISTINCT(pc.CONTRACT_ID),
+			DISTINCT(c.ID) AS primaryKey,
 			c.*
 		FROM CONTRACT c
 			LEFT JOIN PROJECT_CONTRACT pc
@@ -23,7 +23,7 @@
 			<if test="concatPhone != null and concatPhone != ''">
 				AND c.CONTACT_PHONE LIKE CONCAT('%', #{concatPhone},'%')
 			</if>
-		GROUP BY pc.CONTRACT_ID
+		GROUP BY c.ID
 	</select>
 
 </mapper>
