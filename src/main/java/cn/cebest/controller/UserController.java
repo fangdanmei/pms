@@ -44,7 +44,7 @@ public class UserController {
 		}
 
 		// 将提示信息放到request作用域
-		model.put(msg, msg);
+		model.put("msg", msg);
 
 		// 验证是否登录成功
 		if (subject.isAuthenticated()) {
