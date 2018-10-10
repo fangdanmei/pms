@@ -13,5 +13,20 @@
     "name": "gc.template.classnames",
     "type": "java.lang.String",
     "description": "jfinal模板扩展"
+  },
+  {
+    "name": "gc.template.directives",
+    "type": "java.lang.String",
+    "description": "JFinal模板扩展指令"
+  },
+  {
+    "name": "gc.shiro.url2auths",
+    "type": "java.lang.String",
+    "description": "shiro权限配置"
+  },
+  {
+    "name": "gc.shiro.enable",
+    "type": "java.lang.String",
+    "description": "是否开启shiro配置"
   }
 ]}

@@ -12,10 +12,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all" />
-<link rel="stylesheet" href="/css/global.css" media="all">
+<link rel="stylesheet" href="/statics/plugins/layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="/statics/css/global.css" media="all">
 <link rel="stylesheet"
-	href="/plugins/font-awesome/css/font-awesome.min.css">
+	href="/statics/plugins/font-awesome/css/font-awesome.min.css">
 
 
 </head>
@@ -42,7 +42,7 @@
 							<cite>清除缓存</cite>
 					</a></li>
 					<li class="layui-nav-item"><a href="javascript:;"
-						class="admin-header-user"> <img src="/img/photo.jpg" /> <span
+						class="admin-header-user"> <img src="/statics/img/photo.jpg" /> <span
 							id="name">#(session.CURRENT_USER.user_name ??)</span>
 					</a>
 						<dl class="layui-nav-child">
@@ -109,12 +109,12 @@
 		</div>
 		<div class="site-mobile-shade"></div>
 
-		<script type="text/javascript" src="/plugins/layui/layui.js"></script>
-		<script type="text/javascript" src="/js/index.js"></script>
+		<script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
+		<script type="text/javascript" src="/statics/js/index.js"></script>
 		<script type="text/javascript">
 			var tab;
 			layui.config({
-				base : '/js/'
+				base : '/statics/js/'
 			}).use([ 'tab' ], function() {
 
 				tab = layui.tab({

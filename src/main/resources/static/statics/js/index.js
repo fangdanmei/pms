@@ -1,5 +1,5 @@
 layui.config({
-    base: '/js/'
+    base: '/statics/js/'
 }).use([ 'jquery','layer','navbar','tab'], function() {
 	
 	var $ = layui.$,
@@ -101,7 +101,7 @@ layui.config({
 	//设置navbar(初始化菜单)
     navbar.set({
         elem: '#admin-navbar-side',
-		url: 'datas/nav.json'
+		url: '/statics/datas/nav.json'
     });
     //渲染navbar
     navbar.render();
