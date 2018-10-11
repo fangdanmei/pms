@@ -8,9 +8,11 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import cn.cebest.entity.User;
+import cn.cebest.util.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -53,5 +55,15 @@ public class UserController {
 			return "/login";
 		}
 	}
+	
+	
+	
+	@GetMapping("/logout")
+	public String logout() {
+		log.info("用户注销...");
+		ShiroUtils.logout();
+		return "redirect:/login";
+	}
+	
 
 }

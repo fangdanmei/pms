@@ -2,7 +2,6 @@ package cn.cebest.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,11 +22,13 @@ import cn.cebest.entity.ProjectMember;
 import cn.cebest.entity.ProjectPlan;
 import cn.cebest.entity.ProjectProgress;
 import cn.cebest.entity.ProjectRisk;
+import cn.cebest.entity.User;
 import cn.cebest.framework.util.Result;
 import cn.cebest.framework.util.ResultCode;
 import cn.cebest.param.ProjectQuery;
 import cn.cebest.service.ContractService;
 import cn.cebest.service.ProjectService;
+import cn.cebest.service.UserService;
 import cn.cebest.util.FileUtil;
 import cn.cebest.util.PageParam;
 import cn.cebest.util.PageResult;
@@ -64,11 +65,16 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectMemberService projectMemberService;
+	
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("")
 	public String index(ModelMap model) {
 		List<Contract> contracts = contractService.selectList(null);
 		model.put("contracts", contracts);
+		List<User> users = userService.selectList(null);
+		model.put("users", users);
 		return "/project";
 	}
 	
@@ -77,6 +83,8 @@ public class ProjectController {
 	public String detail(@PathVariable("projectId") Integer id, ModelMap model){
 		Project project = projectService.selectById(id);
 		model.put("project", project);
+		List<User> users = userService.selectList(null);
+		model.put("users", users);
 		List<Contract> contracts = contractService.selectList(null);
 		model.put("contracts", contracts);
 		List<ProjectContract> projectContracts = projectContractService.selectList(new EntityWrapper<ProjectContract>().eq("PROJECT_ID", id));

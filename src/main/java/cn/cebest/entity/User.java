@@ -21,6 +21,8 @@ public class User extends Model<User>{
 	
 	private String password;
 	
+	private String userName;
+	
 	private String role;
 	
 	private Date createTime;

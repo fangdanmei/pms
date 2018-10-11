@@ -20,7 +20,9 @@ public class ProjectMember extends Model<ProjectMember>{
 	
 	private String role;
 	
-	private String name;
+	private Integer userId;
+	
+	private String userName;
 	
 	private Date createTime;
 	
