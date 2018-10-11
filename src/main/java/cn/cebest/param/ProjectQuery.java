@@ -13,4 +13,6 @@ public class ProjectQuery extends PageParam{
 	private String projectState;
 	
 	private String area;
+	
+	private Integer userId;
 }

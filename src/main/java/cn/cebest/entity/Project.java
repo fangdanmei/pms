@@ -87,6 +87,9 @@ public class Project extends Model<Project>{
 	private Date createTime;
 	
 	private Date updateTime;
+	
+	@TableField(exist = false)
+	private String userName;
 
 	@Override
 	protected Serializable pkVal() {

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.cebest.dao.ProjectMapper">
+
+	<select id="selectListPage" parameterType="cn.cebest.param.ProjectQuery" resultType="cn.cebest.entity.Project">
+		SELECT 
+			p.*,
+			pm.USER_NAME
+		FROM PROJECT p
+			LEFT JOIN PROJECT_MEMBER pm
+			ON p.id = pm.PROJECT_ID 
+			AND pm.ROLE = '项目经理'
+		<where>
+			<if test="userId != null">
+				pm.USER_ID = #{userId}
+			</if>
+			<if test="name != null and name != ''">
+				AND p.NAME LIKE CONCAT('%',#{userId},'%')
+			</if>
+			<if test="projectState != null and projectState != ''">
+				AND p.PROJECT_STATE = #{projectState}
+			</if>
+			<if test="area != null and area != ''">
+				AND p.AREA = #{area}
+			</if>
+		</where>
+		<if test="orderBy != null and orderBy != ''">
+			ORDER BY ${orderBy} ${isAsc}
+		</if>
+	</select>
+
+</mapper>

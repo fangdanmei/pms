@@ -86,9 +86,19 @@
 		var $,form,table,layer,laydate;
 		// 创建时间
 		var createTime;
+		// 列表请求地址
+		var url = "/project/list";
 		layui.use(['laydate','table','layer','form'],function(){
 			
 			$ = layui.$;
+			
+			
+			var isAdmin = eval("#(shiro.hasRole('ADMIN'))");
+			
+			if(!isAdmin){
+				url += "?userId=" + "#(session.CURRENT_USER.id)" 
+			}
+			
 			
 			form = layui.form;
 			// 引用时间插件
@@ -109,17 +119,18 @@
 			table = layui.table;
 			table.render({
 				elem:'#table',
-				url:'/project/list',
+				url:url,
 				limit: 10,
 				cols:[[
 					{checkbox: true, fixed: true,width:'4%'},
 					{field:'name',title:'项目名称', width:'10%',align:'center'},
-					{field:'area',title:'区域', width:'10%',align:'center'},
+					{field:'area',title:'区域', width:'5%',align:'center'},
 					{field:'startTime',title:'启动时间', width:'10%',align:'center',sort: true},
 					{field:'onlineTime',title:'基准上线时间', width:'10%',align:'center',sort: true},
-					{field:'projectState',title:'项目状态', width:'10%',align:'center'},
+					{field:'projectState',title:'项目状态', width:'8%',align:'center'},
 					{field:'progress',title:'项目所处阶段', width:'10%',align:'center'},
 					{field:'milepostProgress',title:'项目里程碑进度', width:'10%',align:'center'},
+					{field:'userName',title:'项目经理', width:'7%',align:'center',templet:'<div>{{d.userName==null ?"未分配":d.userName}}</div>'},
 					{field:'right',title:'项目信息', width:'8%',align:'center',templet: '#PT'},
 					{field:'right',title:'合同信息', width:'8%',align:'center',templet: '#HTT'},
 					{field:'recorded',title:'域名备案', width:'10%',align:'center',templet:'<div>{{d.domain!="" ?"已备案":"否"}}</div>'}

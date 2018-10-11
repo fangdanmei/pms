@@ -122,7 +122,10 @@
 				var isAdmin = eval("#(shiro.hasRole('ADMIN'))");
 				
 				if(!isAdmin){
-					$(".layui-nav-tree").find("li").eq(1).addClass("layui-hide");
+					
+					setTimeout(function(){
+						$("#admin-navbar-side").find("li").eq(1).addClass("layui-hide"); 
+					}, 100);
 				}
 
 				tab = layui.tab({

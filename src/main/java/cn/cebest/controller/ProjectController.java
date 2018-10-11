@@ -106,14 +106,7 @@ public class ProjectController {
 	@GetMapping("/list")
 	public PageResult<Project> list(ProjectQuery param) {
 		
-		Boolean isAsc = param.getIsAsc().equals("asc") ? true :false;
-
-		Page<Project> pageData = projectService.selectPage(new Page<Project>(param.getPage(), param.getLimit()),
-				new EntityWrapper<Project>()
-						.like(StringUtils.isNotEmpty(param.getName()),"NAME", param.getName())
-						.eq(StringUtils.isNotEmpty(param.getProjectState()),"PROJECT_STATE", param.getProjectState())
-						.eq(StringUtils.isNotEmpty(param.getArea()),"AREA", param.getArea())
-						.orderBy(param.getOrderBy(), isAsc));
+		Page<Project> pageData = projectService.selectListPage(param);
 		return new PageResult<Project>(pageData);
 	}
 

@@ -5,6 +5,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	
+	private static final String CURRENT_USER = "CURRENT_USER";
 
 	@PostMapping("/login")
 	public String login(User user, ModelMap model) throws Exception {
@@ -50,6 +53,9 @@ public class UserController {
 
 		// 验证是否登录成功
 		if (subject.isAuthenticated()) {
+			Session session = subject.getSession();
+			User userInfo = ShiroUtils.getUserEntity();
+			session.setAttribute(CURRENT_USER, userInfo);
 			return "redirect:/index";
 		} else {
 			return "/login";
