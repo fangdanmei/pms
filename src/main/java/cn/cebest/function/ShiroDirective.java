@@ -19,7 +19,7 @@ public class ShiroDirective {
 	 * @param permission
 	 * @return
 	 */
-	protected boolean hasPermission(String permission) {
+	public boolean hasPermission(String permission) {
 		Subject subject = SecurityUtils.getSubject();
 		return subject != null && subject.isPermitted(permission);
 	}
@@ -29,7 +29,7 @@ public class ShiroDirective {
 	 * @param permission
 	 * @return
 	 */
-	protected boolean hasRole(String roleName) {
+	public boolean hasRole(String roleName) {
 		Subject subject = SecurityUtils.getSubject();
 		return subject != null && subject.hasRole(roleName);
 	}
@@ -41,7 +41,7 @@ public class ShiroDirective {
 	 * @param permission
 	 * @return
 	 */
-	protected boolean hasAnyRoles(String roleNames) {
+	public boolean hasAnyRoles(String roleNames) {
 		boolean hasAnyRole = false;
 
 		Subject subject = SecurityUtils.getSubject();

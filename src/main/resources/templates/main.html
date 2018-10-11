@@ -65,16 +65,18 @@
 		</form>
 	</fieldset>
 	<div class="layui-col-md12" style="margin-top: 10px;">
-		<div class="layui-row">
-			<div class="layui-col-md3">
-				<button class="layui-btn layui-btn-small layui-btn-warm" onclick="addContract()">
-				  <i class="layui-icon">&#xe654;</i>新增合同
-				</button>
-				<button class="layui-btn layui-btn-small layui-btn-normal" onclick="addProject()">
-				  <i class="layui-icon">&#xe654;</i>新增项目
-				</button>
+		#if(!shiro.hasRole('ADMIN'))
+			<div class="layui-row">
+				<div class="layui-col-md3">
+					<button class="layui-btn layui-btn-small layui-btn-warm" onclick="addContract()">
+					  <i class="layui-icon">&#xe654;</i>新增合同
+					</button>
+					<button class="layui-btn layui-btn-small layui-btn-normal" onclick="addProject()">
+					  <i class="layui-icon">&#xe654;</i>新增项目
+					</button>
+				</div>
 			</div>
-		</div>
+		#end
 		<div class="layui-col-md12 box">
 			<table id="table" class="layui-table" lay-filter="test"></table>
 		</div>
@@ -85,8 +87,10 @@
 		// 创建时间
 		var createTime;
 		layui.use(['laydate','table','layer','form'],function(){
-			form = layui.form;
+			
 			$ = layui.$;
+			
+			form = layui.form;
 			// 引用时间插件
 			laydate = layui.laydate;
 			laydate.render({

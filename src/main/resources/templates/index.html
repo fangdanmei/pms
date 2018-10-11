@@ -116,6 +116,14 @@
 			layui.config({
 				base : '/statics/js/'
 			}).use([ 'tab' ], function() {
+				
+				var $ = layui.$;
+				
+				var isAdmin = "#(shiro.hasRole('ADMIN'))";
+				
+				if(!isAdmin){
+					$(".layui-nav-tree").find("li").eq(1).addClass("layui-hide");
+				}
 
 				tab = layui.tab({
 					elem : '.admin-nav-card', //设置选项卡容器
