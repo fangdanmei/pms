@@ -671,7 +671,7 @@
 	</div>
 <script type="text/javascript" src="/statics/plugins/layui/layui.js"></script>
 <script>
-var laydate,createTime,table,element,index,upload,form,formSelects;
+var $,laydate,createTime,table,element,index,upload,form,formSelects;
 
 // 项目ID
 var projectId;
@@ -689,7 +689,7 @@ var riskUrl = "/project/risks";
 var memberUrl = "/project/members";
 
 layui.use(['table','laydate','element','upload','form','formSelects'], function(){
-    var $ = layui.jquery
+    $ = layui.jquery
     ,upload = layui.upload
     ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
     formSelects = layui.formSelects;
@@ -793,7 +793,7 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 			{field:'trackTime',title:'跟踪日期',align:'center'},
 			{field:'measures',title:'对应措施',width:'15%',align:'center'},
 			{field:'personLiable',title:'责任人',align:'center'},
-			{fixed:'right', title:'操作', align:'center'}
+			{field:'right',title:'操作',align:'center', width:'10%',templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="javascript:deleteRisk({{d.id}})">删除</a></div>'}
 		]],
 		page:true,
 		id:'riskList'
@@ -810,7 +810,8 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 			{field:'id',title:'ID', width:'10%',align:'center'},
 			{field:'stage',title:'项目阶段', width:'20%',align:'center'},
 			{field:'startTime',title:'起始时间',align:'center', width:'20%'},
-			{field:'endTime',title:'结束时间',align:'center', width:'20%'}
+			{field:'endTime',title:'结束时间',align:'center', width:'20%'},
+			{field:'right',title:'操作',align:'center', width:'20%',templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="javascript:deletePlan({{d.id}})">删除</a></div>'}
 		]],
 		page:true,
 		width:'800',
@@ -825,11 +826,12 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 		cols:[[
 			{checkbox: true, fixed: true,width:'4%'},
 			{field:'id',title:'ID', width:'8%',align:'center'},
-			{field:'stage',title:'项目阶段',width:'25%',align:'center'},
+			{field:'stage',title:'项目阶段',width:'20%',align:'center'},
 			{field:'startTime',title:'起始时间',align:'center', width:'15%'},
 			{field:'endTime',title:'结束时间',align:'center', width:'15%'},
 			{field:'actualDay',title:'实际工期',align:'center', width:'8%'},
-			{field:'originName',title:'里程碑文件',align:'center'}
+			{field:'originName',title:'里程碑文件',align:'center', width:'15%'},
+			{field:'right',title:'操作',align:'center', width:'15%',templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="javascript:deleteProgress({{d.id}})">删除</a></div>'}
 		]],
 		page:true,
 		id:'progressList'
@@ -845,8 +847,9 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 		cols:[[
 			{checkbox: true, fixed: true,width:'8%'},
 			{field:'id',title:'ID', width:'12%',align:'center'},
-			{field:'role',title:'成员角色',width:'40%',align:'center'},
-			{field:'userName',title:'成员名称',align:'center', width:'40%'}
+			{field:'role',title:'成员角色',width:'30%',align:'center'},
+			{field:'userName',title:'成员名称',align:'center', width:'30%'},
+			{field:'right',title:'操作',align:'center', width:'20%',templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="javascript:deleteMember({{d.id}})">删除</a></div>'}
 		]],
 		width:'800',
 		page:true,
@@ -1091,6 +1094,93 @@ function handleVals(arr) {
 }
 
 
+function deletePlan(id){
+	layer.confirm('确认删除?',{
+		icon: 3, 
+		title:'提示',
+		btnAlign: 'c',
+		yes: function(index){
+			 layer.close(index);
+			 $.ajax({
+					type : "delete",
+					url : "/project/plan/" + id,
+					dataType : "json",
+					async : false,
+					success : function(data) {
+						// 更新数据
+						table.reload('planList');
+					}// end success
+				});//ajax end
+		}
+	})
+}
+
+
+function deleteProgress(id){
+	layer.confirm('确认删除?',{
+		icon: 3, 
+		title:'提示',
+		btnAlign: 'c',
+		yes: function(index){
+			 layer.close(index);
+			 $.ajax({
+					type : "delete",
+					url : "/project/progress/" + id,
+					dataType : "json",
+					async : false,
+					success : function(data) {
+						// 更新数据
+						table.reload('progressList');
+					}// end success
+				});//ajax end
+		}
+	})
+}
+
+
+function deleteRisk(id){
+	layer.confirm('确认删除?',{
+		icon: 3, 
+		title:'提示',
+		btnAlign: 'c',
+		yes: function(index){
+			 layer.close(index);
+			 $.ajax({
+					type : "delete",
+					url : "/project/risk/" + id,
+					dataType : "json",
+					async : false,
+					success : function(data) {
+						// 更新数据
+						table.reload('riskList');
+					}// end success
+				});//ajax end
+		}
+	})
+}
+
+
+
+function deleteMember(id){
+	layer.confirm('确认删除?',{
+		icon: 3, 
+		title:'提示',
+		btnAlign: 'c',
+		yes: function(index){
+			 layer.close(index);
+			 $.ajax({
+					type : "delete",
+					url : "/project/member/" + id,
+					dataType : "json",
+					async : false,
+					success : function(data) {
+						// 更新数据
+						table.reload('memberList');
+					}// end success
+				});//ajax end
+		}
+	})
+}
 </script>
 </body>
 </html>

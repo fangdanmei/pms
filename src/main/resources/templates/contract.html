@@ -506,7 +506,7 @@ layui.use(['laydate','table','layer','form','upload','element'],function(){
 			{field:'amount',title:'金额', width:'10%',align:'center'},
 			{field:'explain',title:'回款说明',align:'center', width:'36%'},
 			{field:'isPay',title:'是否支付',align:'center',templet:'<div>{{d.isPay===1?"已支付":"未支付"}}</div>', width:'35%'},
-			{field:'is_lock',title:'操作',templet:'#lockT', width:'10%',align:'center'}
+			{field:'right',title:'操作', width:'10%',align:'center',templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="javascript:deletePay({{d.id}})">删除</a></div>'}
 		]],
 		page:true,
 		id:'payList'
@@ -526,8 +526,10 @@ layui.use(['laydate','table','layer','form','upload','element'],function(){
 			{field:'managePrice',title:'项目管理',align:'center', width:'10%'},
 			{field:'designPrice',title:'设计实施',templet:'#lockT', width:'10%',align:'center'},
 			{field:'technicalPrice',title:'技术实施',align:'center', width:'15%'},
-			{field:'otherPrice',title:'其他',align:'center', width:'15%'},
-			{field:'remark',title:'补充说明',align:'center', width:'20%'}
+			{field:'otherPrice',title:'其他',align:'center', width:'8%'},
+			{field:'remark',title:'补充说明',align:'center', width:'20%'},
+			{field:'remark',title:'补充说明',align:'center', width:'20%'},
+			{field:'right',title:'操作', width:'7%',align:'center',templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="javascript:deleteExtra({{d.id}})">删除</a></div>'}
 		]],
 		page:true,
 		id:'ExtraList'
@@ -577,12 +579,45 @@ function download(fileName){
 	alert(fileName)
 }
 
-function deleteFile(){
+function deletePay(id){
 	layer.confirm('确认删除?',{
 		icon: 3, 
 		title:'提示',
 		btnAlign: 'c',
 		yes: function(index){
+			 layer.close(index);
+			 $.ajax({
+					type : "delete",
+					url : "/contract/pay/" + id,
+					dataType : "json",
+					async : false,
+					success : function(data) {
+						// 更新数据
+						table.reload('payList');
+					}// end success
+				});//ajax end
+		}
+	})
+}
+
+
+function deleteExtra(id){
+	layer.confirm('确认删除?',{
+		icon: 3, 
+		title:'提示',
+		btnAlign: 'c',
+		yes: function(index){
+			 layer.close(index);
+			 $.ajax({
+					type : "delete",
+					url : "/contract/extra/" + id,
+					dataType : "json",
+					async : false,
+					success : function(data) {
+						// 更新数据
+						table.reload('ExtraList');
+					}// end success
+				});//ajax end
 		}
 	})
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -99,6 +100,38 @@ public class ProjectController {
 		
 		model.put("contractIds", contractIds);
 		return "/project";
+	}
+	
+	
+	@DeleteMapping("/plan/{id:\\d+}")
+	@ResponseBody
+	public Result deletePlan(@PathVariable("id") Integer id){
+		projectPlanService.deleteById(id);
+		return new Result();
+	}
+	
+	
+	@DeleteMapping("/progress/{id:\\d+}")
+	@ResponseBody
+	public Result deleteProgress(@PathVariable("id") Integer id){
+		projectProgressService.deleteById(id);
+		return new Result();
+	}
+	
+	
+	@DeleteMapping("/risk/{id:\\d+}")
+	@ResponseBody
+	public Result deleteRisk(@PathVariable("id") Integer id){
+		projectRiskService.deleteById(id);
+		return new Result();
+	}
+	
+	
+	@DeleteMapping("/member/{id:\\d+}")
+	@ResponseBody
+	public Result deleteMember(@PathVariable("id") Integer id){
+		projectMemberService.deleteById(id);
+		return new Result();
 	}
 	
 

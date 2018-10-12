@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,25 @@ public class ContractController {
 	
 	@Autowired
 	private ContractExtraService contractExtraService;
+	
+	
+	
+	@DeleteMapping("/pay/{id:\\d+}")
+	@ResponseBody
+	public Result deletePay(@PathVariable("id") Integer id){
+		contractPayService.deleteById(id);
+		return new Result();
+	}
+	
+	
+	@DeleteMapping("/extra/{id:\\d+}")
+	@ResponseBody
+	public Result deleteExtra(@PathVariable("id") Integer id){
+		contractExtraService.deleteById(id);
+		return new Result();
+	}
+	
+	
 
 	@ResponseBody
 	@PostMapping("/synch")
