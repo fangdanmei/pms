@@ -830,7 +830,7 @@ layui.use(['table','laydate','element','upload','form','formSelects'], function(
 			{field:'startTime',title:'起始时间',align:'center', width:'15%'},
 			{field:'endTime',title:'结束时间',align:'center', width:'15%'},
 			{field:'actualDay',title:'实际工期',align:'center', width:'8%'},
-			{field:'originName',title:'里程碑文件',align:'center', width:'15%'},
+			{field:'originName',title:'里程碑文件',align:'center', width:'15%',templet:'<div><a class="layui-btn layui-btn-normal layui-btn-xs" href="/download/{{d.fileName}}/{{d.originName}}">{{d.originName}}</a></div>'},
 			{field:'right',title:'操作',align:'center', width:'15%',templet:'<div><a class="layui-btn layui-btn-danger layui-btn-xs" href="javascript:deleteProgress({{d.id}})">删除</a></div>'}
 		]],
 		page:true,
