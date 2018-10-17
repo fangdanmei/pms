@@ -1,61 +1,61 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>cn.cebest</groupId>
-  <artifactId>pms</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+	<groupId>cn.cebest</groupId>
+	<artifactId>pms</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-  <name>pms</name>
-  <url>http://maven.apache.org</url>
-
-  <dependencies>
-  	<dependency>
-	    <groupId>cn.cebest</groupId>
-	    <artifactId>spring-boot-starter-framework</artifactId>
-	    <version>0.0.1-SNAPSHOT</version>
-	</dependency>
-	<!-- 开启热启动 -->
-	<dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-devtools</artifactId>
-        <version>2.0.6.RELEASE</version>
-        <optional>true</optional>
-    </dependency>
-	<dependency>
+	<name>pms</name>
+	<url>http://maven.apache.org</url>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.6.RELEASE</version>
+	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>cn.cebest</groupId>
+			<artifactId>spring-boot-starter-framework</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 开启热启动 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<version>2.0.6.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-jta-atomikos</artifactId>
-		<version>2.0.6.RELEASE</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.hadoop</groupId>
-		<artifactId>hadoop-core</artifactId>
-		<version>1.0.0</version>
-	</dependency>
-	<dependency>
-		<groupId>org.javassist</groupId>
-		<artifactId>javassist</artifactId>
-		<version>3.21.0-GA</version>
-	</dependency>
-	<!-- alibaba fastjson 格式化对 -->
-	<dependency>
-		<groupId>com.alibaba</groupId>
-		<artifactId>fastjson</artifactId>
-		<version>1.1.41</version>
-	</dependency>
-  </dependencies>
-  
-  
-  <build>
-    <finalName>pms</finalName>
-    <plugins>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-core</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.21.0-GA</version>
+		</dependency>
+		<!-- alibaba fastjson 格式化对 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.41</version>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<finalName>pms</finalName>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -69,7 +69,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<maimClass>cn.cebest.Application</maimClass>
-					 <!--fork :  如果没有该项配置则devtools不会起作用，即应用不会restart -->
+					<!--fork : 如果没有该项配置则devtools不会起作用，即应用不会restart -->
 					<fork>true</fork>
 				</configuration>
 				<executions>
