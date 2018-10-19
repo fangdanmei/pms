@@ -24,6 +24,7 @@ import cn.cebest.entity.ProjectPlan;
 import cn.cebest.entity.ProjectProgress;
 import cn.cebest.entity.ProjectRisk;
 import cn.cebest.entity.User;
+import cn.cebest.framework.util.FieldConvertUtil;
 import cn.cebest.framework.util.Result;
 import cn.cebest.framework.util.ResultCode;
 import cn.cebest.param.ProjectQuery;
@@ -138,7 +139,9 @@ public class ProjectController {
 	@ResponseBody
 	@GetMapping("/list")
 	public PageResult<Project> list(ProjectQuery param) {
-		
+		if(StringUtils.isNotEmpty(param.getOrderBy())) {
+			param.setOrderBy(FieldConvertUtil.underscoreName(param.getOrderBy()).toUpperCase());
+		}
 		Page<Project> pageData = projectService.selectListPage(param);
 		return new PageResult<Project>(pageData);
 	}
