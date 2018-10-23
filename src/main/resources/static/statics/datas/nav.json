@@ -22,5 +22,23 @@
 				"href": "/contract_list"
 			}
 		]
+	},
+	{
+		"title": "项目报表柱状图",
+		"icon": "&#xe629;",
+		"spread": false,
+		"children": [
+			{
+				"title": "项目进度柱状图",
+				"icon": "&#xe62c;",
+				"href": "/project_progress"
+			},
+			{
+				"title": "项目状态柱状图",
+				"icon": "&#xe62c;",
+				"href": "/project_status"
+			}
+			
+		]
 	}
 ]
