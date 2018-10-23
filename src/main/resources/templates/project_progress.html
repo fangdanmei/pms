@@ -9,7 +9,7 @@
 </head>
 <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="projectStatus" style="width: 1000px;height:600px;"></div>
+    <div id="projectProgress" style="width: 1000px;height:600px;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('projectProgress'),"macarons");
@@ -52,23 +52,23 @@
         			var numbers = new Array(); // 项目数量
         			for (var i = 0; i < obj.length; i++) { 
         				
-        				 switch(obj[i].projectState){
-        				case "正常":
+        				 switch(obj[i].progress){
+        				case "需求":
         					numbers[0]=obj[i].projectNums;
         					break;
-        				case "延期":
+        				case "UI设计":
         					numbers[1]=obj[i].projectNums;
         					break;
-        				case "提前":
+        				case "前端制作":
         					numbers[2]=obj[i].projectNums;
         					break;
-        				case "暂停":
+        				case "技术开发":
         					numbers[3]=obj[i].projectNums;
         					break;
-        				case "终止":
+        				case "UAT测试":
         					numbers[4]=obj[i].projectNums;
         					break;
-        				case "已完成":
+        				case "部署上线":
         					numbers[5]=obj[i].projectNums;
         					break;
         				default:
@@ -81,7 +81,7 @@
         			  
 			       option = {
 			        			title:{
-			        				text:'项目状态统计柱状图'
+			        				text:'项目进度统计柱状图'
 			        			},
 			        			legend:{
 			        				icon:'rect',
@@ -89,7 +89,7 @@
 			        			},
 			        			xAxis: {
 							        type: 'category',
-							        data: ['正常', '延期', '提前', '暂停', '终止', '已完成']
+							        data: ['需求', 'UI设计', '前端制作', '技术开发', 'UAT测试', '部署上线']
 							    },
 							    yAxis: {
 							        type: 'value'

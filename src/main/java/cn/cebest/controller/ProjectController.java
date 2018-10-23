@@ -250,5 +250,14 @@ public class ProjectController {
 		return result;
 		
 	}
-
+	
+	@ResponseBody
+	@PostMapping("/progress/Chart")
+	public Result progressChart() {
+		List<Project> progressNum=projectService.progressChart();
+		Result result=new Result();
+		result.setData(progressNum);
+		return result;
+		
+	}
 }

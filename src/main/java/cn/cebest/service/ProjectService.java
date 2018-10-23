@@ -20,5 +20,9 @@ public interface ProjectService extends IService<Project>{
 	 * 查询项目状态柱状图数据
 	 * */
 	List<Project> stateChart();
+	/**
+	 * 查询项目进度柱状图数据
+	 * */
+	List<Project> progressChart();
 
 }

@@ -29,5 +29,10 @@ public class ProjectServiceImpl extends ServiceImpl<BaseMapper<Project>,  Projec
 	public List<Project> stateChart(){
 		return projectMapper.stateChart();
 	}
+	
+	@Override
+	public List<Project> progressChart(){
+		return projectMapper.progressChart();
+	}
 
 }
