@@ -1,5 +1,7 @@
 package cn.cebest.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
@@ -21,6 +23,16 @@ public class ProjectServiceImpl extends ServiceImpl<BaseMapper<Project>,  Projec
 		// 当前页，总条数 构造 page 对象
 		Page<Project> page = new Page<>(project.getPage(), project.getLimit());
         return page.setRecords(projectMapper.selectListPage(page, project));
+	}
+	
+	@Override
+	public List<Project> stateChart(){
+		return projectMapper.stateChart();
+	}
+	
+	@Override
+	public List<Project> progressChart(){
+		return projectMapper.progressChart();
 	}
 
 }
