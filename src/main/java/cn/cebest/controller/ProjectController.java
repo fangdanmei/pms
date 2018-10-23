@@ -2,6 +2,8 @@ package cn.cebest.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -237,6 +239,16 @@ public class ProjectController {
 				new Page<ProjectMember>(param.getPage(), param.getLimit()),
 				new EntityWrapper<ProjectMember>().eq("PROJECT_ID", projectId));
 		return new PageResult<ProjectMember>(pageData);
+	}
+	
+	@ResponseBody
+	@PostMapping("/state/Chart")
+	public Result statusChart() {
+		List<Project> stateNum=projectService.stateChart();
+		Result result=new Result();
+		result.setData(stateNum);
+		return result;
+		
 	}
 
 }

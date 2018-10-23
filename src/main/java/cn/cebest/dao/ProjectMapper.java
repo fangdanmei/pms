@@ -17,4 +17,8 @@ public interface ProjectMapper extends BaseMapper<Project>{
 	 * @return
 	 */
 	List<Project> selectListPage(Pagination page,  ProjectQuery project);
+	/**
+	 * 查询项目状态柱状图数据
+	 * */
+	List<Project> stateChart();
 }

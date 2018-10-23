@@ -29,5 +29,10 @@
 			ORDER BY ${orderBy} ${isAsc}
 		</if>
 	</select>
+	
+	<select id="stateChart"  resultType="cn.cebest.entity.Project">
+		select count(*) projectNums,PROJECT_STATE projectState from PROJECT GROUP BY PROJECT_STATE;
+	</select>
+	
 
 </mapper>

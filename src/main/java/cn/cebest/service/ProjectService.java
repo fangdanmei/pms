@@ -1,5 +1,7 @@
 package cn.cebest.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import cn.cebest.entity.Project;
@@ -13,5 +15,10 @@ public interface ProjectService extends IService<Project>{
 	 * @return
 	 */
 	Page<Project> selectListPage(ProjectQuery project);
+	
+	/**
+	 * 查询项目状态柱状图数据
+	 * */
+	List<Project> stateChart();
 
 }

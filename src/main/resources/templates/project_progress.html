@@ -12,12 +12,12 @@
     <div id="projectStatus" style="width: 1000px;height:600px;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('projectStatus'),"macarons");
+        var myChart = echarts.init(document.getElementById('projectProgress'),"macarons");
 
         // 指定图表的配置项和数据
        option = {
         			title:{
-        				text:'项目状态统计柱状图',
+        				text:'项目进度统计柱状图',
         				x:'center'
         			},
         			legend:{
@@ -27,7 +27,7 @@
         			
         			xAxis: {
 				        type: 'category',
-				        data: ['正常', '延期', '提前', '暂停', '终止', '已完成']
+				        data: ['需求', 'UI设计', '前端制作', '技术开发', 'UAT测试', '部署上线']
 				    },
 				    yAxis: {
 				        type: 'value'
@@ -45,7 +45,7 @@
         	var obj={};
         	$.ajax({
         		type : "POST",
-        		url : "/project/state/Chart",
+        		url : "/project/progress/Chart",
         		dataType :"json", 
         		success : function(data) { 
         			obj =data.data;
