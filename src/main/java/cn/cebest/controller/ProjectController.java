@@ -238,5 +238,24 @@ public class ProjectController {
 				new EntityWrapper<ProjectMember>().eq("PROJECT_ID", projectId));
 		return new PageResult<ProjectMember>(pageData);
 	}
-
+	
+	@ResponseBody
+	@PostMapping("/state/Chart")
+	public Result statusChart() {
+		List<Project> stateNum=projectService.stateChart();
+		Result result=new Result();
+		result.setData(stateNum);
+		return result;
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("/progress/Chart")
+	public Result progressChart() {
+		List<Project> progressNum=projectService.progressChart();
+		Result result=new Result();
+		result.setData(progressNum);
+		return result;
+		
+	}
 }

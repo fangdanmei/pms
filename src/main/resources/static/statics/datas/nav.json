@@ -24,6 +24,24 @@
 		]
 	},
 	{
+		"title": "项目报表柱状图",
+		"icon": "&#xe629;",
+		"spread": false,
+		"children": [
+			{
+				"title": "项目进度柱状图",
+				"icon": "&#xe62c;",
+				"href": "/project_progress"
+			},
+			{
+				"title": "项目状态柱状图",
+				"icon": "&#xe62c;",
+				"href": "/project_status"
+			}
+			
+		]
+	},
+	{
 		"title": "角色管理",
 		"icon": "&#xe770;",
 		"spread": false,
@@ -43,12 +61,12 @@
 	
 	{
 		"title": "权限管理",
-		"icon": "&#xe61d;",
+		"icon": "&#xe621;",
 		"spread": false,
 		"children": [
 			{
 				"title": "权限列表",
-				"icon": "&#xe61e;",
+				"icon": "&#xe655;",
 				"href": "/permission_list"
 			}
 		]

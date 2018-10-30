@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xml:lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>项目状态统计柱状图</title>
+<script src="/statics/plugins/echarts/echarts.min.js"></script>
+ <script src="/statics/plugins/echarts/macarons.js"></script>
+  <script src="/statics/js/jquery.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="projectStatus" style="width: 1000px;height:600px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('projectStatus'),"macarons");
+
+        // 指定图表的配置项和数据
+       option = {
+        			title:{
+        				text:'项目状态统计柱状图',
+        				x:'center'
+        			},
+        			legend:{
+        				icon:'rect',
+        				data:'项目数量'
+        			},
+        			
+        			xAxis: {
+				        type: 'category',
+				        data: ['正常', '延期', '提前', '暂停', '终止', '已完成']
+				    },
+				    yAxis: {
+				        type: 'value'
+				    },
+				    series: [{
+				        data: [],
+				        type: 'bar'
+				    }]
+				};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        
+        $(function(){
+        	var obj={};
+        	$.ajax({
+        		type : "POST",
+        		url : "/project/state/Chart",
+        		dataType :"json", 
+        		success : function(data) { 
+        			obj =data.data;
+        			var numbers = new Array(); // 项目数量
+        			for (var i = 0; i < obj.length; i++) { 
+        				
+        				 switch(obj[i].projectState){
+        				case "正常":
+        					numbers[0]=obj[i].projectNums;
+        					break;
+        				case "延期":
+        					numbers[1]=obj[i].projectNums;
+        					break;
+        				case "提前":
+        					numbers[2]=obj[i].projectNums;
+        					break;
+        				case "暂停":
+        					numbers[3]=obj[i].projectNums;
+        					break;
+        				case "终止":
+        					numbers[4]=obj[i].projectNums;
+        					break;
+        				case "已完成":
+        					numbers[5]=obj[i].projectNums;
+        					break;
+        				default:
+        					break;
+        				} 
+        				
+        			}
+        			
+        			//指定柱状图的配置和数据
+        			  
+			       option = {
+			        			title:{
+			        				text:'项目状态统计柱状图'
+			        			},
+			        			legend:{
+			        				icon:'rect',
+			        				data:['项目数量']
+			        			},
+			        			xAxis: {
+							        type: 'category',
+							        data: ['正常', '延期', '提前', '暂停', '终止', '已完成']
+							    },
+							    yAxis: {
+							        type: 'value'
+							    },
+							    series: [{
+							        data: numbers,
+							        type: 'bar'
+							    }]
+							};
+			
+			        // 使用刚指定的配置项和数据显示图表。
+			        myChart.setOption(option);
+        			
+        		}
+        		
+        	});
+        });
+ 
+    </script>
+</body>
+</html>

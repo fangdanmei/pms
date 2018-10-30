@@ -90,6 +90,9 @@ public class Project extends Model<Project>{
 	
 	@TableField(exist = false)
 	private String userName;
+	
+	@TableField(exist = false)
+	private Integer projectNums;
 
 	@Override
 	protected Serializable pkVal() {
