@@ -22,5 +22,39 @@
 				"href": "/contract_list"
 			}
 		]
+	},
+	{
+		"title": "角色管理",
+		"icon": "&#xe770;",
+		"spread": false,
+		"children": [
+			{
+				"title": "角色列表",
+				"icon": "&#xe66f;",
+				"href": "/role_list"
+			},
+			{
+				"title": "角色分配",
+				"icon": "&#xe66f;",
+				"href": "/role_assignment"
+			}
+		]
+	},
+	
+	{
+		"title": "权限管理",
+		"icon": "&#xe61d;",
+		"spread": false,
+		"children": [
+			{
+				"title": "权限列表",
+				"icon": "&#xe61e;",
+				"href": "/permission_list"
+			}
+		]
 	}
+	
+	
+	
+	
 ]

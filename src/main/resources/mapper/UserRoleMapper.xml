@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.cebest.dao.UserRoleMapper">
+	
+	<resultMap type="UserRole" id="roleResultMap">
+		<id column="id" property="id" />
+		<id column="roleCode" property="roleCode" />
+		<id column="description" property="description" />
+		<id column="createTime" property="createTime" />
+		<collection property="permissions" ofType="cn.cebest.entity.Permission">
+			<id column="permissionId" property="id" />
+			<result column="name" property="name" />
+			<result column="type" property="type" />
+			<result column="url" property="url" />
+			<result column="permission" property="permission" />
+			<result column="parentId" property="parentId" />
+		</collection>
+	</resultMap>
+	
+	<select id="selectListPage" parameterType="cn.cebest.param.UserRoleQuery" resultMap="roleResultMap">
+		SELECT
+			UR.ID,
+			UR.ROLE_CODE AS roleCode,
+			UR.DESCRIPTION,
+			UR.CREATE_TIME AS createTime,
+			P.URL,
+			P.NAME,
+			P.ID AS permissionId
+		FROM
+			USER_ROLE UR
+		LEFT JOIN ROLE_2_PERMISSION RP ON UR.ID = RP.ROLE_ID
+		LEFT JOIN PERMISSION P ON RP.PERMISSION_ID = P.ID
+		<where>
+			<if test="roleCode != null and roleCode != ''">
+				AND UR.ROLE_CODE like concat('%',#{roleCode},'%')
+			</if>
+			<if test="description != null and description != ''">
+				AND UR.DESCRIPTION like concat('%',#{description},'%')
+			</if>
+		</where>
+	</select>
+
+</mapper>

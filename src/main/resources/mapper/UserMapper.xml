@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.cebest.dao.UserMapper">
+	
+	<resultMap type="User" id="userResultMap">
+		<id column="id" property="id" />
+		<id column="email" property="email" />
+		<id column="password" property="password"/>
+		<id column="userName" property="userName" />
+		<id column="createTime" property="createTime" />
+		<collection property="roleList" ofType="cn.cebest.entity.UserRole" >
+			<id column="roleId" property="id" />
+			<result column="roleCode" property="roleCode" />
+			<result column="description" property="description" />
+			<collection property="permissions" ofType="cn.cebest.entity.Permission">
+				<id column="permissionId" property="id" />
+				<result column="name" property="name" />
+				<result column="type" property="type" />
+				<result column="url" property="url" />
+				<result column="permission" property="permission" />
+				<result column="parentId" property="parentId" />
+			</collection>
+		</collection>
+	</resultMap>
+		
+	<select id="findByEmail" resultMap="userResultMap">
+		SELECT
+		UI.ID,
+		UI.EMAIL,
+		UI.PASSWORD,
+		U2R.USER_ID,
+		U2R.ROLE_ID,
+		UR.DESCRIPTION,
+		UR.ROLE_CODE roleCode,
+		UR.ID AS roleId,
+		P.ID AS permissionId,
+		P.PERMISSION,
+		P.NAME,
+		P.TYPE,
+		P.URL,
+		P.permission
+		FROM
+			USER_INFO UI
+		LEFT JOIN USER_2_ROLE U2R ON UI.ID = U2R.USER_ID
+		LEFT JOIN USER_ROLE UR ON UR.ID = U2R.ROLE_ID
+		LEFT JOIN ROLE_2_PERMISSION RP ON RP.ROLE_ID = UR.ID
+		LEFT JOIN PERMISSION P ON P.ID = RP.PERMISSION_ID
+		WHERE UI.EMAIL=#{email}
+	</select>
+	
+	
+	
+	
+	<select id="selectListPage" parameterType="cn.cebest.param.UserQuery" resultMap="userResultMap">
+		SELECT
+			UI.ID,
+			UI.EMAIL,
+			UI.USER_NAME as userName,
+			UI.CREATE_TIME AS createTime,
+			UR.ROLE_CODE,
+			UR.DESCRIPTION,
+			UR.ID AS roleId
+		FROM
+			USER_INFO UI
+		LEFT JOIN USER_2_ROLE U2R ON UI.ID = U2R.USER_ID
+		LEFT JOIN USER_ROLE UR ON UR.ID = U2R.ROLE_ID
+		<where>
+			<if test="username != null and username != ''">
+				AND UI.USER_NAME like concat('%',#{username},'%')
+			</if>
+			<if test="email != null and email != ''">
+				AND UI.EMAIL like concat('%',#{email},'%')
+			</if>
+		</where>
+	
+	</select>
+	
+	<delete id="delRoles">
+	DELETE
+	FROM
+		USER_2_ROLE
+	WHERE
+		USER_ID = #{userId}
+	</delete>
+	
+	<insert id="setRoleIds">
+		INSERT INTO USER_2_ROLE (USER_ID, ROLE_ID)
+		VALUES
+		<foreach collection="ids" item="id" index="index" separator=",">
+			(#{userId},#{id})
+		</foreach>
+	</insert>
+	
+
+</mapper>

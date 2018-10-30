@@ -94,7 +94,6 @@
 			
 			
 			var isAdmin = eval("#(shiro.hasRole('ADMIN'))");
-			
 			if(!isAdmin){
 				url += "?userId=" + "#(session.CURRENT_USER.id)" 
 			}
