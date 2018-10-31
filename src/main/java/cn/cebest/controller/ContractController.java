@@ -90,6 +90,15 @@ public class ContractController {
 		return new Result();
 	}
 	
+	@ResponseBody
+	@PostMapping("/pay/edit/{id:\\d+}")
+	public Result edit(ContractPay contractPay,@PathVariable("id") Integer id) {
+		contractPay.setId(id);
+		contractPayService.updateById(contractPay);
+		return new Result();
+	}
+	
+
 	
 	@GetMapping("/{contractId:\\d+}")
 	public String detail(@PathVariable("contractId") Integer id, ModelMap model){
